@@ -3,11 +3,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.TreeMap;
 
 public class Server {
     private static String serverString = "[SERVER] ";
+    private static int threadCount;
     public static void main(String[] args) {
         try {
             ServerSocket serverSocket = new ServerSocket(5560);
@@ -23,11 +25,12 @@ public class Server {
 
                     DataInputStream dataInputStream = new DataInputStream(s.getInputStream());
                     DataOutputStream dataOutputStream = new DataOutputStream(s.getOutputStream());
-
-                    System.out.println(serverString + "Creating new thread for client connection");
-
                     Thread t = new ClientHandler(s, dataInputStream, dataOutputStream);
                     t.start();
+                    threadCount++;
+                    System.out.println(serverString + "Creating new thread for client connection: THREADID:" + t.getId());
+                    System.out.println(serverString + "Player count : " + threadCount);
+
 
                 }catch (Exception e){
                     s.close();
@@ -65,12 +68,9 @@ class ClientHandler extends Thread
         while (true)
         {
             try {
-
-                // Ask user what he wants
                 dos.writeUTF("What do you want?[Date | Time]..\n"+
                         "Type Exit to terminate connection.");
 
-                // receive the answer from client
                 received = dis.readUTF();
 
                 if(received.equals("Exit"))
@@ -82,27 +82,6 @@ class ClientHandler extends Thread
                     break;
                 }
 
-                // creating Date object
-                Date date = new Date();
-
-                // write on output stream based on the
-                // answer from the client
-                switch (received) {
-
-                    case "Date" :
-                        toreturn = fordate.format(date);
-                        dos.writeUTF(toreturn);
-                        break;
-
-                    case "Time" :
-                        toreturn = fortime.format(date);
-                        dos.writeUTF(toreturn);
-                        break;
-
-                    default:
-                        dos.writeUTF("Invalid input");
-                        break;
-                }
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -43,7 +43,7 @@ public class TestClient
                 String received = dis.readUTF();
                 System.out.println(received);
             }
-
+            
             // closing resources
             scn.close();
             dis.close();
