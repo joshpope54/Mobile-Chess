@@ -39,8 +39,9 @@ class MatchMaker extends Thread {
                 Socket s = null;
                 try {
                     s = serverSocket.accept();
+
                     waitingForPlayers.add(s);
-                    System.out.println(serverSocket + " Connection made by " + s + " queue count: "+ waitingForPlayers.size());
+                    System.out.println("Connection made by " + s + " queue count: "+ waitingForPlayers.size());
 
                     if(waitingForPlayers.size() % 2 == 0){
                         Random random = new Random();
@@ -51,7 +52,7 @@ class MatchMaker extends Thread {
                         while (random1==random2){
                             random2 = random.nextInt(waitingForPlayers.size());
                         }
-                        System.out.println(random1 + "   " + random2);
+                        //System.out.println(random1 + "   " + random2);
                         //waiting is a even amount
                         //create a game server with two random players
                         GameServer game = new GameServer(waitingForPlayers.get(random1), waitingForPlayers.get(random2));
@@ -84,3 +85,9 @@ class MatchMaker extends Thread {
         }
     }
 }
+
+//I need a client handler
+//I need to be able to tell a thread to shutdown if the user doesnt want to stay in the matchmaking queue
+//Add these threads to a arraylist to how the numbers of players that are playing.
+//Number of games in progress?
+//Add all games to a count
