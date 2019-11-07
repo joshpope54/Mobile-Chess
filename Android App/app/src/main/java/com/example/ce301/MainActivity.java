@@ -3,30 +3,23 @@ package com.example.ce301;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.os.AsyncTask;
+import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.security.spec.ECField;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView finalResult;
     private String ipaddress;
     private String port;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,68 +38,92 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.playButton:
 
-//                RetrieveFeedTask task = new RetrieveFeedTask(this);
-//                task.execute(ipaddress, port);
+                CommunicationThread thread = new CommunicationThread(ipaddress, port, handler, this);
+                thread.start();
+                //Thread Started
+                //Open Dialog
+                //Wait for Player - Tell this through the socket
+                //Load new activity if player found
+                final Dialog dialog = new Dialog(this);
 
-                //Open dialog
-                //progress spinner
-                //waiting for player (online count)
+                View dialogView = LayoutInflater.from(this).inflate(R.layout.matchmaking, null);
+                dialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                        //Tell the Communication thread to remove us from the Queue
 
-                
+                        //requires handler
+                    }
+                });
+
+                dialog.setContentView(dialogView);
+                dialog.show();
+
+                Window window = dialog.getWindow();
+                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 break;
         }
     }
 
 
-    private static class RetrieveFeedTask extends AsyncTask<String, Void, AsyncTaskResult<Socket>> {
-        private WeakReference<MainActivity> activityReference;
-        private Socket socket;
-
-
-        // only retain a weak reference to the activity
-        RetrieveFeedTask(MainActivity context) {
-            activityReference = new WeakReference<>(context);
-        }
-        @Override
-        protected AsyncTaskResult<Socket> doInBackground(String... strings) {
-            InetAddress ipactua = null;
-            try {
-                ipactua = InetAddress.getByName(strings[0]);
-            } catch (UnknownHostException e) {
-                return new AsyncTaskResult<>(e);
-            }
-
-
-            Socket s = null;
-            try {
-                SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(strings[1]));
-                s = new Socket();
-                s.connect(saddress, 2000);
-            } catch (SocketTimeoutException e) {
-                return new AsyncTaskResult<>(e);
-            } catch (IOException e) {
-                return new AsyncTaskResult<>(e);
-            }
-            return new AsyncTaskResult<>(s);
-        }
-
-
-        @Override
-        protected void onPostExecute(AsyncTaskResult<Socket> taskResult) {
-            super.onPostExecute(taskResult);
-            MainActivity activity = activityReference.get();
-            if (activity == null || activity.isFinishing()) return;
-
-            if(taskResult.getError() != null){
-            }else if (isCancelled()){
-                //canceled
-            }else{
-                // modify the activity's UI
-                socket = taskResult.getResult();
-            }
-        }
-    }
+//    private static class RetrieveFeedTask extends AsyncTask<String, Void, AsyncTaskResult<Socket>> {
+//        private WeakReference<MainActivity> activityReference;
+//        private Socket socket;
+//
+//
+//        // only retain a weak reference to the activity
+//        RetrieveFeedTask(MainActivity context) {
+//            activityReference = new WeakReference<>(context);
+//        }
+//
+//        @Override
+//        protected AsyncTaskResult<Socket> doInBackground(String... strings) {
+//            InetAddress ipactua = null;
+//            try {
+//                ipactua = InetAddress.getByName(strings[0]);
+//            } catch (UnknownHostException e) {
+//                return new AsyncTaskResult<>(e);
+//            }
+//
+//
+//            Socket s = null;
+//            try {
+//                SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(strings[1]));
+//                s = new Socket();
+//                s.connect(saddress, 2000);
+//            } catch (SocketTimeoutException e) {
+//                return new AsyncTaskResult<>(e);
+//            } catch (IOException e) {
+//                return new AsyncTaskResult<>(e);
+//            }
+//            return new AsyncTaskResult<>(s);
+//        }
+//
+//
+//        @Override
+//        protected void onPostExecute(AsyncTaskResult<Socket> taskResult) {
+//            super.onPostExecute(taskResult);
+//            MainActivity activity = activityReference.get();
+//            if (activity == null || activity.isFinishing()) return;
+//
+//            TextView textView = activity.findViewById(R.id.textView);
+//
+//
+//            if (taskResult.getError() != null) {
+//                //error
+//            }else if(isCancelled()) {
+//            //cancele
+//            }else {
+//            // modify the activity's UI
+//                socket = taskResult.getResult();
+//
+//
+//            }
+//        }
+//
+//    }
 }
