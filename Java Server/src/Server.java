@@ -1,6 +1,7 @@
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.ServerError;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,25 +9,62 @@ import java.util.Date;
 import java.util.Random;
 import java.util.TreeMap;
 
-public class Server {
+public class Server extends Thread{
+    public static String serverString = "[SERVER] ";
+    ServerSocket serverSocket;
+
+    public Server(){
+        try {
+            serverSocket = new ServerSocket(5561);
+            System.out.println(serverString + "Started");
+            System.out.println(serverString + "Awaiting first client connection");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void run() {
+        try {
+            while(true){
+                Socket s = null;
+                try {
+                    s = serverSocket.accept();
+                    ClientHandler handler = new ClientHandler(s, serverString);
+                    handler.start();
+                    System.out.println(serverString + "Connection made by " + handler.client);
+                }catch (Exception e){
+                    s.close();
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         MatchMaker matchMaker = new MatchMaker();
         matchMaker.start();
+        Server server = new Server();
+        server.start();
+
     }
 }
 
 
 class MatchMaker extends Thread {
-    private static String serverString = "[SERVER] ";
+    private static String matchmaker = "[MATCHMAKER] ";
     ServerSocket serverSocket;
-    private static ArrayList<Thread> waitingForPlayers;
+    public static ArrayList<ClientHandler> waitingForPlayers;
     // Constructor
     public MatchMaker() {
         try {
             serverSocket = new ServerSocket(5560);
             waitingForPlayers = new ArrayList<>();
-            System.out.println(serverString + "Started");
-            System.out.println(serverString + "Awaiting first client connection");
+            System.out.println(matchmaker + "Started");
+            System.out.println(matchmaker + "Awaiting first client connection");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -40,14 +78,14 @@ class MatchMaker extends Thread {
                 try {
                     s = serverSocket.accept();
 
-                    ClientHandler handler = new ClientHandler(s);
+                    ClientHandler handler = new ClientHandler(s, matchmaker);
                     waitingForPlayers.add(handler);
                     handler.start();
 
 
                     //Create Client handler thread?
 
-                    System.out.println("Connection made by " + handler.client + " queue count: "+ waitingForPlayers.size());
+                    System.out.println(matchmaker + "Connection made by " + handler.client + " queue count: "+ waitingForPlayers.size());
 
                     //Cant Just hold socket
                     //Needs to be able to be closed if user quits the matchmaking queue
@@ -56,25 +94,27 @@ class MatchMaker extends Thread {
 
 
 
-//                    if(waitingForPlayers.size() % 2 == 0){
-//                        Random random = new Random();
-//
-//                        int random1 = random.nextInt(waitingForPlayers.size());
-//                        int random2 = random.nextInt(waitingForPlayers.size());
-//
-//                        while (random1==random2){
-//                            random2 = random.nextInt(waitingForPlayers.size());
-//                        }
-//                        //System.out.println(random1 + "   " + random2);
-//                        //waiting is a even amount
-//                        //create a game server with two random players
-//                        GameServer game = new GameServer(waitingForPlayers.get(random1), waitingForPlayers.get(random2));
-//                        game.start();
-//                        waitingForPlayers.remove(random1);
-//                        waitingForPlayers.remove(random2);
-//                        //removal problem - if random1 < random2 removing random1 will shift the position of random2 such that it is not longer at the same position
-//                        System.out.println(waitingForPlayers.size());
-//                    }
+                    if(waitingForPlayers.size() % 2 == 0){
+                        Random random = new Random();
+
+                        int random1 = random.nextInt(waitingForPlayers.size());
+                        int random2 = random.nextInt(waitingForPlayers.size());
+
+                        while (random1==random2){
+                            random2 = random.nextInt(waitingForPlayers.size());
+                        }
+                        //System.out.println(random1 + "   " + random2);
+                        //waiting is a even amount
+                        //create a game server with two random players
+                        ClientHandler player1 = waitingForPlayers.get(random1);
+                        ClientHandler player2 = waitingForPlayers.get(random1);
+
+                        GameServer game = new GameServer(player1, player2);
+                        game.start();
+                        waitingForPlayers.remove(player1);
+                        waitingForPlayers.remove(player2);
+
+                    }
 
 
                     //Got A player - done

@@ -14,6 +14,8 @@ import android.view.Window;
 import android.widget.TextView;
 
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -22,14 +24,19 @@ import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
-public class CommunicationThread extends Thread{
+public class GameClient extends Thread{
     private String ip;
     private String port;
     private final Handler handler;
     private Activity activity;
+    private Socket s;
+    private DataInputStream dataInputStream;
+    private DataOutputStream dataOutputStream;
+    public String communication = "";
 
 
-    public CommunicationThread(String ip, String port, Handler handler, Activity activity){
+
+    public GameClient(String ip, String port, Handler handler, Activity activity){
         this.ip = ip;
         this.port = port;
         this.handler = handler;
@@ -39,7 +46,6 @@ public class CommunicationThread extends Thread{
     @Override
     public void run() {
         super.run();
-        Socket s = null;
         InetAddress ipactua = null;
         try {
             ipactua = InetAddress.getByName(ip);
@@ -51,16 +57,43 @@ public class CommunicationThread extends Thread{
             SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(port));
             s = new Socket();
             s.connect(saddress, 2000);
+            dataInputStream = new DataInputStream(s.getInputStream());
+            dataOutputStream = new DataOutputStream(s.getOutputStream());
+
+            while (true) {
+                if(communication.equalsIgnoreCase("exit")){
+                    try {
+                        dataOutputStream.writeUTF("exit");
+                        System.out.println("socket being closed?");
+                        s.close();
+                        break;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+            dataInputStream.close();
+            dataOutputStream.close();
 
         } catch (SocketTimeoutException e) {
-            e.printStackTrace();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
-        final Socket finalS = s;
+    }
 
+    public void handleServerInput(){
 
+    }
 
-
+    public void closeConnection(){
+        communication="exit";
     }
 }

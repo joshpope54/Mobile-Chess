@@ -18,54 +18,81 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView finalResult;
     private String ipaddress;
-    private String port;
+    private String server;
+    private String matchmaker;
     private Handler handler = new Handler();
+    ConnectionThread thread;
+    private View view1, view2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        androidx.appcompat.widget.Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar1);
-        setSupportActionBar(myToolbar);
+        ipaddress = "100.92.33.130";//getString(R.string.ip_address);
+        server = getString(R.string.server_port);
+        matchmaker = getString(R.string.matchmaker_port);
+        thread = new ConnectionThread(ipaddress, server, handler, this);
+        thread.start();
 
-        Button playButton = (Button) findViewById(R.id.playButton);
-        playButton.setOnClickListener(this);
-        ipaddress = getString(R.string.ip_address);
-        port = getString(R.string.port_number);
+        view1 = getLayoutInflater().inflate(R.layout.activity_main, null);
+        view2 = getLayoutInflater().inflate(R.layout.not_connected, null);
+        setContentView(view2);
 
 
+        if(thread.connected){
+            setContentView(view1);
+            androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
+            setSupportActionBar(myToolbar);
+            Button playButton = findViewById(R.id.playButton);
+            playButton.setOnClickListener(this);
+        }else{
+            setContentView(view2);
+        }
+
+
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        thread.communication="exit";
+
+        super.onDestroy();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.playButton:
+                if(thread.connected){
+                    final GameClient thread = new GameClient(ipaddress, matchmaker, handler, this);
+                    thread.start();
+                    //Thread Started
+                    //Open Dialog
+                    //Wait for Player - Tell this through the socket
+                    //Load new activity if player found
+                    final Dialog dialog = new Dialog(this);
+                    dialog.setCanceledOnTouchOutside(false);
 
-                CommunicationThread thread = new CommunicationThread(ipaddress, port, handler, this);
-                thread.start();
-                //Thread Started
-                //Open Dialog
-                //Wait for Player - Tell this through the socket
-                //Load new activity if player found
-                final Dialog dialog = new Dialog(this);
+                    View dialogView = LayoutInflater.from(this).inflate(R.layout.matchmaking, null);
+                    dialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                            thread.closeConnection();
+                            //Tell the Communication thread to remove us from the Queue
+                            //requires handler
+                            //how to tell the thread?
+                        }
+                    });
 
-                View dialogView = LayoutInflater.from(this).inflate(R.layout.matchmaking, null);
-                dialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                        //Tell the Communication thread to remove us from the Queue
+                    dialog.setContentView(dialogView);
+                    dialog.show();
 
-                        //requires handler
-                    }
-                });
-
-                dialog.setContentView(dialogView);
-                dialog.show();
-
-                Window window = dialog.getWindow();
-                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    Window window = dialog.getWindow();
+                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                }
                 break;
+
         }
     }
 
