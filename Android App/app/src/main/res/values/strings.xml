@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">CE301</string>
-    <string name="ip_address">100.92.33.130</string>
+    <string name="ip_address">10.245.113.102</string>
     <string name="server_port">5561</string>
     <string name="matchmaker_port">5560</string>
 
