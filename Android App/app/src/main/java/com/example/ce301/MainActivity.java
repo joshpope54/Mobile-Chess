@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "10.245.113.102";//"100.92.33.130";//getString(R.string.ip_address);
+        ipaddress = "10.0.2.2";//"100.92.33.130";//getString(R.string.ip_address);
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
@@ -38,15 +38,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(view2);
 
 
-        if(thread.connected){
+        //if(thread.connected){
             setContentView(view1);
             androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
             setSupportActionBar(myToolbar);
             Button playButton = findViewById(R.id.playButton);
             playButton.setOnClickListener(this);
-        }else{
-            setContentView(view2);
-        }
+//        }else{
+//            setContentView(view2);
+//        }
 
 
 
