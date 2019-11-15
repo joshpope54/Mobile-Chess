@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +60,8 @@ public class ConnectionThread extends Thread{
             s = new Socket();
             s.connect(saddress, 2000);
             connected = true;
-            dataInputStream = new DataInputStream(s.getInputStream());
             dataOutputStream = new DataOutputStream(s.getOutputStream());
+            dataInputStream = new DataInputStream(s.getInputStream());
 
             while (true) {
                 if(communication.equalsIgnoreCase("exit")){

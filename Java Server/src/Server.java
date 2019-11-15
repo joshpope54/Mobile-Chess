@@ -107,7 +107,7 @@ class MatchMaker extends Thread {
                         //waiting is a even amount
                         //create a game server with two random players
                         ClientHandler player1 = waitingForPlayers.get(random1);
-                        ClientHandler player2 = waitingForPlayers.get(random1);
+                        ClientHandler player2 = waitingForPlayers.get(random2);
 
                         GameServer game = new GameServer(player1, player2);
                         game.start();

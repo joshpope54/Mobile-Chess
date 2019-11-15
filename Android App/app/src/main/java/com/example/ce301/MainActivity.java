@@ -23,30 +23,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Handler handler = new Handler();
     ConnectionThread thread;
     private View view1, view2;
-
+    public Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "100.92.33.130";//getString(R.string.ip_address);
+        ipaddress = "100.92.33.133";//getString(R.string.ip_address);
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
         thread.start();
-
+        dialog = new Dialog(this);
         view1 = getLayoutInflater().inflate(R.layout.activity_main, null);
         view2 = getLayoutInflater().inflate(R.layout.not_connected, null);
-        setContentView(view2);
+        //setContentView(view2);
 
 
-        if(thread.connected){
+        //if(thread.connected){
             setContentView(view1);
             androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
             setSupportActionBar(myToolbar);
             Button playButton = findViewById(R.id.playButton);
             playButton.setOnClickListener(this);
-        }else{
-            setContentView(view2);
-        }
+//        }else{
+//            setContentView(view2);
+//        }
 
 
 
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     //Open Dialog
                     //Wait for Player - Tell this through the socket
                     //Load new activity if player found
-                    final Dialog dialog = new Dialog(this);
+
                     dialog.setCanceledOnTouchOutside(false);
 
                     View dialogView = LayoutInflater.from(this).inflate(R.layout.matchmaking, null);
