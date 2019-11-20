@@ -95,6 +95,8 @@ public class GameClient extends Thread{
                     Intent newIntent = new Intent(activity, Game.class);
                     newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     activity.getApplication().startActivity(newIntent);
+                    
+
 
 
                 }
