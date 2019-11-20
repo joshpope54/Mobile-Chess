@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 public class Game extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -13,6 +14,13 @@ public class Game extends AppCompatActivity {
         androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle("Chess");
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //Inform of destruction
     }
 
     //When closing this acitivity

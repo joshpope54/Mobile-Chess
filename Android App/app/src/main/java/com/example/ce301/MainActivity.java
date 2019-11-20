@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "100.92.33.133";//getString(R.string.ip_address);
+        ipaddress = "100.92.33.135";//getString(R.string.ip_address);
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
@@ -38,15 +38,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setContentView(view2);
 
 
-        //if(thread.connected){
+        if(thread.isAlive()){
             setContentView(view1);
             androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
             setSupportActionBar(myToolbar);
             Button playButton = findViewById(R.id.playButton);
             playButton.setOnClickListener(this);
-//        }else{
-//            setContentView(view2);
-//        }
+        }else{
+            setContentView(view2);
+        }
 
 
 
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.playButton:
-                if(thread.connected){
+                //if(thread.connected){
                     final GameClient thread = new GameClient(ipaddress, matchmaker, handler, this);
                     thread.start();
                     //Thread Started
@@ -90,67 +90,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Window window = dialog.getWindow();
                     window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                }
+                //}
                 break;
 
         }
     }
-
-
-//    private static class RetrieveFeedTask extends AsyncTask<String, Void, AsyncTaskResult<Socket>> {
-//        private WeakReference<MainActivity> activityReference;
-//        private Socket socket;
-//
-//
-//        // only retain a weak reference to the activity
-//        RetrieveFeedTask(MainActivity context) {
-//            activityReference = new WeakReference<>(context);
-//        }
-//
-//        @Override
-//        protected AsyncTaskResult<Socket> doInBackground(String... strings) {
-//            InetAddress ipactua = null;
-//            try {
-//                ipactua = InetAddress.getByName(strings[0]);
-//            } catch (UnknownHostException e) {
-//                return new AsyncTaskResult<>(e);
-//            }
-//
-//
-//            Socket s = null;
-//            try {
-//                SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(strings[1]));
-//                s = new Socket();
-//                s.connect(saddress, 2000);
-//            } catch (SocketTimeoutException e) {
-//                return new AsyncTaskResult<>(e);
-//            } catch (IOException e) {
-//                return new AsyncTaskResult<>(e);
-//            }
-//            return new AsyncTaskResult<>(s);
-//        }
-//
-//
-//        @Override
-//        protected void onPostExecute(AsyncTaskResult<Socket> taskResult) {
-//            super.onPostExecute(taskResult);
-//            MainActivity activity = activityReference.get();
-//            if (activity == null || activity.isFinishing()) return;
-//
-//            TextView textView = activity.findViewById(R.id.textView);
-//
-//
-//            if (taskResult.getError() != null) {
-//                //error
-//            }else if(isCancelled()) {
-//            //cancele
-//            }else {
-//            // modify the activity's UI
-//                socket = taskResult.getResult();
-//
-//
-//            }
-//        }
-//
-//    }
 }

@@ -28,6 +28,8 @@ public class GameServer extends Thread{
             playerTwoOutput.writeUTF("connected");
             System.out.println("Player 2 sent - Communications sent" + player2.client);
 
+            //send game state to clients
+
         } catch (IOException e) {
             e.printStackTrace();
         }
