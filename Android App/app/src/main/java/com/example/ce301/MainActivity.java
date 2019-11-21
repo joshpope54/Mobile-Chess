@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ConnectionThread thread;
     private View view1, view2;
     public Dialog dialog;
+    public GameClient gameThread;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "100.92.33.133";//getString(R.string.ip_address);
+        ipaddress = "10.0.2.2";//getString(R.string.ip_address);
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         thread.communication="exit";
-
+        //gameThread.communication="exit";
         super.onDestroy();
     }
 
@@ -64,8 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.playButton:
                 if(thread.connected){
-                    final GameClient thread = new GameClient(ipaddress, matchmaker, handler, this);
-                    thread.start();
+                    gameThread = new GameClient(ipaddress, matchmaker, handler, this);
+                    gameThread.start();
                     //Thread Started
                     //Open Dialog
                     //Wait for Player - Tell this through the socket
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         @Override
                         public void onClick(View view) {
                             dialog.dismiss();
-                            thread.closeConnection();
+                            gameThread.closeConnection();
                             //Tell the Communication thread to remove us from the Queue
                             //requires handler
                             //how to tell the thread?

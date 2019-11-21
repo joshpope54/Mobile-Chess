@@ -77,7 +77,7 @@ class MatchMaker extends Thread {
                 Socket s = null;
                 try {
                     s = serverSocket.accept();
-
+                    //Once accepted send information about player Id, etc
                     ClientHandler handler = new ClientHandler(s, matchmaker);
                     waitingForPlayers.add(handler);
                     handler.start();
@@ -93,7 +93,7 @@ class MatchMaker extends Thread {
 
 
 
-
+//array list storted by elo score//players either side are the closest ones
                     if(waitingForPlayers.size() % 2 == 0){
                         Random random = new Random();
 
