@@ -45,11 +45,11 @@ public class Server extends Thread{
     }
 
     public static void main(String[] args) {
-        MatchMaker matchMaker = new MatchMaker();
-        matchMaker.start();
-        Server server = new Server();
-        server.start();
-
+//        MatchMaker matchMaker = new MatchMaker();
+//        matchMaker.start();
+//        Server server = new Server();
+//        server.start();
+        Chess chess = new Chess();
     }
 }
 

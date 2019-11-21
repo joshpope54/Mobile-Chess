@@ -34,7 +34,6 @@ public class ConnectionThread extends Thread{
     private DataInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
     public String communication = "";
-    public boolean connected;
 
 
 
@@ -59,7 +58,6 @@ public class ConnectionThread extends Thread{
             SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(port));
             s = new Socket();
             s.connect(saddress, 2000);
-            connected = true;
             dataOutputStream = new DataOutputStream(s.getOutputStream());
             dataInputStream = new DataInputStream(s.getInputStream());
 
@@ -81,7 +79,6 @@ public class ConnectionThread extends Thread{
             dataOutputStream.close();
 
         } catch (SocketTimeoutException e) {
-            connected = false;
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
