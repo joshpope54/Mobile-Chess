@@ -1,13 +1,10 @@
+import chess.Chess;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.rmi.ServerError;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
-import java.util.TreeMap;
 
 public class Server extends Thread{
     public static String serverString = "[SERVER] ";
