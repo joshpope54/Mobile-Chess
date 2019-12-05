@@ -5,6 +5,14 @@ public abstract class ChessPiece {
         pieceState = PieceState.ALIVE;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public enum PieceType {
         PAWN,
         ROOK,
@@ -31,6 +39,8 @@ public abstract class ChessPiece {
     private PieceType pieceType;
     private PieceColor pieceColor;
     private PieceState pieceState;
+    private int x;
+    private int y;
 
     public ChessPiece(PieceType pieceType, PieceColor pieceColor, PieceState pieceState) {
         this.pieceType = pieceType;
@@ -58,6 +68,11 @@ public abstract class ChessPiece {
         this.pieceState = pieceState;
     }
 
+    public void setPosition(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
     //Problem:
     //Determining which player is each color
     //Your own colour should always be closest to you in the app
@@ -70,7 +85,7 @@ public abstract class ChessPiece {
     //Parse this so that a array is able to distinguish what piece was moved. <This shouldnt matter,
     //If we make the display only client side
 
-    public abstract boolean move();
+    public abstract boolean move(Chess chessboard, int row, int col);
 
     @Override
     public String toString() {

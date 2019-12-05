@@ -7,7 +7,8 @@ public class King extends ChessPiece{
     }
 
     @Override
-    public boolean move() {
+    public boolean move(Chess chessboard, int row, int col) {
         return false;
     }
+
 }

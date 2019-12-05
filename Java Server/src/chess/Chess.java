@@ -9,7 +9,29 @@ public class Chess {
     //So on one client black will be at the bottom, need a way of flipping the moves recieved from the player.
     //EG player moves piece [7][6] to [5][5] as a black player it should be converted to [0][1] to [2][2]
 
-    private ChessPiece[][] chessPieces;
+
+
+
+    /*
+    [
+    [00,01,02,03,04,05,06,07],
+    [10,11,12,13,14,15,16,17],
+    [20,21,22,23,24,25,26,27],
+    [30,31,32,33,34,35,36,37],
+    [40,41,42,43,44,45,46,47],
+    [50,51,52,53,54,55,56,57],
+    [60,61,62,63,64,65,66,67],
+    [70,71,72,73,74,75,76,77]
+    ]
+
+    [0][0] top left
+    [0][7] top right
+    [7][0] bottom left
+    [7][7] bottom right
+
+     */
+
+    public ChessPiece[][] chessPieces;
 
     public Chess() {
         this.chessPieces = generateInitalBoard();
@@ -29,8 +51,8 @@ public class Chess {
                             }else {
                                 rook.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            rook.setPosition(i,j);
                             pieces[i][j] = rook;
-
                             break;
                         case 1:
                         case 6:
