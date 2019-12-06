@@ -47,7 +47,8 @@ public class Server extends Thread{
 //        Server server = new Server();
 //        server.start();
         Chess chess = new Chess();
-        System.out.println(chess.chessPieces[0][0].move(chess,0,3));
+        System.out.println(chess.chessPieces[7][0].move(chess,7,4));
+
     }
 }
 

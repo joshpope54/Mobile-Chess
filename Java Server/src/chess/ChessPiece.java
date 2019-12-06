@@ -87,6 +87,9 @@ public abstract class ChessPiece {
 
     public abstract boolean move(Chess chessboard, int row, int col);
 
+    //public abstract boolean valid(ChessPiece[][] board, int row, int col, int direction);
+
+
     @Override
     public String toString() {
         return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";

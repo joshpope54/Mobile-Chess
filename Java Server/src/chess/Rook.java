@@ -7,45 +7,61 @@ public class Rook extends ChessPiece {
         setPieceType(PieceType.ROOK);
     }
 
-    @Override
-    public boolean move(Chess chessboard, int row, int col) {
 
+
+    @Override
+    public boolean move(Chess chessboard, int finishRow, int finishCol) {
         //look for pieces nearby
         //if final position x or y is greater than nearby position, move is invalid
-        //
-
         //determine which way the piece is moving
-        //
 
-        if(row==getY()){
+        if(finishRow==getX()){
             //staying on same row
-            if(col>getY()){
+            if(finishCol>getY()){
                 //moving right
-                System.out.println("RIGHT");
-            }else if(col<getY()){
+                for(int i=getY()+1; i<=finishCol; i++){
+                    if(chessboard.chessPieces[finishRow][i]!=null){
+                        //found board piece
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
+            }else if(finishCol<getY()){
                 //moving left
-                System.out.println("LEFT ");
-
+                for(int i=getY()-1; i>=finishCol; i--){
+                    if(chessboard.chessPieces[finishCol][i]!=null){
+                        //found board piece
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
             }
-
-        }else if(col==getX()){
+        }else if(finishCol==getY()){
             //staying on same column
-
-
-            if(row>getX()){
+            if(finishRow>getX()){
                 //moving forward
-                System.out.println("FORWARD");
-
-            }else if(row<getX()) {
+                for(int i=getX()+1; i<=finishRow; i++) {
+                    if (chessboard.chessPieces[i][finishCol] != null) {
+                        //found board piece
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+            }else if(finishRow<getX()) {
                 //moving moving backward
-                System.out.println("BACKWARD");
-
+                for(int i=getX()-1; i>=finishRow; i--){
+                    if(chessboard.chessPieces[i][finishCol]!=null){
+                        //found board piece
+                        return false;
+                    }else{
+                        return true;
+                    }
+                }
             }
         }
-
-
-
-
         return false;
     }
 }
