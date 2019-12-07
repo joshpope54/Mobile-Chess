@@ -1,5 +1,7 @@
 package chess;
 
+import java.util.ArrayList;
+
 public class Chess {
 
     //Who is Black?
@@ -32,9 +34,15 @@ public class Chess {
      */
 
     public ChessPiece[][] chessPieces;
+    public ArrayList<ChessPiece> deadWhitePieces;
+    public ArrayList<ChessPiece> deadBlackPieces;
+
+
 
     public Chess() {
         this.chessPieces = generateInitalBoard();
+        this.deadWhitePieces = new ArrayList<>();
+        this.deadBlackPieces = new ArrayList<>();
     }
 
     public ChessPiece[][] generateInitalBoard(){
@@ -62,7 +70,9 @@ public class Chess {
                             }else {
                                 knight.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            knight.setPosition(i,j);
                             pieces[i][j] = knight;
+
                             break;
                         case 2:
                         case 5:
@@ -72,6 +82,7 @@ public class Chess {
                             }else {
                                 bishop.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            bishop.setPosition(i,j);
                             pieces[i][j] = bishop;
                             break;
                         case 3:
@@ -81,6 +92,7 @@ public class Chess {
                             }else {
                                 queen.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            queen.setPosition(i,j);
                             pieces[i][j] = queen;
                             break;
                         case 4:
@@ -90,6 +102,7 @@ public class Chess {
                             }else {
                                 king.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            king.setPosition(i,j);
                             pieces[i][j] = king;
                             break;
                     }
@@ -103,14 +116,22 @@ public class Chess {
                         pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
                     }
                     pawn.setPieceState(ChessPiece.PieceState.ALIVE);
+                    pawn.setPosition(i,j);
                     pieces[i][j] = pawn;
 
                 }
-                System.out.print(pieces[i][j]);
+            }
+        }
+        return pieces;
+    }
+
+    public void outputBoard(){
+        for (int i=0; i<chessPieces.length; i++) {//rows
+            for (int j=0; j<chessPieces[i].length; j++) {//columns
+                System.out.print(chessPieces[i][j]);
             }
             System.out.println();
         }
-        return pieces;
     }
 
 }

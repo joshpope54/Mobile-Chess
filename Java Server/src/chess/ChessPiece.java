@@ -87,8 +87,20 @@ public abstract class ChessPiece {
 
     public abstract boolean move(Chess chessboard, int row, int col);
 
-    //public abstract boolean valid(ChessPiece[][] board, int row, int col, int direction);
-
+    void movePieceInArray(Chess chess, int finishRow, int finishCol){
+        if(chess.chessPieces[finishRow][finishCol]!=null){
+            if(chess.chessPieces[finishRow][finishCol].pieceColor.equals(PieceColor.WHITE)){
+                chess.chessPieces[finishRow][finishCol].pieceState=PieceState.DEAD;
+                chess.deadWhitePieces.add(chess.chessPieces[finishRow][finishCol]);
+            }else{
+                chess.chessPieces[finishRow][finishCol].pieceState=PieceState.DEAD;
+                chess.deadBlackPieces.add(chess.chessPieces[finishRow][finishCol]);
+            }
+        }
+        chess.chessPieces[finishRow][finishCol] = this;
+        chess.chessPieces[getX()][getY()] = null;
+        this.setPosition(finishRow, finishCol);
+    }
 
     @Override
     public String toString() {

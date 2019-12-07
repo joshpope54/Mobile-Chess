@@ -47,7 +47,23 @@ public class Server extends Thread{
 //        Server server = new Server();
 //        server.start();
         Chess chess = new Chess();
-        System.out.println(chess.chessPieces[7][0].move(chess,7,4));
+        chess.outputBoard();
+        chess.chessPieces[1][0].move(chess,3,0);
+        chess.outputBoard();
+        chess.chessPieces[3][0].move(chess,4,0);
+        chess.outputBoard();
+        chess.chessPieces[4][0].move(chess,5,0);
+        chess.outputBoard();
+        chess.chessPieces[5][0].move(chess,6,1);
+        chess.outputBoard();
+        System.out.println(chess.deadWhitePieces);
+        chess.chessPieces[6][1].move(chess,7,2);
+        chess.outputBoard();
+        System.out.println(chess.deadWhitePieces);
+        chess.chessPieces[0][0].move(chess,6,0);
+        chess.outputBoard();
+        System.out.println(chess.deadWhitePieces);
+
 
     }
 }
