@@ -108,7 +108,6 @@ public class Chess {
                     }
 
                 }else if(i==1 || i==6){
-                    //pieces[i][j]
                     Pawn pawn = new Pawn();
                     if(i==1){
                         pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
@@ -118,7 +117,6 @@ public class Chess {
                     pawn.setPieceState(ChessPiece.PieceState.ALIVE);
                     pawn.setPosition(i,j);
                     pieces[i][j] = pawn;
-
                 }
             }
         }
@@ -133,5 +131,7 @@ public class Chess {
             System.out.println();
         }
     }
+
+    //check for checkmate / check
 
 }

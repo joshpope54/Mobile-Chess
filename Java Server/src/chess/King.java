@@ -11,4 +11,7 @@ public class King extends ChessPiece{
         return false;
     }
 
+    //how can i check for check
+    //or check mate
+
 }

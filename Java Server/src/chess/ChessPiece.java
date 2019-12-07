@@ -104,6 +104,7 @@ public abstract class ChessPiece {
 
     @Override
     public String toString() {
-        return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";
+        //return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";
+        return ""+getPieceType()+"";
     }
 }
