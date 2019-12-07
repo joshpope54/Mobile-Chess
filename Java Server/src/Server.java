@@ -48,7 +48,9 @@ public class Server extends Thread{
 //        server.start();
         Chess chess = new Chess();
         chess.outputBoard();
-        chess.chessPieces[7][2].move(chess, 5,0);
+        chess.chessPieces[7][1].move(chess, 5,2);
+        chess.outputBoard();
+        chess.chessPieces[5][2].move(chess, 4,0);
         chess.outputBoard();
     }
 }
