@@ -107,16 +107,16 @@ public class Chess {
                             break;
                     }
 
-                }else if(i==1 || i==6){
-                    Pawn pawn = new Pawn();
-                    if(i==1){
-                        pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
-                    }else {
-                        pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
-                    }
-                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
-                    pawn.setPosition(i,j);
-                    pieces[i][j] = pawn;
+                }else if(i==2 || i==5){
+//                    Pawn pawn = new Pawn();
+//                    if(i==2){
+//                        pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
+//                    }else {
+//                        pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
+//                    }
+//                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
+//                    pawn.setPosition(i,j);
+//                    pieces[i][j] = pawn;
                 }
             }
         }
@@ -126,7 +126,31 @@ public class Chess {
     public void outputBoard(){
         for (int i=0; i<chessPieces.length; i++) {//rows
             for (int j=0; j<chessPieces[i].length; j++) {//columns
-                System.out.print(chessPieces[i][j]);
+                if(chessPieces[i][j]==null){
+                    System.out.print(" - ");
+                }else{
+                    switch(chessPieces[i][j].getPieceType()){
+                        case KING:
+                            System.out.print(" K ");
+                            break;
+                        case PAWN:
+                            System.out.print(" P ");
+                            break;
+                        case ROOK:
+                            System.out.print(" R ");
+                            break;
+                        case QUEEN:
+                            System.out.print(" Q ");
+                            break;
+                        case BISHOP:
+                            System.out.print(" B ");
+                            break;
+                        case KNIGHT:
+                            System.out.print(" k ");
+                            break;
+                    }
+                }
+
             }
             System.out.println();
         }

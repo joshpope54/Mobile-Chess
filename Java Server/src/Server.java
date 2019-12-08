@@ -46,12 +46,22 @@ public class Server extends Thread{
 //        matchMaker.start();
 //        Server server = new Server();
 //        server.start();
+
         Chess chess = new Chess();
         chess.outputBoard();
-        chess.chessPieces[7][1].move(chess, 5,2);
+
+        chess.chessPieces[0][3].move(chess, 3,0);
+        chess.chessPieces[0][0].move(chess, 2,0);
+        chess.chessPieces[2][0].move(chess, 2,4);
         chess.outputBoard();
-        chess.chessPieces[5][2].move(chess, 4,0);
+        chess.chessPieces[7][4].move(chess, 7,3);
+        chess.chessPieces[7][5].move(chess, 6,4);
         chess.outputBoard();
+        chess.chessPieces[7][4].move(chess, 6,4);
+        chess.chessPieces[7][3].move(chess, 6,3);
+        chess.outputBoard();
+        chess.chessPieces[7][4].move(chess, 6,4);
+
     }
 }
 
@@ -86,7 +96,6 @@ class MatchMaker extends Thread {
 
 
                     //Create Client handler thread?
-
                     System.out.println(matchmaker + "Connection made by " + handler.client + " queue count: "+ waitingForPlayers.size());
 
                     //Cant Just hold socket
