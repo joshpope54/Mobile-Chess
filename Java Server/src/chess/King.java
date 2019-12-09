@@ -24,11 +24,20 @@ public class King extends ChessPiece{
                     success=true;
                 }else{
                     //check if king is in check
-                    System.out.println(checkIfInCheck(chess));
+                    if(!chess.chessPieces[finishRow][finishCol].getPieceColor().equals(this.getPieceColor())){
+                        movePieceInArray(chess, finishRow, finishCol);
+                        success = true;
+                    }else{
+                        success = false;
+                    }
                 }
             }
         }
-        return false;
+        if(success){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean checkIfInCheck(Chess chess){
