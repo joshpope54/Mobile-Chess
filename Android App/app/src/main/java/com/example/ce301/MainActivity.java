@@ -25,10 +25,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private View view1, view2;
     public Dialog dialog;
     public GameClient gameThread;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "100.92.33.135";//getString(R.string.ip_address);
+        ipaddress = "100.92.33.130";//getString(R.string.ip_address);
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
@@ -39,23 +40,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //setContentView(view2);
 
 
-        if(thread.isAlive()){
+        if (thread.isAlive()) {
             setContentView(view1);
             androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
             setSupportActionBar(myToolbar);
             Button playButton = findViewById(R.id.playButton);
             playButton.setOnClickListener(this);
-        }else{
+        } else {
             setContentView(view2);
         }
-
 
 
     }
 
     @Override
     protected void onDestroy() {
-        thread.communication="exit";
+        thread.communication = "exit";
         //gameThread.communication="exit";
         super.onDestroy();
     }
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.playButton:
-                if(thread.connected){
+                if (thread.isAlive()) {
                     gameThread = new GameClient(ipaddress, matchmaker, handler, this);
                     gameThread.start();
                     //Thread Started
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     dialog.setCanceledOnTouchOutside(false);
 
                     View dialogView = LayoutInflater.from(this).inflate(R.layout.matchmaking, null);
-                    dialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener(){
+                    dialogView.findViewById(R.id.closeButton).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             dialog.dismiss();
@@ -91,9 +91,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     Window window = dialog.getWindow();
                     window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                //}
-                break;
+                    //}
+                    break;
 
+                }
         }
     }
 }

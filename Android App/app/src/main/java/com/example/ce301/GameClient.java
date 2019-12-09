@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,28 +76,26 @@ public class GameClient extends Thread{
                         e.printStackTrace();
                     }
                 }else{
-                    String recieved = dataInputStream.readUTF();
-                    if(recieved.equalsIgnoreCase("connected")){
-                        //connected to server//
-                        //write to boolean
-                        System.out.println("here");
-                        inGame = true;
+                    if(!inGame){
+                        String recieved = dataInputStream.readUTF();
+                        if(recieved.equalsIgnoreCase("connected")){
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    activity.dialog.dismiss();
+                                }
+                            });
+                            Intent newIntent = new Intent(activity, Game.class);
+                            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            activity.getApplication().startActivity(newIntent);
+                            inGame = true;
+                        }
                     }
                 }
 
                 if(inGame){
-                    //Create new activity]
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            activity.dialog.dismiss();
-                        }
-                    });
-                    Intent newIntent = new Intent(activity, Game.class);
-                    newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    activity.getApplication().startActivity(newIntent);
-                    
-
+                    //Log.e("INGAME", "NOW IN GAME");
+                    //read from here
 
 
                 }
