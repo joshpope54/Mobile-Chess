@@ -4,10 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 public class Game extends AppCompatActivity {
+
+    private String color;
+    private int[][] points = {{-1,-1},{-1,-1}};
 
 
     @Override
@@ -25,11 +31,37 @@ public class Game extends AppCompatActivity {
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("Item Clicked" + row_no + "" + col_no);
+                    checkData();
+                    if(points[0][0]==-1){
+                        points[0][0]= row_no;
+                        points[0][1]= col_no;
+                    }else if (points[1][0]==-1){
+                        points[1][0]= row_no;
+                        points[1][1]= col_no;
+                    }
+
+                    Log.e("Points", ""+ Arrays.toString(points[0]));
+                    Log.e("Points", ""+ Arrays.toString(points[1]));
                 }
             });
+
+
         }
     }
+
+    public void checkData(){
+        if(points[0][0]!=-1 && points[1][0]!=-1){
+            points[0][0] = -1;
+            points[0][1] = -1;
+            points[1][0] = -1;
+            points[1][1] = -1;
+        }
+    }
+
+    //IDEA
+    //TAP INITIAL TEXT VIEW
+    //GET POINT (eg 0,0)
+    //
 
 
     @Override

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String ipaddress;
     private String server;
     private String matchmaker;
-    private Handler handler = new Handler();
+    private Handler handler = new Handler(Looper.getMainLooper());
     ConnectionThread thread;
     private View view1, view2;
     public Dialog dialog;

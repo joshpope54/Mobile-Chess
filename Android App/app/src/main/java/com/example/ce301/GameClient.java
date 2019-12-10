@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Messenger;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ import androidx.annotation.MainThread;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -34,7 +37,7 @@ public class GameClient extends Thread{
     private final Handler handler;
     private MainActivity activity;
     private Socket s;
-    private DataInputStream dataInputStream;
+    private ObjectInputStream dataInputStream;
     private DataOutputStream dataOutputStream;
     public String communication = "";
     private boolean inGame;
@@ -62,7 +65,7 @@ public class GameClient extends Thread{
             SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(port));
             s = new Socket();
             s.connect(saddress, 2000);
-            dataInputStream = new DataInputStream(s.getInputStream());
+            dataInputStream = new ObjectInputStream(s.getInputStream());
             dataOutputStream = new DataOutputStream(s.getOutputStream());
 
             while (true) {
@@ -77,17 +80,17 @@ public class GameClient extends Thread{
                     }
                 }else{
                     if(!inGame){
-                        String recieved = dataInputStream.readUTF();
+                        String recieved = (String) dataInputStream.readObject();
                         if(recieved.equalsIgnoreCase("connected")){
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     activity.dialog.dismiss();
+                                    Intent newIntent = new Intent(activity, Game.class);
+                                    newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    activity.getApplication().startActivity(newIntent);
                                 }
                             });
-                            Intent newIntent = new Intent(activity, Game.class);
-                            newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            activity.getApplication().startActivity(newIntent);
                             inGame = true;
                         }
                     }
@@ -96,12 +99,11 @@ public class GameClient extends Thread{
                 if(inGame){
                     //Log.e("INGAME", "NOW IN GAME");
                     //read from here
-
+                    String recievedString = (String) dataInputStream.readObject();
+                    System.out.println(recievedString);
 
                 }
             }
-
-
             dataInputStream.close();
             dataOutputStream.close();
 
@@ -113,6 +115,8 @@ public class GameClient extends Thread{
                 }
             });
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
