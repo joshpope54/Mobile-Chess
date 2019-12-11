@@ -119,15 +119,15 @@ public class Chess implements Serializable{
                     }
 
                 }else if(i==1 || i==6){
-                    Pawn pawn = new Pawn();
-                    if(i==1){
-                        pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
-                    }else {
-                        pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
-                    }
-                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
-                    pawn.setPosition(i,j);
-                    pieces[i][j] = pawn;
+//                    Pawn pawn = new Pawn();
+//                    if(i==1){
+//                        pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
+//                    }else {
+//                        pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
+//                    }
+//                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
+//                    pawn.setPosition(i,j);
+//                    pieces[i][j] = pawn;
                 }
             }
         }
