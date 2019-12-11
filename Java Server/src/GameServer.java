@@ -67,7 +67,7 @@ public class GameServer extends Thread{
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Player has disconnected so game over");
         }
 
     }

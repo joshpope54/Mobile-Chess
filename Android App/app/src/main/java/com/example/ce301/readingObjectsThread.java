@@ -2,6 +2,7 @@ package com.example.ce301;
 
 import android.os.Handler;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -50,7 +51,15 @@ public class readingObjectsThread extends Thread {
                     TextView view2 = (TextView) activity.gridLayout.getChildAt(finish);
                     view2.setTextColor(view.getCurrentTextColor());
                     view2.setText(view.getText());
+                    view2.setTextColor(view.getCurrentTextColor());
                     view.setText("");
+                }
+            });
+        }else if (items[0].equalsIgnoreCase("failure")){
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(activity, "Move Failed, {OTHERCOLOR} move again",Toast.LENGTH_SHORT).show();
                 }
             });
         }
