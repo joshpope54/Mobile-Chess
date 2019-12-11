@@ -58,7 +58,7 @@ public class readingObjectsThread extends Thread {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(activity, "Move Failed, {OTHERCOLOR} move again",Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(activity, "Move Failed, {OTHERCOLOR} move again",Toast.LENGTH_SHORT).show();
                 }
             });
         }
