@@ -45,6 +45,9 @@ public class King extends ChessPiece implements Serializable{
     public boolean checkIfInCheck(Chess chess){
         //Check for any pieces attacking king
         //Check if king can move its self out of position
+        //Check mate, Try all possible kings moves, checking if each one still leaves piece in check if so - check mate, if not king can move
+        //If in check from multiple pieces then king must move,
+        //IF in check from only one piece check and cant move, check if another piece can block the check
         boolean diag = ifTraceOnDiagonal(chess);
         boolean onX = ifTraceOnX(chess);
         boolean onY = ifTraceOnY(chess);

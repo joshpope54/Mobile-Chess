@@ -15,7 +15,7 @@ public class readingObjectsThread extends Thread {
     public readingObjectsThread(MainActivity activity, Handler handler, ObjectInputStream objectInputStream){
         this.handler = handler;
         this.objectInputStream = objectInputStream;
-        activity = activity;
+        this.activity = activity;
     }
 
     @Override
@@ -48,6 +48,7 @@ public class readingObjectsThread extends Thread {
                 public void run() {
                     TextView view = (TextView) activity.gridLayout.getChildAt(start);
                     TextView view2 = (TextView) activity.gridLayout.getChildAt(finish);
+                    view2.setTextColor(view.getCurrentTextColor());
                     view2.setText(view.getText());
                     view.setText("");
                 }
