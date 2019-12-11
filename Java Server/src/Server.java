@@ -42,37 +42,37 @@ public class Server extends Thread{
     }
 
     public static void main(String[] args) {
-//        MatchMaker matchMaker = new MatchMaker();
-//        matchMaker.start();
-//        Server server = new Server();
-//        server.start();
+        MatchMaker matchMaker = new MatchMaker();
+        matchMaker.start();
+        Server server = new Server();
+        server.start();
 
-        Chess chess = new Chess();
-        chess.outputBoard();
+//        Chess chess = new Chess();
+//        chess.outputBoard();
 //        chess.chessPieces[1][2].move(chess, 3,2);
 //        chess.outputBoard();
 //        System.out.println(chess.blackKing.checkIfInCheck(chess));
 //        System.out.println(chess.whiteKing.checkIfInCheck(chess));
 
-        chess.chessPieces[0][0].move(chess, 2,0);
-        chess.outputBoard();
-        System.out.println(chess.blackKing.checkIfInCheck(chess));
-        System.out.println(chess.whiteKing.checkIfInCheck(chess));
-
-        chess.chessPieces[2][0].move(chess, 2,4);
-        chess.outputBoard();
-        System.out.println(chess.blackKing.checkIfInCheck(chess));
-        System.out.println(chess.whiteKing.checkIfInCheck(chess));
-
-        chess.chessPieces[7][5].move(chess, 6,4);
-        chess.outputBoard();
-        System.out.println(chess.blackKing.checkIfInCheck(chess));
-        System.out.println(chess.whiteKing.checkIfInCheck(chess));
-
-        chess.chessPieces[7][3].move(chess, 6,3);
-        chess.outputBoard();
-        System.out.println(chess.blackKing.checkIfInCheck(chess));
-        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//        chess.chessPieces[0][0].move(chess, 2,0);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[2][0].move(chess, 2,4);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[7][5].move(chess, 6,4);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[7][3].move(chess, 6,3);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
 
     }
 }
