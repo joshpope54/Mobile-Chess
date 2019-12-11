@@ -16,7 +16,7 @@ public class readingObjectsThread extends Thread {
     public readingObjectsThread(MainActivity activity, Handler handler, ObjectInputStream objectInputStream){
         this.handler = handler;
         this.objectInputStream = objectInputStream;
-        activity = activity;
+        this.activity = activity;
     }
 
     @Override
