@@ -26,31 +26,19 @@ public class ClientHandler extends Thread {
     public void run() {
         super.run();
         String received;
-        while(true){
-            try{
-
+        try{
+            while(true){
                 received = dataInputStream.readUTF();
-                System.out.println(received);
-
-                if(received.equalsIgnoreCase("exit"))
-                {
-                    System.out.println(string + " Client " + this.client + " sends exit...");
-                    System.out.println(string + " Closing this connection.");
-                    this.client.close();
-                    System.out.println(string + " Connection closed");
-                    //socket closed
-                    //remove me from the waiting list
-
-
-                    break;
-                }
-
-
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (Exception e) {
+            try {
+                client.close();
+            } catch (IOException e1) {
+            }
+        }finally {
+            System.out.println(string + " Client " + this.client + " sends exit...");
+            System.out.println(string + " Closing this connection.");
+            System.out.println(string + " Connection closed");
         }
 
         try {

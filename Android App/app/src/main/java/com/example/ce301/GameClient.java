@@ -48,6 +48,7 @@ public class GameClient extends Thread{
     public int[][] points;
     public Handler currenthandler;
     String color;
+    boolean running = true;
 
 
 
@@ -76,46 +77,36 @@ public class GameClient extends Thread{
             objectInputStream = new ObjectInputStream(s.getInputStream());
             dataOutputStream = new DataOutputStream(s.getOutputStream());
 
-            while (true) {
-                if(communication.equalsIgnoreCase("exit")){
-                    try {
-                        dataOutputStream.writeUTF("exit");
-                        System.out.println("socket being closed?");
-                        s.close();
-                        break;
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }else{
-                    if(!inGame){
-                        String recieved = (String) objectInputStream.readObject();
-                        if(recieved.equalsIgnoreCase("connected")){
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    activity.dialog.dismiss();
-                                    activity.setContentView(R.layout.activity_game);
+            while (running) {
+                if(!inGame){
+                    String recieved = (String) objectInputStream.readObject();
+                    if(recieved.equalsIgnoreCase("connected")){
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                activity.dialog.dismiss();
+                                activity.setContentView(R.layout.activity_game);
 
 //                                    Intent newIntent = new Intent(activity, Game.class);
 //                                    newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //                                    activity.getApplication().startActivity(newIntent);
-                                }
-                            });
-                            inGame = true;
-                            String recievedString = (String) objectInputStream.readObject();
-                            color = recievedString;
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    TextView colorview = activity.findViewById(R.id.textView70);
-                                    colorview.setText(color);
-                                }
-                            });
-                            readingObjectsThread readingThread = new readingObjectsThread(activity, handler, objectInputStream);
-                            readingThread.start();
-                        }
+                            }
+                        });
+                        inGame = true;
+                        String recievedString = (String) objectInputStream.readObject();
+                        color = recievedString;
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                TextView colorview = activity.findViewById(R.id.textView70);
+                                colorview.setText(color);
+                            }
+                        });
+                        readingObjectsThread readingThread = new readingObjectsThread(activity, handler, objectInputStream);
+                        readingThread.start();
                     }
                 }
+
 
                 if(inGame){
                     //Log.e("INGAME", "NOW IN GAME");
@@ -127,6 +118,9 @@ public class GameClient extends Thread{
 
                 }
             }
+            dataOutputStream.writeUTF("exit");
+            System.out.println("socket being closed?");
+            s.close();
             objectInputStream.close();
             dataOutputStream.close();
 
@@ -150,6 +144,6 @@ public class GameClient extends Thread{
     }
 
     public void closeConnection(){
-        communication="exit";
+        running = false;
     }
 }
