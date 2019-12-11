@@ -1,6 +1,8 @@
-package chess;
+package com.example.ce301.chess;
 
-public abstract class ChessPiece {
+import java.io.Serializable;
+
+public abstract class ChessPiece implements Serializable {
     protected ChessPiece() {
         pieceState = PieceState.ALIVE;
     }
@@ -87,8 +89,24 @@ public abstract class ChessPiece {
 
     public abstract boolean move(Chess chessboard, int row, int col);
 
+    void movePieceInArray(Chess chess, int finishRow, int finishCol){
+        if(chess.chessPieces[finishRow][finishCol]!=null){
+            if(chess.chessPieces[finishRow][finishCol].pieceColor.equals(PieceColor.WHITE)){
+                chess.chessPieces[finishRow][finishCol].pieceState=PieceState.DEAD;
+                chess.deadWhitePieces.add(chess.chessPieces[finishRow][finishCol]);
+            }else{
+                chess.chessPieces[finishRow][finishCol].pieceState=PieceState.DEAD;
+                chess.deadBlackPieces.add(chess.chessPieces[finishRow][finishCol]);
+            }
+        }
+        chess.chessPieces[finishRow][finishCol] = this;
+        chess.chessPieces[getX()][getY()] = null;
+        this.setPosition(finishRow, finishCol);
+    }
+
     @Override
     public String toString() {
-        return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";
+        //return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";
+        return ""+getPieceType()+"";
     }
 }

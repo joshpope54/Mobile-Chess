@@ -1,4 +1,4 @@
-import chess.Chess;
+import com.example.ce301.chess.Chess;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -42,25 +42,37 @@ public class Server extends Thread{
     }
 
     public static void main(String[] args) {
-//        MatchMaker matchMaker = new MatchMaker();
-//        matchMaker.start();
-//        Server server = new Server();
-//        server.start();
+        MatchMaker matchMaker = new MatchMaker();
+        matchMaker.start();
+        Server server = new Server();
+        server.start();
 
-        Chess chess = new Chess();
-        chess.outputBoard();
-
-        chess.chessPieces[0][3].move(chess, 3,0);
-        chess.chessPieces[0][0].move(chess, 2,0);
-        chess.chessPieces[2][0].move(chess, 2,4);
-        chess.outputBoard();
-        chess.chessPieces[7][4].move(chess, 7,3);
-        chess.chessPieces[7][5].move(chess, 6,4);
-        chess.outputBoard();
-        chess.chessPieces[7][4].move(chess, 6,4);
-        chess.chessPieces[7][3].move(chess, 6,3);
-        chess.outputBoard();
-        chess.chessPieces[7][4].move(chess, 6,4);
+//        Chess chess = new Chess();
+//        chess.outputBoard();
+//        chess.chessPieces[1][2].move(chess, 3,2);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[0][0].move(chess, 2,0);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[2][0].move(chess, 2,4);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[7][5].move(chess, 6,4);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
+//
+//        chess.chessPieces[7][3].move(chess, 6,3);
+//        chess.outputBoard();
+//        System.out.println(chess.blackKing.checkIfInCheck(chess));
+//        System.out.println(chess.whiteKing.checkIfInCheck(chess));
 
     }
 }
@@ -69,7 +81,7 @@ public class Server extends Thread{
 class MatchMaker extends Thread {
     private static String matchmaker = "[MATCHMAKER] ";
     ServerSocket serverSocket;
-    public static ArrayList<ClientHandler> waitingForPlayers;
+    public static ArrayList<GameClientHandler> waitingForPlayers;
     // Constructor
     public MatchMaker() {
         try {
@@ -90,10 +102,8 @@ class MatchMaker extends Thread {
                 try {
                     s = serverSocket.accept();
                     //Once accepted send information about player Id, etc
-                    ClientHandler handler = new ClientHandler(s, matchmaker);
+                    GameClientHandler handler = new GameClientHandler(s, matchmaker);
                     waitingForPlayers.add(handler);
-                    handler.start();
-
 
                     //Create Client handler thread?
                     System.out.println(matchmaker + "Connection made by " + handler.client + " queue count: "+ waitingForPlayers.size());
@@ -117,8 +127,8 @@ class MatchMaker extends Thread {
                         //System.out.println(random1 + "   " + random2);
                         //waiting is a even amount
                         //create a game server with two random players
-                        ClientHandler player1 = waitingForPlayers.get(random1);
-                        ClientHandler player2 = waitingForPlayers.get(random2);
+                        GameClientHandler player1 = waitingForPlayers.get(random1);
+                        GameClientHandler player2 = waitingForPlayers.get(random2);
 
                         GameServer game = new GameServer(player1, player2);
                         game.start();

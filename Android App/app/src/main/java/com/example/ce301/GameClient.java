@@ -20,16 +20,20 @@ import android.widget.TextView;
 
 import androidx.annotation.MainThread;
 
+import org.w3c.dom.Text;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 
 public class GameClient extends Thread{
     private String ip;
@@ -37,10 +41,13 @@ public class GameClient extends Thread{
     private final Handler handler;
     private MainActivity activity;
     private Socket s;
-    private ObjectInputStream dataInputStream;
+    private ObjectInputStream objectInputStream;
     private DataOutputStream dataOutputStream;
     public String communication = "";
     private boolean inGame;
+    public int[][] points;
+    public Handler currenthandler;
+    String color;
 
 
 
@@ -49,6 +56,7 @@ public class GameClient extends Thread{
         this.port = port;
         this.handler = handler;
         this.activity = activity;
+        currenthandler = new Handler(Looper.myLooper());
     }
 
     @Override
@@ -65,7 +73,7 @@ public class GameClient extends Thread{
             SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(port));
             s = new Socket();
             s.connect(saddress, 2000);
-            dataInputStream = new ObjectInputStream(s.getInputStream());
+            objectInputStream = new ObjectInputStream(s.getInputStream());
             dataOutputStream = new DataOutputStream(s.getOutputStream());
 
             while (true) {
@@ -80,18 +88,31 @@ public class GameClient extends Thread{
                     }
                 }else{
                     if(!inGame){
-                        String recieved = (String) dataInputStream.readObject();
+                        String recieved = (String) objectInputStream.readObject();
                         if(recieved.equalsIgnoreCase("connected")){
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
                                     activity.dialog.dismiss();
-                                    Intent newIntent = new Intent(activity, Game.class);
-                                    newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    activity.getApplication().startActivity(newIntent);
+                                    activity.setContentView(R.layout.activity_game);
+
+//                                    Intent newIntent = new Intent(activity, Game.class);
+//                                    newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                                    activity.getApplication().startActivity(newIntent);
                                 }
                             });
                             inGame = true;
+                            String recievedString = (String) objectInputStream.readObject();
+                            color = recievedString;
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    TextView colorview = activity.findViewById(R.id.textView70);
+                                    colorview.setText(color);
+                                }
+                            });
+                            readingObjectsThread readingThread = new readingObjectsThread(activity, handler, objectInputStream);
+                            readingThread.start();
                         }
                     }
                 }
@@ -99,12 +120,14 @@ public class GameClient extends Thread{
                 if(inGame){
                     //Log.e("INGAME", "NOW IN GAME");
                     //read from here
-                    String recievedString = (String) dataInputStream.readObject();
-                    System.out.println(recievedString);
+                    if(points!=null){
+                        dataOutputStream.writeUTF(color+" "+points[0][0]+","+points[0][1]+" "+points[1][0]+","+points[1][1]);
+                        points=null;
+                    }
 
                 }
             }
-            dataInputStream.close();
+            objectInputStream.close();
             dataOutputStream.close();
 
         } catch (SocketTimeoutException e) {
@@ -120,6 +143,7 @@ public class GameClient extends Thread{
             e.printStackTrace();
         }
     }
+
 
     public void handleServerInput(){
 

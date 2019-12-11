@@ -1,6 +1,9 @@
-package chess;
+package com.example.ce301.chess;
 
-public class Chess {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Chess implements Serializable {
 
     //Who is Black?
     //Who is White?
@@ -32,9 +35,21 @@ public class Chess {
      */
 
     public ChessPiece[][] chessPieces;
+    public ArrayList<ChessPiece> deadWhitePieces;
+    public ArrayList<ChessPiece> deadBlackPieces;
+
+    public King blackKing;
+    public King whiteKing;
+
+    public boolean whosMoving;  //true = white
+                                // false = black
+
+
 
     public Chess() {
         this.chessPieces = generateInitalBoard();
+        this.deadWhitePieces = new ArrayList<>();
+        this.deadBlackPieces = new ArrayList<>();
     }
 
     public ChessPiece[][] generateInitalBoard(){
@@ -62,7 +77,9 @@ public class Chess {
                             }else {
                                 knight.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            knight.setPosition(i,j);
                             pieces[i][j] = knight;
+
                             break;
                         case 2:
                         case 5:
@@ -72,6 +89,7 @@ public class Chess {
                             }else {
                                 bishop.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            bishop.setPosition(i,j);
                             pieces[i][j] = bishop;
                             break;
                         case 3:
@@ -81,35 +99,72 @@ public class Chess {
                             }else {
                                 queen.setPieceColor(ChessPiece.PieceColor.WHITE);
                             }
+                            queen.setPosition(i,j);
                             pieces[i][j] = queen;
                             break;
                         case 4:
                             King king = new King();
                             if(i==0){
                                 king.setPieceColor(ChessPiece.PieceColor.BLACK);
+                                blackKing = king;
                             }else {
                                 king.setPieceColor(ChessPiece.PieceColor.WHITE);
+                                whiteKing = king;
                             }
+                            king.setPosition(i,j);
                             pieces[i][j] = king;
                             break;
                     }
 
-                }else if(i==1 || i==6){
-//                    Pawn pawn = new Pawn();
-//                    if(i==1){
-//                        pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
-//                    }else {
-//                        pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
-//                    }
-//                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
-//                    pieces[i][j] = pawn;
-
+                }else if(i==2 || i==5){
+                    Pawn pawn = new Pawn();
+                    if(i==2){
+                        pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
+                    }else {
+                        pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
+                    }
+                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
+                    pawn.setPosition(i,j);
+                    pieces[i][j] = pawn;
                 }
-                System.out.print(pieces[i][j]);
             }
-            System.out.println();
         }
         return pieces;
     }
+
+    public void outputBoard(){
+        for (int i=0; i<chessPieces.length; i++) {//rows
+            for (int j=0; j<chessPieces[i].length; j++) {//columns
+                if(chessPieces[i][j]==null){
+                    System.out.print(" - ");
+                }else{
+                    switch(chessPieces[i][j].getPieceType()){
+                        case KING:
+                            System.out.print(" K ");
+                            break;
+                        case PAWN:
+                            System.out.print(" P ");
+                            break;
+                        case ROOK:
+                            System.out.print(" R ");
+                            break;
+                        case QUEEN:
+                            System.out.print(" Q ");
+                            break;
+                        case BISHOP:
+                            System.out.print(" B ");
+                            break;
+                        case KNIGHT:
+                            System.out.print(" k ");
+                            break;
+                    }
+                }
+
+            }
+            System.out.println();
+        }
+    }
+
+    //check for checkmate / check
 
 }
