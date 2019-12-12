@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 public class readingObjectsThread extends Thread {
     private Handler handler;
@@ -37,8 +38,8 @@ public class readingObjectsThread extends Thread {
         String success = (String) objectInputStream.readObject();
 
         String[] items = success.split(" ");
-        String[] firstPostion = items[1].split(",");
-        String[] secondPosition = items[2].split(",");
+        final String[] firstPostion = items[1].split(",");
+        final String[] secondPosition = items[2].split(",");
         System.out.println(success);
         if(items[0].equalsIgnoreCase("success")){
             //convert position data to array length data
@@ -47,6 +48,8 @@ public class readingObjectsThread extends Thread {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    TextView lastMove = (TextView) activity.findViewById(R.id.textView67);
+                    lastMove.setText(Arrays.toString(firstPostion) + " To " + Arrays.toString(secondPosition));
                     TextView view = (TextView) activity.gridLayout.getChildAt(start);
                     TextView view2 = (TextView) activity.gridLayout.getChildAt(finish);
                     view2.setText(view.getText());
