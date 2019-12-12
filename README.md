@@ -8,5 +8,9 @@ The Java server is run on a remote computer so no need to setup anything involvi
 * Android Phone or Emulator
 
 ### Installing
-Install the android app onto your phone
+Run the app from android studio with a phone or emulator connected
+This will install the app onto the device
 App will automatically connect to the server once opened
+
+--Could provide APKS at certain iteration points
+
