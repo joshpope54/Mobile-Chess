@@ -5,7 +5,6 @@ A multiplayer board game that uses two android clients and one java server to co
 The Java server is run on a remote computer so no need to setup anything involving that. For setting up the android app refer below
 
 ### Prerequisites
-* Java
 * Android Phone or Emulator
 
 ### Installing
