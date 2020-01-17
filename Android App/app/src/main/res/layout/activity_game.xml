@@ -25,336 +25,352 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include">
 
-        <TextView
+
+        <ImageView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="R"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
-            android:background="@android:color/holo_orange_dark"
+            grid:srcCompat="@drawable/chess_rdt60"
             app:layout_column="0"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="k"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_ndt60"
             app:layout_column="1"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="B"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_bdt60"
             app:layout_column="2"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark" />
+        <ImageView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Q"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_qdt60"
             app:layout_column="3"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@android:color/holo_orange_dark"
-            android:text="K"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_kdt60"
             app:layout_column="4"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="B"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_bdt60"
             app:layout_column="5"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@android:color/holo_orange_dark"
-            android:text="k"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_ndt60"
             app:layout_column="6"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"            />
+        <ImageView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="R"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_rdt60"
             app:layout_column="7"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="0"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="1"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="2"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="3"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="4"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="5"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"/>
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView17"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="P"
-            android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="6"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView18"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@android:color/holo_orange_dark"
-            android:text="P"
-            android:textColor="@android:color/black"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_pdt60"
             app:layout_column="7"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="0"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="1"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="2"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="3"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView23"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="4"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView24"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="5"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
+        <ImageView
             android:id="@+id/textView25"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="6"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
-
-        <TextView
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            />
+        <ImageView
             android:id="@+id/textView26"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            grid:srcCompat="@drawable/chess_trans60"
             app:layout_column="7"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal" />
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            />
 
-        <TextView
+
+        <ImageView
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -362,12 +378,17 @@
             app:layout_column="0"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView28"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -375,12 +396,17 @@
             app:layout_column="1"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView29"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -388,12 +414,17 @@
             app:layout_column="2"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -401,12 +432,17 @@
             app:layout_column="3"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -414,12 +450,17 @@
             app:layout_column="4"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView32"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -427,12 +468,17 @@
             app:layout_column="5"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView33"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -440,12 +486,17 @@
             app:layout_column="6"
             app:layout_row="3"
             grid:layout_columnWeight="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_gravity="fill_horizontal" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView34"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -454,12 +505,17 @@
             grid:layout_gravity="fill_horizontal"
             app:layout_column="7"
             app:layout_row="3"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
              />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -467,12 +523,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="0"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -480,12 +541,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="1"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -493,12 +559,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="2"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -506,12 +577,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="3"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView39"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -519,38 +595,51 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="4"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView40"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
-
             android:background="@android:color/holo_orange_light"
             android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="5"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
 
-        <TextView
+        <ImageView
             android:id="@+id/textView41"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
-
             android:background="@android:color/holo_orange_dark"
             android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="6"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView42"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -558,12 +647,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="7"
-            grid:layout_row="4" />
+            grid:layout_row="4"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView43"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -571,12 +665,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="0"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView45"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -584,12 +683,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="1"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView46"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -597,12 +701,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="2"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView47"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -610,12 +719,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="3"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView48"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -623,12 +737,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="4"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView49"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -636,12 +755,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="5"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_light"
@@ -649,12 +773,17 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="6"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView51"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            grid:srcCompat="@drawable/chess_trans60"
             android:gravity="center"
 
             android:background="@android:color/holo_orange_dark"
@@ -662,229 +791,266 @@
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="7"
-            grid:layout_row="5" />
+            grid:layout_row="5"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView52"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
-            android:textColor="@android:color/white"
             grid:layout_column="0"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView53"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="1"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView54"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="2"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView55"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
             grid:layout_column="3"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView56"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="4"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView57"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
             android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="5"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView58"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="6"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView59"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="P"
+            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="7"
             grid:layout_row="6" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView60"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="R"
+            grid:srcCompat="@drawable/chess_rlt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="0"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView61"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="k"
+            grid:srcCompat="@drawable/chess_nlt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="1"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView62"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="B"
+            grid:srcCompat="@drawable/chess_blt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="2"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView63"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Q"
+            grid:srcCompat="@drawable/chess_qlt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="3"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView64"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="K"
+            grid:srcCompat="@drawable/chess_klt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="4"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView65"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="B"
+            grid:srcCompat="@drawable/chess_blt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="5"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView66"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="k"
+            grid:srcCompat="@drawable/chess_nlt60"
             android:background="@android:color/holo_orange_light"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="6"
             grid:layout_row="7" />
 
-        <TextView
+        <ImageView
             android:id="@+id/textView68"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="R"
+            grid:srcCompat="@drawable/chess_rlt60"
             android:background="@android:color/holo_orange_dark"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
             grid:layout_columnWeight="1"
             grid:layout_gravity="fill_horizontal"
+            android:maxWidth="45dp"
+            android:maxHeight="45dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
             grid:layout_column="7"
             grid:layout_row="7" />
 
@@ -966,6 +1132,8 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/textView75"
         app:layout_constraintTop_toBottomOf="@+id/textView70" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

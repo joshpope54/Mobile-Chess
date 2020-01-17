@@ -51,7 +51,7 @@ public class Pawn extends ChessPiece implements Serializable {
     }
 
     private Boolean getaBoolean(Chess chess, int finishRow, int finishCol) {
-        if(getX()+1==finishRow && getY()+1==finishCol){
+        if(getX()+1==finishRow && getY()+1==finishCol){ //x+1 y+1, Black down and right  //need to add left down for black
             if(chess.chessPieces[finishRow][finishCol]!=null){
                 if(!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())){
                     movePieceInArray(chess, finishRow, finishCol);
@@ -68,8 +68,9 @@ public class Pawn extends ChessPiece implements Serializable {
             }else{
                 if(getX()==1 || getX()==6 ){
                     if(getPieceColor().equals(PieceColor.WHITE)) {
-                        if (getX() - finishRow == 2 || getX() - finishRow == 1) {
+                        if (getX() - finishRow == 2 || getX() - finishRow == 1) { //WHITE GOING FOWARD
                             if (chess.chessPieces[finishRow][finishCol] == null) {
+                                System.out.println("first");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
@@ -78,8 +79,9 @@ public class Pawn extends ChessPiece implements Serializable {
                             }
                         }
                     }else{
-                        if (finishRow - getX() == 2 || finishRow - getX() == 1) {
+                        if (finishRow - getX() == 2 || finishRow - getX() == 1) {  //BLACK GOING FORWARD
                             if (chess.chessPieces[finishRow][finishCol] == null) {
+                                System.out.println("second");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
@@ -92,6 +94,7 @@ public class Pawn extends ChessPiece implements Serializable {
                     if(getPieceColor().equals(PieceColor.WHITE)) {
                         if (getX() - finishRow == 1) {
                             if (chess.chessPieces[finishRow][finishCol] == null) {
+                                System.out.println("third");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
@@ -102,6 +105,7 @@ public class Pawn extends ChessPiece implements Serializable {
                     }else{
                         if (finishRow - getX() == 1) {
                             if (chess.chessPieces[finishRow][finishCol] == null) {
+                                System.out.println("fourth");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {

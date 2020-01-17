@@ -5,6 +5,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.gridlayout.widget.GridLayout;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "104.248.165.64";//"10.0.2.2";//getString(R.string.ip_address);
+        ipaddress = "joshpope.dev";//"10.0.2.2";//getString(R.string.ip_address);
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
@@ -66,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         gridLayout = findViewById(R.id.gridlayout);
         if(gridLayout!=null){
             for (int i = 0; i < gridLayout.getChildCount(); i++) {
-                TextView textView = (TextView)gridLayout.getChildAt(i);
+                ImageView imageView = (ImageView)gridLayout.getChildAt(i);
                 final int row_no=i/8;
                 final int col_no=i%8;
-                textView.setOnClickListener(new View.OnClickListener() {
+                imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if(points[1][1]!=-1){

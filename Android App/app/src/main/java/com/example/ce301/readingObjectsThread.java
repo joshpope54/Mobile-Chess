@@ -1,6 +1,8 @@
 package com.example.ce301;
 
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +52,10 @@ public class readingObjectsThread extends Thread {
                 public void run() {
                     TextView lastMove = (TextView) activity.findViewById(R.id.textView67);
                     lastMove.setText(Arrays.toString(firstPostion) + " To " + Arrays.toString(secondPosition));
-                    TextView view = (TextView) activity.gridLayout.getChildAt(start);
-                    TextView view2 = (TextView) activity.gridLayout.getChildAt(finish);
-                    view2.setText(view.getText());
-                    view2.setTextColor(view.getCurrentTextColor());
-                    view.setText("");
+                    ImageView view = (ImageView) activity.gridLayout.getChildAt(start);
+                    ImageView view2 = (ImageView) activity.gridLayout.getChildAt(finish);
+                    view2.setImageDrawable(view.getDrawable());
+                    view.setImageResource(android.R.color.transparent);
                 }
             });
         }else if (items[0].equalsIgnoreCase("failure")){
