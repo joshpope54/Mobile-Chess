@@ -8,17 +8,21 @@ public class AsyncTaskResult<T> {
         return result;
     }
 
-    public Exception getError() {
-        return error;
-    }
+        public Exception getError() {
+            return error;
+        }
 
     public AsyncTaskResult(T result) {
-        super();
-        this.result = result;
-    }
+            super();
+            this.result = result;
+        }
 
     public AsyncTaskResult(Exception error) {
-        super();
+            super();
         this.error = error;
     }
 }
+
+
+//PIece promotion
+//pawn taking
