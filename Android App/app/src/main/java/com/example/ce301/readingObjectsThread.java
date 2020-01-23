@@ -27,7 +27,7 @@ public class readingObjectsThread extends Thread {
         super.run();
         while (true){
             try {
-                blahblah();
+                generateLastMoveContent();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -36,7 +36,7 @@ public class readingObjectsThread extends Thread {
         }
     }
 
-    public void blahblah() throws IOException, ClassNotFoundException {
+    public void generateLastMoveContent() throws IOException, ClassNotFoundException {
         String success = (String) objectInputStream.readObject();
 
         String[] items = success.split(" ");
@@ -68,3 +68,5 @@ public class readingObjectsThread extends Thread {
         }
     }
 }
+
+
