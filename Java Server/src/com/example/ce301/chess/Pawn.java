@@ -32,36 +32,30 @@ public class Pawn extends ChessPiece implements Serializable {
 
         if(getPieceColor().equals(PieceColor.WHITE)){
             if(getX()-finishRow==-1){
-                System.out.println(getX()-finishRow);
                 return false;
             }else{
                 Boolean x = getaBoolean(chess, finishRow, finishCol);
-                if (x != null) return x;
+                return x;
             }
         }else{
             if(finishRow-getX()==-1){
                 return false;
             }else{
                 Boolean x = getaBoolean(chess, finishRow, finishCol);
-                if (x != null) return x;
+                return x;
             }
         }
-
-        return false;
     }
 
     private Boolean getaBoolean(Chess chess, int finishRow, int finishCol) {
         if(getX()+1==finishRow && getY()+1==finishCol){ //x+1 y+1, Black down and right  //need to add left down for black
-            if(chess.chessPieces[finishRow][finishCol]!=null){
-                if(!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())){
-                    movePieceInArray(chess, finishRow, finishCol);
-                    return true;
-                }else{
-                    return false;
-                }
-            }else{
-                return false;
-            }
+            return completeMove(chess, finishRow, finishCol);
+        }else if(getX()-1==finishRow && getY()-1==finishCol) { //x+1 y+1, Black down and right  //need to add left down for black
+            return completeMove(chess, finishRow, finishCol);
+        }else if(getX()+1==finishRow && getY()-1==finishCol) { //x+1 y+1, Black down and right  //need to add left down for black
+            return completeMove(chess, finishRow, finishCol);
+        }else if(getX()-1==finishRow && getY()+1==finishCol) { //x+1 y+1, Black down and right  //need to add left down for black
+            return completeMove(chess, finishRow, finishCol);
         }else{
             if(finishCol!=getY()){
                 return false;
@@ -70,22 +64,18 @@ public class Pawn extends ChessPiece implements Serializable {
                     if(getPieceColor().equals(PieceColor.WHITE)) {
                         if (getX() - finishRow == 2 || getX() - finishRow == 1) { //WHITE GOING FOWARD
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                System.out.println("first");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
-                                System.out.println("not allowed");
                                 return false;
                             }
                         }
                     }else{
                         if (finishRow - getX() == 2 || finishRow - getX() == 1) {  //BLACK GOING FORWARD
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                System.out.println("second");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
-                                System.out.println("not allowed");
                                 return false;
                             }
                         }
@@ -94,22 +84,18 @@ public class Pawn extends ChessPiece implements Serializable {
                     if(getPieceColor().equals(PieceColor.WHITE)) {
                         if (getX() - finishRow == 1) {
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                System.out.println("third");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
-                                System.out.println("not allowed");
                                 return false;
                             }
                         }
                     }else{
                         if (finishRow - getX() == 1) {
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                System.out.println("fourth");
                                 movePieceInArray(chess, finishRow, finishCol);
                                 return true;
                             } else {
-                                System.out.println("not allowed");
                                 return false;
                             }
                         }
@@ -120,6 +106,18 @@ public class Pawn extends ChessPiece implements Serializable {
         return false;
     }
 
+    private Boolean completeMove(Chess chess, int finishRow, int finishCol) {
+        if (chess.chessPieces[finishRow][finishCol] != null) {
+            if (!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())) {
+                movePieceInArray(chess, finishRow, finishCol);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
 
 }
