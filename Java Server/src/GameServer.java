@@ -1,5 +1,7 @@
 import com.example.ce301.chess.Chess;
 import com.example.ce301.chess.ChessPiece;
+import com.example.ce301.chess.Pawn;
+import com.example.ce301.chess.Queen;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -10,10 +12,9 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class GameServer extends Thread{
-    GameClientHandler player1;
-    GameClientHandler player2;
-    Chess chess;
-    private int whiteOrBlack;
+    private GameClientHandler player1;
+    private GameClientHandler player2;
+    private Chess chess;
 
 
     public GameServer(GameClientHandler player1, GameClientHandler player2){
@@ -37,8 +38,8 @@ public class GameServer extends Thread{
             chess = new Chess();
 
             Random random = new Random();
-            whiteOrBlack = random.nextInt(1);
-            if(whiteOrBlack==1){
+            int whiteOrBlack = random.nextInt(1);
+            if(whiteOrBlack ==1){
                 playerOneOutput.writeObject("WHITE");
                 playerTwoOutput.writeObject("BLACK");
             }else{
@@ -47,7 +48,7 @@ public class GameServer extends Thread{
             }
             //send game state to clients
             while(chess.gameInProgress){
-                if(whiteOrBlack==1){
+                if(whiteOrBlack ==1){
                     //playerone white
                     //playertwo black
                     String moves = player1.dataInputStream.readUTF();
@@ -86,19 +87,9 @@ public class GameServer extends Thread{
             boolean success = chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].move(chess, Integer.parseInt(secondPosition[0]), Integer.parseInt(secondPosition[1]));
             if(success){
                 if(player.equals(player1)){
-                    try {
-                        outputStreamForPlayer1.writeObject("success "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
-                        outputStreamForPlayer2.writeObject("success "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    createOutput(outputStreamForPlayer1, outputStreamForPlayer2, firstPostion, secondPosition, player1);
                 }else if(player.equals(player2)){
-                    try {
-                        outputStreamForPlayer1.writeObject("success "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
-                        outputStreamForPlayer2.writeObject("success "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    createOutput(outputStreamForPlayer1, outputStreamForPlayer2, firstPostion, secondPosition, player2);
                 }
             }else{
                 try {
@@ -118,5 +109,54 @@ public class GameServer extends Thread{
         }
 
 
+    }
+
+    private void createOutput(ObjectOutputStream outputStreamForPlayer1, ObjectOutputStream outputStreamForPlayer2, String[] firstPostion, String[] secondPosition, GameClientHandler player) {
+        try {
+            outputStreamForPlayer1.writeObject("success "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
+            outputStreamForPlayer2.writeObject("success "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
+
+            if(chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] instanceof Pawn && (Integer.parseInt(secondPosition[0])==0 || Integer.parseInt(secondPosition[0])==7)){
+                //promote piece
+                System.out.println("WRITING PROMOTE");
+                if(player.equals(player1)){
+                    outputStreamForPlayer1.writeObject("PROMOTE");
+
+                }else if(player.equals(player2)){
+                    outputStreamForPlayer2.writeObject("PROMOTE");
+
+                }
+                String pieces = player.dataInputStream.readUTF();
+                System.out.println("READING RESPONSE " + pieces);
+                String[] items = pieces.split(" ");
+                System.out.println(Arrays.toString(items));
+                String newPieceType = items[1];
+                ChessPiece.PieceColor currentColor = chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].getPieceColor();
+
+                switch (newPieceType){
+                    case "QUEEN":
+                        Pawn pawn = (Pawn) chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])];
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] = new Queen();
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPosition(pawn.getX(),pawn.getY());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceColor(pawn.getPieceColor());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceState(pawn.getPieceState());
+
+
+                        System.out.println("WRITING RESPONSE");
+                        outputStreamForPlayer1.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " QUEEN");
+                        outputStreamForPlayer2.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " QUEEN");
+                        break;
+                    case "KNIGHT":
+                        break;
+                    case "ROOK":
+                        break;
+                    case "BISHOP":
+                        break;
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

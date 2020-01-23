@@ -102,7 +102,7 @@ public class GameClient extends Thread{
                                 colorview.setText(color);
                             }
                         });
-                        readingObjectsThread readingThread = new readingObjectsThread(activity, handler, objectInputStream);
+                        readingObjectsThread readingThread = new readingObjectsThread(activity, handler, objectInputStream, dataOutputStream);
                         readingThread.start();
                     }
                 }
