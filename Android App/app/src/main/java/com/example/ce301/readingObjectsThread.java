@@ -45,6 +45,8 @@ public class readingObjectsThread extends Thread {
         String[] items = success.split(" ");
         if(items[0].equalsIgnoreCase("PROMOTE")){
             dataOutputStream.writeUTF("PROMOTE_TO QUEEN");
+            //Create PopUp
+
         }else if(items[0].equalsIgnoreCase("PROMOTION")){
             final String[] piecePosition = items[1].split(",");
             final int piecePositionInGrid = (Integer.parseInt(piecePosition[0]) * 8) + Integer.parseInt(piecePosition[1]);
@@ -60,11 +62,9 @@ public class readingObjectsThread extends Thread {
                                 view2.setImageResource(R.drawable.chess_qlt60);
                             }else if(receivedPieceColor.equals("BLACK")){
                                 view2.setImageResource(R.drawable.chess_qdt60);
-
                             }
                         }
                     });
-
                     break;
                 case "KNIGHT":
                     handler.post(new Runnable() {
@@ -72,16 +72,41 @@ public class readingObjectsThread extends Thread {
                         public void run() {
                             ImageView view2 = (ImageView) activity.gridLayout.getChildAt(piecePositionInGrid);
                             if(receivedPieceColor.equals("WHITE")){
-                                System.out.println("Hello");
+                                view2.setImageResource(R.drawable.chess_nlt60);
                             }else if(receivedPieceColor.equals("BLACK")){
+                                view2.setImageResource(R.drawable.chess_ndt60);
+                            }
+                        }
+                    });
+                    break;
 
+                case "ROOK":
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView view2 = (ImageView) activity.gridLayout.getChildAt(piecePositionInGrid);
+                            if(receivedPieceColor.equals("WHITE")){
+                                view2.setImageResource(R.drawable.chess_rlt60);
+                            }else if(receivedPieceColor.equals("BLACK")){
+                                view2.setImageResource(R.drawable.chess_rdt60);
+                            }
+                        }
+                    });
+                    break;
+                case "BISHOP":
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            ImageView view2 = (ImageView) activity.gridLayout.getChildAt(piecePositionInGrid);
+                            if(receivedPieceColor.equals("WHITE")){
+                                view2.setImageResource(R.drawable.chess_blt60);
+                            }else if(receivedPieceColor.equals("BLACK")){
+                                view2.setImageResource(R.drawable.chess_bdt60);
                             }
                         }
                     });
                     break;
             }
-
-
 
         } else{
             final String[] firstPostion = items[1].split(",");

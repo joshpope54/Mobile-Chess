@@ -1,7 +1,4 @@
-import com.example.ce301.chess.Chess;
-import com.example.ce301.chess.ChessPiece;
-import com.example.ce301.chess.Pawn;
-import com.example.ce301.chess.Queen;
+import com.example.ce301.chess.*;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -118,39 +115,49 @@ public class GameServer extends Thread{
 
             if(chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] instanceof Pawn && (Integer.parseInt(secondPosition[0])==0 || Integer.parseInt(secondPosition[0])==7)){
                 //promote piece
-                System.out.println("WRITING PROMOTE");
                 if(player.equals(player1)){
                     outputStreamForPlayer1.writeObject("PROMOTE");
-
                 }else if(player.equals(player2)){
                     outputStreamForPlayer2.writeObject("PROMOTE");
-
                 }
                 String pieces = player.dataInputStream.readUTF();
-                System.out.println("READING RESPONSE " + pieces);
                 String[] items = pieces.split(" ");
                 System.out.println(Arrays.toString(items));
                 String newPieceType = items[1];
                 ChessPiece.PieceColor currentColor = chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].getPieceColor();
-
+                Pawn pawn = (Pawn) chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])];
                 switch (newPieceType){
                     case "QUEEN":
-                        Pawn pawn = (Pawn) chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])];
                         chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] = new Queen();
                         chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPosition(pawn.getX(),pawn.getY());
                         chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceColor(pawn.getPieceColor());
                         chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceState(pawn.getPieceState());
-
-
-                        System.out.println("WRITING RESPONSE");
                         outputStreamForPlayer1.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " QUEEN");
                         outputStreamForPlayer2.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " QUEEN");
                         break;
                     case "KNIGHT":
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] = new Knight();
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPosition(pawn.getX(),pawn.getY());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceColor(pawn.getPieceColor());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceState(pawn.getPieceState());
+                        outputStreamForPlayer1.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " KNIGHT");
+                        outputStreamForPlayer2.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " KNIGHT");
                         break;
                     case "ROOK":
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] = new Rook();
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPosition(pawn.getX(),pawn.getY());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceColor(pawn.getPieceColor());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceState(pawn.getPieceState());
+                        outputStreamForPlayer1.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " ROOK");
+                        outputStreamForPlayer2.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " ROOK");
                         break;
                     case "BISHOP":
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] = new Bishop();
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPosition(pawn.getX(),pawn.getY());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceColor(pawn.getPieceColor());
+                        chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].setPieceState(pawn.getPieceState());
+                        outputStreamForPlayer1.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " BISHOP");
+                        outputStreamForPlayer2.writeObject("PROMOTION "+secondPosition[0]+","+secondPosition[1] + " "+currentColor + " BISHOP");
                         break;
                 }
             }
