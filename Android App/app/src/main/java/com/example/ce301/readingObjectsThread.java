@@ -1,7 +1,12 @@
 package com.example.ce301;
 
+import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,8 +49,67 @@ public class readingObjectsThread extends Thread {
         System.out.println(success);
         String[] items = success.split(" ");
         if(items[0].equalsIgnoreCase("PROMOTE")){
-            dataOutputStream.writeUTF("PROMOTE_TO QUEEN");
-            //Create PopUp
+            final String[] promotionType = {""};
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    final Dialog dialog = new Dialog(activity);
+                    dialog.setCanceledOnTouchOutside(false);
+
+                    View dialogView = LayoutInflater.from(activity).inflate(R.layout.pawn_promotion, null);
+                    dialogView.findViewById(R.id.cardview1).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            promotionType[0] = "QUEEN";
+                            dialog.dismiss();
+                        }
+                    });
+                    dialogView.findViewById(R.id.cardview2).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            promotionType[0] = "KNIGHT";
+                            dialog.dismiss();
+                        }
+                    });
+                    dialogView.findViewById(R.id.cardview3).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            promotionType[0] = "ROOK";
+                            dialog.dismiss();
+                        }
+                    });
+                    dialogView.findViewById(R.id.cardview4).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            promotionType[0] = "BISHOP";
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.setContentView(dialogView);
+                    dialog.show();
+
+                    Window window = dialog.getWindow();
+                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                }
+            });
+
+            switch (promotionType[0]){
+                case "QUEEN":
+                    dataOutputStream.writeUTF("PROMOTE_TO QUEEN");
+                    break;
+                case "KNIGHT":
+                    dataOutputStream.writeUTF("PROMOTE_TO ROOK");
+                    break;
+                case "ROOK":
+                    dataOutputStream.writeUTF("PROMOTE_TO KNIGHT");
+                    break;
+                case "BISHOP":
+                    dataOutputStream.writeUTF("PROMOTE_TO BISHOP");
+                    break;
+            }
+
+
 
         }else if(items[0].equalsIgnoreCase("PROMOTION")){
             final String[] piecePosition = items[1].split(",");
