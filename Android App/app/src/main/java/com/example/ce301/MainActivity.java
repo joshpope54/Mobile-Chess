@@ -10,6 +10,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "10.0.2.2";//"192.168.43.35";//"100.86.213.36";//"10.0.2.2";//getString(R.string.ip_address);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build(); //remove and replace with proper thread handling
+        StrictMode.setThreadPolicy(policy);
+        ipaddress = "100.86.213.17";
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);
@@ -46,9 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         view1 = getLayoutInflater().inflate(R.layout.activity_main, null);
         view2 = getLayoutInflater().inflate(R.layout.not_connected, null);
         view3 = getLayoutInflater().inflate(R.layout.activity_game, null);
-
-        //setContentView(view2);
-
 
         if (thread.isAlive()) {
             setContentView(view1);

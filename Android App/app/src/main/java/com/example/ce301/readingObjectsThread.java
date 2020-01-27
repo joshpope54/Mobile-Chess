@@ -22,6 +22,7 @@ public class readingObjectsThread extends Thread {
     private ObjectInputStream objectInputStream;
     private MainActivity activity;
     private DataOutputStream dataOutputStream;
+    public static String[] promotionType = {""};
 
     public readingObjectsThread(MainActivity activity, Handler handler, ObjectInputStream objectInputStream, DataOutputStream dataOutputStream){
         this.handler = handler;
@@ -49,7 +50,6 @@ public class readingObjectsThread extends Thread {
         System.out.println(success);
         String[] items = success.split(" ");
         if(items[0].equalsIgnoreCase("PROMOTE")){
-            final String[] promotionType = {""};
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -60,28 +60,47 @@ public class readingObjectsThread extends Thread {
                     dialogView.findViewById(R.id.cardview1).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            promotionType[0] = "QUEEN";
+                            try {
+                                dataOutputStream.writeUTF("PROMOTE_TO QUEEN");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             dialog.dismiss();
                         }
                     });
                     dialogView.findViewById(R.id.cardview2).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            promotionType[0] = "KNIGHT";
+                            //promotionType[0] = "KNIGHT";
+                            try {
+                                dataOutputStream.writeUTF("PROMOTE_TO KNIGHT");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             dialog.dismiss();
                         }
                     });
                     dialogView.findViewById(R.id.cardview3).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            promotionType[0] = "ROOK";
+                            //promotionType[0] = "ROOK";
+                            try {
+                                dataOutputStream.writeUTF("PROMOTE_TO ROOK");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             dialog.dismiss();
                         }
                     });
                     dialogView.findViewById(R.id.cardview4).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            promotionType[0] = "BISHOP";
+                            //promotionType[0] = "BISHOP";
+                            try {
+                                dataOutputStream.writeUTF("PROMOTE_TO BISHOP");
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                             dialog.dismiss();
                         }
                     });
@@ -94,20 +113,6 @@ public class readingObjectsThread extends Thread {
                 }
             });
 
-            switch (promotionType[0]){
-                case "QUEEN":
-                    dataOutputStream.writeUTF("PROMOTE_TO QUEEN");
-                    break;
-                case "KNIGHT":
-                    dataOutputStream.writeUTF("PROMOTE_TO ROOK");
-                    break;
-                case "ROOK":
-                    dataOutputStream.writeUTF("PROMOTE_TO KNIGHT");
-                    break;
-                case "BISHOP":
-                    dataOutputStream.writeUTF("PROMOTE_TO BISHOP");
-                    break;
-            }
 
 
 
