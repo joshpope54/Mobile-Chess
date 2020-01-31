@@ -27,6 +27,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -34,6 +35,7 @@ import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class GameClient extends Thread{
     private String ip;
@@ -41,8 +43,8 @@ public class GameClient extends Thread{
     private final Handler handler;
     private MainActivity activity;
     private Socket s;
-    private ObjectInputStream objectInputStream;
-    private DataOutputStream dataOutputStream;
+    private Scanner objectInputStream;
+    private PrintWriter dataOutputStream;
     public String communication = "";
     private boolean inGame;
     public int[][] points;
@@ -74,12 +76,12 @@ public class GameClient extends Thread{
             SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(port));
             s = new Socket();
             s.connect(saddress, 2000);
-            objectInputStream = new ObjectInputStream(s.getInputStream());
-            dataOutputStream = new DataOutputStream(s.getOutputStream());
+            objectInputStream = new Scanner(s.getInputStream());
+            dataOutputStream = new PrintWriter(s.getOutputStream(),true);
 
             while (running) {
                 if(!inGame){
-                    String recieved = (String) objectInputStream.readObject();
+                    String recieved = objectInputStream.nextLine();
                     if(recieved.equalsIgnoreCase("connected")){
                         handler.post(new Runnable() {
                             @Override
@@ -93,7 +95,7 @@ public class GameClient extends Thread{
                             }
                         });
                         inGame = true;
-                        String recievedString = (String) objectInputStream.readObject();
+                        String recievedString = objectInputStream.nextLine();
                         color = recievedString;
                         handler.post(new Runnable() {
                             @Override
@@ -112,13 +114,13 @@ public class GameClient extends Thread{
                     //Log.e("INGAME", "NOW IN GAME");
                     //read from here
                     if(points!=null){
-                        dataOutputStream.writeUTF(color+" "+points[0][0]+","+points[0][1]+" "+points[1][0]+","+points[1][1]);
+                        dataOutputStream.println(color+" "+points[0][0]+","+points[0][1]+" "+points[1][0]+","+points[1][1]);
                         points=null;
                     }
 
                 }
             }
-            dataOutputStream.writeUTF("exit");
+            dataOutputStream.println("exit");
             System.out.println("socket being closed?");
             s.close();
             objectInputStream.close();
@@ -132,8 +134,6 @@ public class GameClient extends Thread{
                 }
             });
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

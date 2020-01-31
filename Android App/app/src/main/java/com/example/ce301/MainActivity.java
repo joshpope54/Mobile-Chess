@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build(); //remove and replace with proper thread handling
         StrictMode.setThreadPolicy(policy);
-        ipaddress = "100.86.213.17";
+        ipaddress = "joshpope.dev";
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         thread = new ConnectionThread(ipaddress, server, handler, this);

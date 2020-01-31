@@ -82,6 +82,7 @@ class MatchMaker extends Thread {
     private static String matchmaker = "[MATCHMAKER] ";
     ServerSocket serverSocket;
     public static ArrayList<GameClientHandler> waitingForPlayers;
+    private int totalPlayers;
     // Constructor
     public MatchMaker() {
         try {
@@ -104,6 +105,7 @@ class MatchMaker extends Thread {
                     //Once accepted send information about player Id, etc
                     GameClientHandler handler = new GameClientHandler(s, matchmaker);
                     waitingForPlayers.add(handler);
+                    totalPlayers+=1;
 
                     //Create Client handler thread?
                     System.out.println(matchmaker + "Connection made by " + handler.client + " queue count: "+ waitingForPlayers.size());
@@ -137,6 +139,7 @@ class MatchMaker extends Thread {
 
                     }
 
+                    System.out.println("TOTAL PLAYERS: "+ totalPlayers);
 
                     //Got A player - done
                     //Add them to to waiting queue (List of Sockets?) - done

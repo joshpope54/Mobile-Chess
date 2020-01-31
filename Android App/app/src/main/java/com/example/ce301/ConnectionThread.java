@@ -18,12 +18,14 @@ import android.widget.TextView;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
 public class ConnectionThread extends Thread{
     private String ip;
@@ -31,8 +33,8 @@ public class ConnectionThread extends Thread{
     private final Handler handler;
     private Activity activity;
     private Socket s;
-    private DataInputStream dataInputStream;
-    private DataOutputStream dataOutputStream;
+    private Scanner dataInputStream;
+    private PrintWriter dataOutputStream;
     public String communication = "";
 
 
@@ -58,13 +60,13 @@ public class ConnectionThread extends Thread{
             SocketAddress saddress = new InetSocketAddress(ipactua, Integer.parseInt(port));
             s = new Socket();
             s.connect(saddress, 2000);
-            dataOutputStream = new DataOutputStream(s.getOutputStream());
-            dataInputStream = new DataInputStream(s.getInputStream());
+            dataOutputStream = new PrintWriter(s.getOutputStream(), true);
+            dataInputStream = new Scanner(s.getInputStream());
 
             while (true) {
                 if(communication.equalsIgnoreCase("exit")){
                     try {
-                        dataOutputStream.writeUTF("exit");
+                        dataOutputStream.println("exit");
                         System.out.println("socket being closed?");
                         s.close();
                         break;

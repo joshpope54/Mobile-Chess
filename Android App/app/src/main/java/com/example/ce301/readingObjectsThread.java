@@ -15,16 +15,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class readingObjectsThread extends Thread {
     private Handler handler;
-    private ObjectInputStream objectInputStream;
+    private Scanner objectInputStream;
     private MainActivity activity;
-    private DataOutputStream dataOutputStream;
+    private PrintWriter dataOutputStream;
     public static String[] promotionType = {""};
 
-    public readingObjectsThread(MainActivity activity, Handler handler, ObjectInputStream objectInputStream, DataOutputStream dataOutputStream){
+    public readingObjectsThread(MainActivity activity, Handler handler, Scanner objectInputStream, PrintWriter dataOutputStream){
         this.handler = handler;
         this.objectInputStream = objectInputStream;
         this.activity = activity;
@@ -46,7 +48,7 @@ public class readingObjectsThread extends Thread {
     }
 
     public void generateLastMoveContent() throws IOException, ClassNotFoundException {
-        String success = (String) objectInputStream.readObject();
+        String success = (String) objectInputStream.nextLine();
         System.out.println(success);
         String[] items = success.split(" ");
         if(items[0].equalsIgnoreCase("PROMOTE")){
@@ -60,11 +62,7 @@ public class readingObjectsThread extends Thread {
                     dialogView.findViewById(R.id.cardview1).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            try {
-                                dataOutputStream.writeUTF("PROMOTE_TO QUEEN");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            dataOutputStream.println("PROMOTE_TO QUEEN");
                             dialog.dismiss();
                         }
                     });
@@ -72,11 +70,7 @@ public class readingObjectsThread extends Thread {
                         @Override
                         public void onClick(View view) {
                             //promotionType[0] = "KNIGHT";
-                            try {
-                                dataOutputStream.writeUTF("PROMOTE_TO KNIGHT");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            dataOutputStream.println("PROMOTE_TO KNIGHT");
                             dialog.dismiss();
                         }
                     });
@@ -84,11 +78,7 @@ public class readingObjectsThread extends Thread {
                         @Override
                         public void onClick(View view) {
                             //promotionType[0] = "ROOK";
-                            try {
-                                dataOutputStream.writeUTF("PROMOTE_TO ROOK");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            dataOutputStream.println("PROMOTE_TO ROOK");
                             dialog.dismiss();
                         }
                     });
@@ -96,11 +86,7 @@ public class readingObjectsThread extends Thread {
                         @Override
                         public void onClick(View view) {
                             //promotionType[0] = "BISHOP";
-                            try {
-                                dataOutputStream.writeUTF("PROMOTE_TO BISHOP");
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                            dataOutputStream.println("PROMOTE_TO BISHOP");
                             dialog.dismiss();
                         }
                     });
