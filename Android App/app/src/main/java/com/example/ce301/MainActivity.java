@@ -60,56 +60,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             setContentView(view2);
         }
     }
-    private String color;
-    private int[][] points = {{-1,-1},{-1,-1}};
+//    private String color;
+//    private int[][] points = {{-1,-1},{-1,-1}};
 
-    @Override
-    public void onContentChanged() {
-        super.onContentChanged();
-        gridLayout = findViewById(R.id.gridlayout);
-        if(gridLayout!=null){
-            for (int i = 0; i < gridLayout.getChildCount(); i++) {
-                ImageView imageView = (ImageView)gridLayout.getChildAt(i);
-                final int row_no=i/8;
-                final int col_no=i%8;
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(points[1][1]!=-1){
-                            points[0][0] = -1;
-                            points[0][1] = -1;
-                            points[1][0] = -1;
-                            points[1][1] = -1;
-                        }
-
-                        if(points[0][0]==-1){
-                            points[0][0]= row_no;
-                            points[0][1]= col_no;
-                        }else if (points[1][0]==-1){
-                            points[1][0]= row_no;
-                            points[1][1]= col_no;
-                            checkData();
-                        }
-
-                        Log.e("Points", ""+ Arrays.toString(points[0]));
-                        Log.e("Points", ""+ Arrays.toString(points[1]));
-                    }
-                });
-
-            }
-        }
-    }
-
-    public void checkData(){
-        if(points[0][0]!=-1 && points[1][0]!=-1){
-            gameThread.currenthandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    gameThread.points = points;
-                }
-            });
-        }
-    }
+//    @Override
+//    public void onContentChanged() {
+//        super.onContentChanged();
+//        gridLayout = findViewById(R.id.gridlayout);
+//        if(gridLayout!=null){
+//            for (int i = 0; i < gridLayout.getChildCount(); i++) {
+//                ImageView imageView = (ImageView)gridLayout.getChildAt(i);
+//                final int row_no=i/8;
+//                final int col_no=i%8;
+//                imageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if(points[1][1]!=-1){
+//                            points[0][0] = -1;
+//                            points[0][1] = -1;
+//                            points[1][0] = -1;
+//                            points[1][1] = -1;
+//                        }
+//
+//                        if(points[0][0]==-1){
+//                            points[0][0]= row_no;
+//                            points[0][1]= col_no;
+//                        }else if (points[1][0]==-1){
+//                            points[1][0]= row_no;
+//                            points[1][1]= col_no;
+//                            checkData();
+//                        }
+//
+//                        Log.e("Points", ""+ Arrays.toString(points[0]));
+//                        Log.e("Points", ""+ Arrays.toString(points[1]));
+//                    }
+//                });
+//
+//            }
+//        }
+//    }
+//
+//    public void checkData(){
+//        if(points[0][0]!=-1 && points[1][0]!=-1){
+//            gameThread.currenthandler.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    gameThread.points = points;
+//                }
+//            });
+//        }
+//    }
 
 
     @Override
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.playButton:
                 if (thread.isAlive()) {
-                    gameThread = new GameClient(ipaddress, matchmaker, handler, this);
+                    gameThread = new GameClient(ipaddress, matchmaker, this);
                     gameThread.start();
                     //Thread Started
                     //Open Dialog
