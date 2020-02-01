@@ -52,10 +52,10 @@ public class GameClient extends Thread{
 
 
 
-    public GameClient(String ip, String port, Handler handler, MainActivity activity){
+    public GameClient(String ip, String port, MainActivity activity){
         this.ip = ip;
         this.port = port;
-        this.handler = handler;
+        handler = new Handler(Looper.getMainLooper());
         this.activity = activity;
         currenthandler = new Handler(Looper.myLooper());
     }
