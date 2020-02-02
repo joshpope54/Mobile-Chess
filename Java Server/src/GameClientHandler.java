@@ -7,11 +7,13 @@ import java.net.Socket;
 import java.util.Random;
 import java.util.Scanner;
 
-public class GameClientHandler {
+public class GameClientHandler extends Thread{
     Socket client;
     Scanner dataInputStream;
     PrintWriter dataOutputStream;
     String string;
+    public GameServer server;
+    private volatile boolean exit = false;
 
     public GameClientHandler(Socket clientSocket, String type){
         client = clientSocket;
@@ -24,7 +26,31 @@ public class GameClientHandler {
         }
     }
 
-//    public void run() {
+    @Override
+    public void run() {
+        super.run();
+        String recieved = dataInputStream.nextLine();
+        if (recieved.equalsIgnoreCase("exit")) {
+            System.out.println(string + " Client " + this.client + " sends exit...");
+            System.out.println(string + " Closing this connection.");
+            MatchMaker.waitingForPlayers.remove(this);
+            System.out.println(string + " Removing " + this + " from waiting for players new Count: " + MatchMaker.waitingForPlayers.size());
+            try {
+                this.client.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println(string + " Connection closed");
+        }else{
+            server.createPosition(recieved, this);
+        }
+    }
+
+    public void stopper(){
+        exit = true;
+    }
+
+    //    public void run() {
 //        String received;
 //        while(true){
 //            try{

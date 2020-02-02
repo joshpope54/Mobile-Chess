@@ -3,5 +3,5 @@
     <string name="ip_address">10.245.113.102</string>
     <string name="server_port">5561</string>
     <string name="matchmaker_port">5560</string>
-
+    <string name="remote_service_started">started</string>
 </resources>

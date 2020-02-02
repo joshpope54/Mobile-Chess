@@ -27,6 +27,7 @@ public class ClientHandler extends Thread {
         try{
             while(true){
                 received = dataInputStream.nextLine();
+                System.out.println(received);
             }
         } catch (Exception e) {
             try {
