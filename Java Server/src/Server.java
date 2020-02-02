@@ -104,6 +104,7 @@ class MatchMaker extends Thread {
                     s = serverSocket.accept();
                     //Once accepted send information about player Id, etc
                     GameClientHandler handler = new GameClientHandler(s, matchmaker);
+                    handler.start();
                     waitingForPlayers.add(handler);
                     totalPlayers+=1;
 
