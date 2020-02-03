@@ -2,7 +2,6 @@ image: java:latest
 
 stages:
   - build
-  - execute
 
 build:
   stage: build
