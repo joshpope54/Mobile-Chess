@@ -1,4 +1,4 @@
-package com.example.ce301.new_pack;
+package com.example.ce301;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build(); //remove and replace with proper thread handling
         //StrictMode.setThreadPolicy(policy);
-        ipaddress = "100.86.213.35";//"joshpope.dev";
+        ipaddress = "joshpope.dev";//"joshpope.dev";
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         dialog = new Dialog(this);

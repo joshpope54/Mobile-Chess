@@ -1,4 +1,4 @@
-package com.example.ce301.new_pack;
+package com.example.ce301;
 
 public class EventClass {
 

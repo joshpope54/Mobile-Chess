@@ -1,4 +1,4 @@
-package com.example.ce301.new_pack;
+package com.example.ce301;
 
 import android.icu.text.ScientificNumberFormatter;
 import android.os.Handler;
@@ -43,7 +43,7 @@ public class GameReadingThread extends Thread {
     @Override
     public void run() {
         super.run();
-        String ip = "100.86.213.35";
+        String ip = "joshpope.dev";
         InetAddress ipactua = null;
         try {
             ipactua = InetAddress.getByName(ip);
