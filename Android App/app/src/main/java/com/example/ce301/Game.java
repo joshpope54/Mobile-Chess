@@ -19,33 +19,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
-
-import com.example.ce301.R;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Arrays;
-
-//package com.example.ce301.old;
-//
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.gridlayout.widget.GridLayout;
-//
-//import android.os.Bundle;
-//import android.os.Handler;
-//import android.os.HandlerThread;
-//import android.os.Looper;
-//import android.os.Message;
-//import android.util.Log;
-//import android.view.View;
-//import android.widget.ImageView;
-//import android.widget.TextView;
-//
-//import com.example.ce301.R;
-//
-//import java.util.Arrays;
-//
 public class Game extends AppCompatActivity {
     public GridLayout gridLayout;
     private int[][] points = {{-1, -1}, {-1, -1}};
@@ -80,6 +57,11 @@ public class Game extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView70);
         textView.setText(color);
         EventBus.getDefault().register(this);
+        if(color.equals("BLACK")){
+            //flip board
+
+        }
+
 
         gridLayout = findViewById(R.id.gridlayout);
         if(gridLayout!=null){

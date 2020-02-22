@@ -3,7 +3,6 @@ package com.example.ce301;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,17 +13,12 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.os.Messenger;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.Toast;
-
-import com.example.ce301.R;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -33,10 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String server;
     private String matchmaker;
     private Handler handler = new Handler(Looper.getMainLooper());
-    // ServerConnection thread;
     public View view1, view2;
     public Dialog dialog;
-   // public GameClient gameThread;
 
     ServiceClass mService;
     boolean mBound = false;
@@ -51,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build(); //remove and replace with proper thread handling
-        //StrictMode.setThreadPolicy(policy);
         ipaddress = "joshpope.dev";//"joshpope.dev";
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
@@ -71,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        // Bind to LocalService
-
     }
 
     @Override
