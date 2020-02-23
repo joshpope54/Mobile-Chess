@@ -43,7 +43,7 @@ public class GameReadingThread extends Thread {
     @Override
     public void run() {
         super.run();
-        String ip = "joshpope.dev";
+        String ip = "192.168.43.35";
         InetAddress ipactua = null;
         try {
             ipactua = InetAddress.getByName(ip);

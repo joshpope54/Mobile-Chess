@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.Arrays;
 public class Game extends AppCompatActivity {
-    public GridLayout gridLayout;
+    //public LinearLayout linearLayoutInclude;
     private int[][] points = {{-1, -1}, {-1, -1}};
     ServiceClass mService;
     boolean mBound = false;
@@ -57,44 +58,69 @@ public class Game extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView70);
         textView.setText(color);
         EventBus.getDefault().register(this);
+        //linearLayoutInclude = findViewById(R.id.chessboardinclude);
         if(color.equals("BLACK")){
             //flip board
+            //dynamically fill layout content
+            //View content = getLayoutInflater().inflate(R.layout.chessboard_black, linearLayoutInclude, false);
+            //linearLayoutInclude.addView(content);
+            LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = vi.inflate(R.layout.chessboard_white, null);
+
+// fill in any details dynamically here
+
+// insert into main view
+            ViewGroup insertPoint = (ViewGroup) findViewById(R.id.chessboardinclude);
+            insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+            Log.e("CONTENT FILL", "FILLED WITH BLACK");
+        }else{
+//            View content1 = getLayoutInflater().inflate(R.layout.chessboard_white, linearLayoutInclude, false);
+//            linearLayoutInclude.addView(content1);
+            LayoutInflater vi = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = vi.inflate(R.layout.chessboard_white, null);
+
+// fill in any details dynamically here
+
+// insert into main view
+            ViewGroup insertPoint = (ViewGroup) findViewById(R.id.chessboardinclude);
+            insertPoint.addView(v, 0, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.FILL_PARENT));
+            Log.e("CONTENT FILL", "FILLED WITH WHITE");
 
         }
 
 
-        gridLayout = findViewById(R.id.gridlayout);
-        if(gridLayout!=null){
-            for (int i = 0; i < gridLayout.getChildCount(); i++) {
-                ImageView imageView = (ImageView)gridLayout.getChildAt(i);
-                final int row_no=i/8;
-                final int col_no=i%8;
-                imageView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if(points[1][1]!=-1){
-                            points[0][0] = -1;
-                            points[0][1] = -1;
-                            points[1][0] = -1;
-                            points[1][1] = -1;
-                        }
-
-                        if(points[0][0]==-1){
-                            points[0][0]= row_no;
-                            points[0][1]= col_no;
-                        }else if (points[1][0]==-1){
-                            points[1][0]= row_no;
-                            points[1][1]= col_no;
-                            checkData();
-                        }
-
-                        Log.e("Points", ""+ Arrays.toString(points[0]));
-                        Log.e("Points", ""+ Arrays.toString(points[1]));
-                    }
-                });
-
-            }
-        }
+//        gridLayout = findViewById(R.id.gridlayout);
+//        if(gridLayout!=null){
+//            for (int i = 0; i < gridLayout.getChildCount(); i++) {
+//                ImageView imageView = (ImageView)gridLayout.getChildAt(i);
+//                final int row_no=i/8;
+//                final int col_no=i%8;
+//                imageView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        if(points[1][1]!=-1){
+//                            points[0][0] = -1;
+//                            points[0][1] = -1;
+//                            points[1][0] = -1;
+//                            points[1][1] = -1;
+//                        }
+//
+//                        if(points[0][0]==-1){
+//                            points[0][0]= row_no;
+//                            points[0][1]= col_no;
+//                        }else if (points[1][0]==-1){
+//                            points[1][0]= row_no;
+//                            points[1][1]= col_no;
+//                            checkData();
+//                        }
+//
+//                        Log.e("Points", ""+ Arrays.toString(points[0]));
+//                        Log.e("Points", ""+ Arrays.toString(points[1]));
+//                    }
+//                });
+//
+//            }
+//        }
     }
 
     @Override
@@ -159,49 +185,49 @@ public class Game extends AppCompatActivity {
                 final String[] piecePosition = messageArray[1].split(",");
                 final int piecePositionInGrid = (Integer.parseInt(piecePosition[0]) * 8) + Integer.parseInt(piecePosition[1]);
                 final String receivedPieceColor = messageArray[2];
-                ImageView view2 = (ImageView) gridLayout.getChildAt(piecePositionInGrid);
-                switch (messageArray[3]){
-                    case "QUEEN":
-                        if(receivedPieceColor.equals("WHITE")){
-                            view2.setImageResource(R.drawable.chess_qlt60);
-                        }else if(receivedPieceColor.equals("BLACK")){
-                            view2.setImageResource(R.drawable.chess_qdt60);
-                        }
-                        break;
-                    case "KNIGHT":
-                        if(receivedPieceColor.equals("WHITE")){
-                            view2.setImageResource(R.drawable.chess_nlt60);
-                        }else if(receivedPieceColor.equals("BLACK")){
-                            view2.setImageResource(R.drawable.chess_ndt60);
-                        }
-                        break;
-
-                    case "ROOK":
-                        if(receivedPieceColor.equals("WHITE")){
-                            view2.setImageResource(R.drawable.chess_rlt60);
-                        }else if(receivedPieceColor.equals("BLACK")) {
-                            view2.setImageResource(R.drawable.chess_rdt60);
-                        }
-                        break;
-                    case "BISHOP":
-                        if(receivedPieceColor.equals("WHITE")){
-                            view2.setImageResource(R.drawable.chess_blt60);
-                        }else if(receivedPieceColor.equals("BLACK")){
-                            view2.setImageResource(R.drawable.chess_bdt60);
-                        }
-                        break;
-                }
-            }else if(messageArray[0].equals("SUCCESS")){
-                final String[] firstPostion = messageArray[1].split(",");
-                final String[] secondPosition = messageArray[2].split(",");
-                final int start = (Integer.parseInt(firstPostion[0]) * 8) + Integer.parseInt(firstPostion[1]);
-                final int finish = (Integer.parseInt(secondPosition[0]) * 8) + Integer.parseInt(secondPosition[1]);
-                TextView lastMove = (TextView) findViewById(R.id.textView67);
-                lastMove.setText(Arrays.toString(firstPostion) + " To " + Arrays.toString(secondPosition));
-                ImageView view = (ImageView) gridLayout.getChildAt(start);
-                ImageView view2 = (ImageView) gridLayout.getChildAt(finish);
-                view2.setImageDrawable(view.getDrawable());
-                view.setImageResource(android.R.color.transparent);
+//                ImageView view2 = (ImageView) gridLayout.getChildAt(piecePositionInGrid);
+//                switch (messageArray[3]){
+//                    case "QUEEN":
+//                        if(receivedPieceColor.equals("WHITE")){
+//                            view2.setImageResource(R.drawable.chess_qlt60);
+//                        }else if(receivedPieceColor.equals("BLACK")){
+//                            view2.setImageResource(R.drawable.chess_qdt60);
+//                        }
+//                        break;
+//                    case "KNIGHT":
+//                        if(receivedPieceColor.equals("WHITE")){
+//                            view2.setImageResource(R.drawable.chess_nlt60);
+//                        }else if(receivedPieceColor.equals("BLACK")){
+//                            view2.setImageResource(R.drawable.chess_ndt60);
+//                        }
+//                        break;
+//
+//                    case "ROOK":
+//                        if(receivedPieceColor.equals("WHITE")){
+//                            view2.setImageResource(R.drawable.chess_rlt60);
+//                        }else if(receivedPieceColor.equals("BLACK")) {
+//                            view2.setImageResource(R.drawable.chess_rdt60);
+//                        }
+//                        break;
+//                    case "BISHOP":
+//                        if(receivedPieceColor.equals("WHITE")){
+//                            view2.setImageResource(R.drawable.chess_blt60);
+//                        }else if(receivedPieceColor.equals("BLACK")){
+//                            view2.setImageResource(R.drawable.chess_bdt60);
+//                        }
+//                        break;
+//                }
+//            }else if(messageArray[0].equals("SUCCESS")){
+//                final String[] firstPostion = messageArray[1].split(",");
+//                final String[] secondPosition = messageArray[2].split(",");
+//                final int start = (Integer.parseInt(firstPostion[0]) * 8) + Integer.parseInt(firstPostion[1]);
+//                final int finish = (Integer.parseInt(secondPosition[0]) * 8) + Integer.parseInt(secondPosition[1]);
+//                TextView lastMove = (TextView) findViewById(R.id.textView67);
+//                lastMove.setText(Arrays.toString(firstPostion) + " To " + Arrays.toString(secondPosition));
+                //ImageView view = (ImageView) gridLayout.getChildAt(start);
+                //ImageView view2 = (ImageView) gridLayout.getChildAt(finish);
+                //view2.setImageDrawable(view.getDrawable());
+                //view.setImageResource(android.R.color.transparent);
                 //DIALOG CLOSE
             }else if(messageArray[0].equals("FAILURE")){
                 Toast.makeText(this, "MOVE FAILURE > MOVE FORFEITED", Toast.LENGTH_LONG).show();
