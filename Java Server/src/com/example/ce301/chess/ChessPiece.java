@@ -87,7 +87,7 @@ public abstract class ChessPiece implements Serializable {
     //Parse this so that a array is able to distinguish what piece was moved. <This shouldnt matter,
     //If we make the display only client side
 
-    public abstract boolean move(Chess chessboard, int row, int col);
+    public abstract Reason move(Chess chessboard, int row, int col);
 
     void movePieceInArray(Chess chess, int finishRow, int finishCol){
         if(chess.chessPieces[finishRow][finishCol]!=null){

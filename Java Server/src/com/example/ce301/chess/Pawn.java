@@ -11,7 +11,7 @@ public class Pawn extends ChessPiece implements Serializable {
     }
 
     @Override
-    public boolean move(Chess chess, int finishRow, int finishCol) {
+    public Reason move(Chess chess, int finishRow, int finishCol) {
         //get chess board instance
         //System.out.println(chess.chessPieces[this.getX()][this.getY()]);
 
@@ -32,17 +32,18 @@ public class Pawn extends ChessPiece implements Serializable {
 
         if(getPieceColor().equals(PieceColor.WHITE)){
             if(getX()-finishRow==-1){
-                return false;
+                return new Reason(false, "FAILURE");
             }else{
                 Boolean x = getaBoolean(chess, finishRow, finishCol);
-                return x;
+                return new Reason(x, "SUCCESS");
+
             }
         }else{
             if(finishRow-getX()==-1){
-                return false;
+                return new Reason(false, "FAILURE");
             }else{
                 Boolean x = getaBoolean(chess, finishRow, finishCol);
-                return x;
+                return new Reason(x, "SUCCESS");
             }
         }
     }

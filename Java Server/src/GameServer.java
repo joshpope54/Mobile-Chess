@@ -74,12 +74,16 @@ public class GameServer extends Thread{
         ChessPiece.PieceColor readyStatus = ChessPiece.PieceColor.valueOf(items[0]);
 
         if(chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])]!=null && chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor().equals(readyStatus)){
-            boolean SUCCESS = chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].move(chess, Integer.parseInt(secondPosition[0]), Integer.parseInt(secondPosition[1]));
-            if(SUCCESS){
+            Reason SUCCESS = chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].move(chess, Integer.parseInt(secondPosition[0]), Integer.parseInt(secondPosition[1]));
+            if(SUCCESS.isSuccess()){
                 if(player.equals(player1)){
                     createOutput(firstPostion, secondPosition, player1);
+                    //System.out.println(chess.blackKing.checkIfInCheck(chess));
+                    //System.out.println(chess.whiteKing.checkIfInCheck(chess));
                 }else if(player.equals(player2)){
                     createOutput(firstPostion, secondPosition, player2);
+                    //System.out.println(chess.blackKing.checkIfInCheck(chess));
+                    //System.out.println(chess.whiteKing.checkIfInCheck(chess));
                 }
             }else{
                 playerOneOutput.println("FAILURE "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
@@ -101,6 +105,7 @@ public class GameServer extends Thread{
             playerOneOutput.println("FAILURE YOUR_KING_IN_CHECK");
             playerTwoOutput.println("FAILURE YOUR_KING_IN_CHECK");
         }
+
         if(chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] instanceof Pawn && (Integer.parseInt(secondPosition[0])==0 || Integer.parseInt(secondPosition[0])==7)) {
             //promote piece
             if (player.equals(player1)) {

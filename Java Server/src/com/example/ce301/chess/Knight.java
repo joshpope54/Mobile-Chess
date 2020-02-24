@@ -10,7 +10,7 @@ public class Knight extends ChessPiece implements Serializable {
     int[][] potentialMoves = {{2,1},{1,2},{-2,1},{-1,2},{-2,-1},{-1,-2},{2,-1},{1,-2}};
 
     @Override
-    public boolean move(Chess chess, int finishRow, int finishCol) {
+    public Reason move(Chess chess, int finishRow, int finishCol) {
 
         boolean success = false;
         for(int[] possibleMove: potentialMoves){
@@ -23,10 +23,10 @@ public class Knight extends ChessPiece implements Serializable {
                 }
             }
         }
-        if (success){
-            return true;
+        if(success){
+            return new Reason(true, "SUCCESS");
         }else{
-            return false;
+            return new Reason(false, "FAILURE");
         }
     }
 }

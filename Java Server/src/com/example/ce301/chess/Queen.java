@@ -8,7 +8,7 @@ public class Queen extends ChessPiece implements Serializable {
     }
 
     @Override
-    public boolean move(Chess chess, int finishRow, int finishCol) {
+    public Reason move(Chess chess, int finishRow, int finishCol) {
         //queen
         //rook and bishop combined
         boolean success = false;
@@ -113,7 +113,7 @@ public class Queen extends ChessPiece implements Serializable {
                 }
             }
         } else {
-                //Only works for down and right
+            //Only works for down and right
             if (finishRow - getX() > 0 && finishCol - getY() > 0) {
                 for (int i = getX() + 1, j = getY() + 1; i <= finishRow; i++, j++) {
                     if (chess.chessPieces[i][j] == null) {
@@ -128,7 +128,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 success = true;
                             }
                         } else {
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
@@ -146,7 +146,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 success = true;
                             }
                         } else {
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
@@ -164,7 +164,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 success = true;
                             }
                         } else {
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
@@ -182,16 +182,16 @@ public class Queen extends ChessPiece implements Serializable {
                                 success = true;
                             }
                         } else {
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
             }
         }
         if(success){
-            return true;
+            return new Reason(true, "SUCCESS");
         }else{
-            return false;
+            return new Reason(false, "FAILURE");
         }
     }
 }

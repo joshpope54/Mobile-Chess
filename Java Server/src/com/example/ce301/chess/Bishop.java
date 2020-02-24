@@ -9,11 +9,11 @@ public class Bishop extends ChessPiece implements Serializable {
 
     @SuppressWarnings("Duplicates")
     @Override
-    public boolean move(Chess chess, int finishRow, int finishCol) {
+    public Reason move(Chess chess, int finishRow, int finishCol) {
         boolean success = false;
         // want to move diagonal
         if(getX()==finishRow || getY()==finishCol){
-            return false;
+            return new Reason(false, "FAILURE");
         }else{
             //Only works for down and right
             if(finishRow-getX()>0 && finishCol-getY()>0){
@@ -30,7 +30,7 @@ public class Bishop extends ChessPiece implements Serializable {
                                 success= true;
                             }
                         }else{
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
@@ -48,7 +48,7 @@ public class Bishop extends ChessPiece implements Serializable {
                                 success= true;
                             }
                         }else{
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
@@ -66,7 +66,7 @@ public class Bishop extends ChessPiece implements Serializable {
                                 success= true;
                             }
                         }else{
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
@@ -84,16 +84,16 @@ public class Bishop extends ChessPiece implements Serializable {
                                 success= true;
                             }
                         }else{
-                            return false;
+                            return new Reason(false, "FAILURE");
                         }
                     }
                 }
             }
         }
         if(success){
-            return true;
+            return new Reason(true, "SUCCESS");
         }else{
-            return false;
+            return new Reason(false, "FAILURE");
         }
     }
 }

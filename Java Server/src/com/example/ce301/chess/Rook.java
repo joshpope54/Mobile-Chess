@@ -12,7 +12,7 @@ public class Rook extends ChessPiece implements Serializable {
 
 
     @Override
-    public boolean move(Chess chessboard, int finishRow, int finishCol) {
+    public Reason move(Chess chessboard, int finishRow, int finishCol) {
         //look for pieces nearby
         //if final position x or y is greater than nearby position, move is invalid
         //determine which way the piece is moving
@@ -120,9 +120,9 @@ public class Rook extends ChessPiece implements Serializable {
         }
 
         if(success){
-            return true;
-        }else {
-            return false;
+            return new Reason(true, "SUCCESS");
+        }else{
+            return new Reason(false, "FAILURE");
         }
     }
 }
