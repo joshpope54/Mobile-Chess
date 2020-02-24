@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ipaddress = "192.168.43.35";//"joshpope.dev";
+        ipaddress = "joshpope.dev";//"joshpope.dev";
         server = getString(R.string.server_port);
         matchmaker = getString(R.string.matchmaker_port);
         dialog = new Dialog(this);
