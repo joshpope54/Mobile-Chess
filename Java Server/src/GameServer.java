@@ -97,6 +97,10 @@ public class GameServer extends Thread{
         playerOneOutput.println("SUCCESS "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
         playerTwoOutput.println("SUCCESS "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]);
 
+        if(chess.blackKing.checkIfInCheck(chess) || chess.whiteKing.checkIfInCheck(chess)){
+            playerOneOutput.println("FAILURE YOUR_KING_IN_CHECK");
+            playerTwoOutput.println("FAILURE YOUR_KING_IN_CHECK");
+        }
         if(chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])] instanceof Pawn && (Integer.parseInt(secondPosition[0])==0 || Integer.parseInt(secondPosition[0])==7)) {
             //promote piece
             if (player.equals(player1)) {

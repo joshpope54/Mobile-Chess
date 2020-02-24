@@ -222,7 +222,8 @@ public class Game extends AppCompatActivity {
                 view.setImageResource(android.R.color.transparent);
                 //DIALOG CLOSE
             }else if(messageArray[0].equals("FAILURE")){
-                Toast.makeText(this, "MOVE FAILURE > MOVE FORFEITED", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(this, "MOVE FAILURE" + messageArray[1], Toast.LENGTH_LONG).show();
             }
 
                 Log.e("Message", eventClass.message + " " +eventClass.fromClass);

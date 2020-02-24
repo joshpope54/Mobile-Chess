@@ -22,8 +22,15 @@ public class King extends ChessPiece implements Serializable{
                     //king is most complex piece
                     //must first check if king is in check
                     //move must then remove king from check
+                    int startX = getX();
+                    int startY = getY();
                     movePieceInArray(chess, finishRow, finishCol);
-                    success=true;
+                    if(this.checkIfInCheck(chess)){
+                        movePieceInArray(chess, startX, startY);
+                        success = false;
+                    }else{
+                        success=true;
+                    }
                 }else{
                     //check if king is in check
                     if(!chess.chessPieces[finishRow][finishCol].getPieceColor().equals(this.getPieceColor())){
@@ -46,8 +53,11 @@ public class King extends ChessPiece implements Serializable{
         //Check for any pieces attacking king
         //Check if king can move its self out of position
         boolean diag = ifTraceOnDiagonal(chess);
+        //System.out.println(diag);
         boolean onX = ifTraceOnX(chess);
+        //System.out.println(onX);
         boolean onY = ifTraceOnY(chess);
+        //System.out.println(onY);
         return diag || onX || onY;
     }
 
