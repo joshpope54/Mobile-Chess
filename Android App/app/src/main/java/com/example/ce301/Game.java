@@ -34,6 +34,7 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 //package com.example.ce301.old;
 //
@@ -344,11 +345,11 @@ public class Game extends AppCompatActivity {
         points[1][1] = -1;
     }
 
-    public boolean blockingCheck(RelativeLayout inputLayout){
+    public ArrayList<int[]> getPointsThatCanMoveToWhilstBlockingCheck(RelativeLayout layout){
         int kingSelectionNumber = findKingByName();
         int kingX = -1;
         int kingY = -1;
-        ArrayList<int[]> points = new ArrayList<>(); //HOLDS THE POINTS ON WHICH A MOVE MUST BE MADE
+        ArrayList<int[]> positionsCanMoveTo = new ArrayList<>();
         for (int i = 0; i < gridConverter.size(); i++) {
             if (gridConverter.get(i).contains(kingSelectionNumber)) {
                 int gridXPosition = i;
@@ -357,30 +358,58 @@ public class Game extends AppCompatActivity {
                 kingY = gridYPosition;
             }
         }
-        if(kingX!=-1 && kingY!=-1) {
-            int[][] potentialPositions = {{+1, 0}, {+1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, +1}, {0, +1}, {+1, +1}};
-            for (int[] position : potentialPositions) {
-                boolean pieceFound = false;
+        directionsCanMoveWhilstBlockingCheck = new ArrayList<>();
+        if(blockingCheck(layout, kingX, kingY)){
+            for (int[] position : directionsCanMoveWhilstBlockingCheck) {
                 for (int j = kingX + position[0], k = kingY + position[1]; ((k >= 0 && k <= 7) && (j >= 0 && j <= 7)); j += position[0], k += position[1]) {
-                    //System.out.println("POSITION" + count + "  j:" + j + "  k:"+k);
                     int gridLayoutPosition = gridConverter.get(j).get(k);
-                    RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridLayoutPosition);
-                    if(layout.equals(inputLayout)) {
-                        pieceFound = true;
+                    RelativeLayout pieceCanMoveTo = (RelativeLayout) gridLayout.getChildAt(gridLayoutPosition);
+                    TextView view = (TextView) pieceCanMoveTo.getChildAt(2);
+                    if (view.getText().toString().equals("")) {
+                        int[] array = new int[2];
+                        array[0] = j;
+                        array[1] = k;
+                        positionsCanMoveTo.add(array);
+                    }else if (view.getText().toString().charAt(0) != color.charAt(0)){
+                        int[] array = new int[2];
+                        array[0] = j;
+                        array[1] = k;
+                        positionsCanMoveTo.add(array);
+                        break;
+                    }else if (view.getText().toString().charAt(0) == color.charAt(0)){
                         continue;
                     }
+                }
+            }
+        }
+        return positionsCanMoveTo;
+    }
+
+    public boolean blockingCheck(RelativeLayout inputLayout, int kingX, int kingY){
+        if(kingX!=-1 && kingY!=-1) {
+            int[][] potentialPositions = {{+1, 0}, {+1, -1}, {0, -1}, {-1, -1}, {-1, 0}, {-1, +1}, {0, +1}, {+1, +1}};
+            outer: for (int[] position : potentialPositions) {
+                boolean pieceFound = false;
+                inner: for (int j = kingX + position[0], k = kingY + position[1]; ((k >= 0 && k <= 7) && (j >= 0 && j <= 7)); j += position[0], k += position[1]) {
+                    int gridLayoutPosition = gridConverter.get(j).get(k);
+                    RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridLayoutPosition);
+                    TextView loopingTextView = (TextView)layout.getChildAt(2);
+                    if(!loopingTextView.getText().equals("")) {
+                        if (loopingTextView.getText().toString().charAt(0) == color.charAt(0)) {
+                            if(layout.equals(inputLayout)){
+                                pieceFound = true;
+                            }else{
+                                continue outer;
+                            }
+                        }
+                    }
                     if(pieceFound){
-                        TextView loopingTextView = (TextView)layout.getChildAt(2);
                         if(!loopingTextView.getText().equals("")) {
                             if (loopingTextView.getText().toString().charAt(0) != color.charAt(0)) {
-                                int[] array = new int[2];
-                                array[0] = -1*position[0];
-                                array[1] = -1*position[1];
-                                directionsCanMoveWhilstBlockingCheck.add(array);
-                                directionsCanMoveWhilstBlockingCheck.add(position);
-                                return true;
-                            }else{
-                                return false;
+                                if(loopingTextView.getText().toString().contains("QUEEN") || loopingTextView.getText().toString().contains("BISHOP") || loopingTextView.getText().toString().contains("ROOK")){
+                                    directionsCanMoveWhilstBlockingCheck.add(position);
+                                    return true;
+                                }
                             }
                         }
                     }
@@ -627,33 +656,27 @@ public class Game extends AppCompatActivity {
 //                                    }
 //                                }
 //                            }else{
-                            if (blockingCheck(layout)) {
-                                int[][] directions = {{+1, -1}, {-1, -1}, {-1, +1}, {+1, +1}};
-                                for (int[] direction : directions) {
-                                    for (int[] array : directionsCanMoveWhilstBlockingCheck) {
-                                        if (Arrays.equals(direction, array)) {
-                                            System.out.println(Arrays.toString(array));
-                                            for (int j = gridXPosition + array[0], k = gridYPosition + array[1]; ((k >= 0 && k <= 7) && (j >= 0 && j <= 7)); j += array[0], k += array[1]) {
-                                                RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                                TextView text = (TextView) theLayout.getChildAt(2);
-                                                if (text.getText().equals("")) {
-                                                    text.setText("SPOT");
-                                                    setSpotOnClick(theLayout);
-                                                    ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                                    image.setImageResource(R.drawable.chess_gotospot);
-                                                } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                                    theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                                    text.setText("SPOT " + text.getText());
-                                                    setSpotOnClick(theLayout);
-                                                    break;
-                                                }else{
-                                                    break;
-                                                }
-                                            }
+                            ArrayList<int[]> arrayOfPoints = getPointsThatCanMoveToWhilstBlockingCheck(layout);
+                            if (arrayOfPoints.size()!=0) {
+                                Collections.reverse(arrayOfPoints);
+                                for (int[] array : arrayOfPoints) {
+                                    boolean canMove = canThisBishopMoveToSpot(array[0], array[1], "FRIENDLY", finalPosition);
+                                    if(canMove){
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
+                                        TextView textView = (TextView) theLayout.getChildAt(2);
+                                        System.out.println(textView.getText());
+                                        if (textView.getText().equals("")){
+                                            textView.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) theLayout.getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (textView.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            textView.setText("SPOT " + textView.getText());
+                                            setSpotOnClick(theLayout);
                                         }
                                     }
                                 }
-
                                 //direction bishop can move {-1,-1} {+1,+1} {-1,+1} {+1,-1}
                             } else {
                                 if (inCheck) {
@@ -750,7 +773,7 @@ public class Game extends AppCompatActivity {
         });
     }
 
-    public void setKnightOnClick(RelativeLayout layout){
+    public void setKnightOnClick(final RelativeLayout layout){
         final int finalPosition = findPosition(layout);
         resetGrid();
         layout.setOnClickListener(new View.OnClickListener() {
@@ -776,39 +799,63 @@ public class Game extends AppCompatActivity {
                                 points[0][0] = gridXPosition;
                                 points[0][1] = gridYPosition;
                             }
-                            if(inCheck){
-                                for(int[] position: checkedSpots){
-                                    if(canKnightMoveToSpot(position[0],position[1],"FRIENDLY")){
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
+                            ArrayList<int[]> arrayOfPoints = getPointsThatCanMoveToWhilstBlockingCheck(layout);
+                            if (arrayOfPoints.size()!=0) {
+                                Collections.reverse(arrayOfPoints);
+                                for (int[] array : arrayOfPoints) {
+                                    boolean canMove = canThisKnightMoveToSpot(array[0], array[1], "FRIENDLY", finalPosition);
+                                    if(canMove){
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
+                                        TextView textView = (TextView) theLayout.getChildAt(2);
+                                        System.out.println(textView.getText());
+                                        if (textView.getText().equals("")){
+                                            textView.setText("SPOT");
                                             setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]))).getChildAt(0);
+                                            ImageView image = (ImageView) theLayout.getChildAt(0);
                                             image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                        } else if (textView.getText().charAt(0) != color.charAt(0)) {
                                             theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
+                                            textView.setText("SPOT " + textView.getText());
                                             setSpotOnClick(theLayout);
                                         }
                                     }
                                 }
-                            }else{
-                                for (int[] possibleMove : potentialPositions) {
-                                    if ((gridXPosition + possibleMove[1] >= 0 && gridXPosition + possibleMove[1] <= 7) && (gridYPosition + possibleMove[0] >= 0 && gridYPosition + possibleMove[0] <= 7)) {
-                                        int j = gridXPosition + possibleMove[1];
-                                        int k = gridYPosition + possibleMove[0];
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
+                                //direction bishop can move {-1,-1} {+1,+1} {-1,+1} {+1,-1}
+                            } else {
+                                if (inCheck) {
+                                    for (int[] position : checkedSpots) {
+                                        if (canKnightMoveToSpot(position[0], position[1], "FRIENDLY")) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    for (int[] possibleMove : potentialPositions) {
+                                        if ((gridXPosition + possibleMove[1] >= 0 && gridXPosition + possibleMove[1] <= 7) && (gridYPosition + possibleMove[0] >= 0 && gridYPosition + possibleMove[0] <= 7)) {
+                                            int j = gridXPosition + possibleMove[1];
+                                            int k = gridYPosition + possibleMove[0];
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                            }
                                         }
                                     }
                                 }
@@ -906,7 +953,7 @@ public class Game extends AppCompatActivity {
         }
     }
 
-    public void setRookOnClick(RelativeLayout layout){
+    public void setRookOnClick(final RelativeLayout layout){
         final int finalPosition = findPosition(layout);
         resetGrid();
         layout.setOnClickListener(new View.OnClickListener() {
@@ -933,85 +980,109 @@ public class Game extends AppCompatActivity {
                                 points[0][1] = gridYPosition;
                             }
 
-                            if(inCheck){
-                                runRookCutOff(gridXPosition, gridYPosition, "ROOK");
-                            }else {
-                                if (gridYPosition >= 0) {
-                                    for (int j = gridYPosition-1; j >= 0; j--) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
+                            ArrayList<int[]> arrayOfPoints = getPointsThatCanMoveToWhilstBlockingCheck(layout);
+                            if (arrayOfPoints.size()!=0) {
+                                Collections.reverse(arrayOfPoints);
+                                for (int[] array : arrayOfPoints) {
+                                    boolean canMove = canThisRookMoveToSpot(array[0], array[1], "FRIENDLY", finalPosition);
+                                    if(canMove){
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
+                                        TextView textView = (TextView) theLayout.getChildAt(2);
+                                        System.out.println(textView.getText());
+                                        if (textView.getText().equals("")){
+                                            textView.setText("SPOT");
                                             setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
+                                            ImageView image = (ImageView) theLayout.getChildAt(0);
                                             image.setImageResource(R.drawable.chess_gotospot);
-                                            //set spots onclick
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                        } else if (textView.getText().charAt(0) != color.charAt(0)) {
                                             theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
+                                            textView.setText("SPOT " + textView.getText());
                                             setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
                                         }
                                     }
                                 }
-                                if (gridYPosition <= 7) {
-                                    //loop right
-                                    for (int j = gridYPosition+1; j <= 7; j++) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                //direction bishop can move {-1,-1} {+1,+1} {-1,+1} {+1,-1}
+                            } else {
+                                if (inCheck) {
+                                    runRookCutOff(gridXPosition, gridYPosition, "ROOK");
+                                } else {
+                                    if (gridYPosition >= 0) {
+                                        for (int j = gridYPosition - 1; j >= 0; j--) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                                //set spots onclick
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                //loop up
-                                if (gridXPosition - 1 >= 0) {
-                                    for (int j = gridXPosition - 1; j >= 0; j--) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                    if (gridYPosition <= 7) {
+                                        //loop right
+                                        for (int j = gridYPosition + 1; j <= 7; j++) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                if (gridXPosition + 1 <= 7) {
-                                    for (int j = gridXPosition + 1; j <= 7; j++) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                    //loop up
+                                    if (gridXPosition - 1 >= 0) {
+                                        for (int j = gridXPosition - 1; j >= 0; j--) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (gridXPosition + 1 <= 7) {
+                                        for (int j = gridXPosition + 1; j <= 7; j++) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridYPosition))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -1023,7 +1094,7 @@ public class Game extends AppCompatActivity {
         });
     }
 
-    public void setQueenOnClick(RelativeLayout layout){
+    public void setQueenOnClick(final RelativeLayout layout){
         final int finalPosition = findPosition(layout);
         resetGrid();
         layout.setOnClickListener(new View.OnClickListener() {
@@ -1058,172 +1129,196 @@ public class Game extends AppCompatActivity {
                             int stoppingSpotYDownRight = 7;
                             int stoppingSpotXUpRight = 0;
                             int stoppingSpotYUpRight = 7;
-                            if(inCheck){
-                                runRookCutOff(gridXPosition, gridYPosition, "QUEEN");
-                                for(int[] position: checkedSpots) {
-                                    if (canQueenMoveToSpot(position[0], position[1], "FRIENDLY")) {
-                                        stoppingSpotXUpLeft = position[0];
-                                        stoppingSpotYUpLeft = position[1];
-                                        stoppingSpotXUpRight = position[0];
-                                        stoppingSpotYUpRight = position[1];
-                                        stoppingSpotXDownLeft = position[0];
-                                        stoppingSpotYDownLeft = position[1];
-                                        stoppingSpotXDownRight = position[0];
-                                        stoppingSpotYDownRight = position[1];
+                            ArrayList<int[]> arrayOfPoints = getPointsThatCanMoveToWhilstBlockingCheck(layout);
+                            if (arrayOfPoints.size()!=0) {
+                                Collections.reverse(arrayOfPoints);
+                                for (int[] array : arrayOfPoints) {
+                                    boolean canMove = canThisQueenMoveToSpot(array[0], array[1], "FRIENDLY", finalPosition);
+                                    if(canMove){
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
+                                        TextView textView = (TextView) theLayout.getChildAt(2);
+                                        System.out.println(textView.getText());
+                                        if (textView.getText().equals("")){
+                                            textView.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) theLayout.getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (textView.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            textView.setText("SPOT " + textView.getText());
+                                            setSpotOnClick(theLayout);
+                                        }
                                     }
                                 }
-                            }
-                            for (int k = gridYPosition - 1, j = gridXPosition - 1; (k >= stoppingSpotYUpLeft && j >= stoppingSpotXUpLeft); k--, j--) { //up and left
-                                RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                TextView text = (TextView) theLayout.getChildAt(2);
-                                if (text.getText().equals("")) {
-                                    text.setText("SPOT");
-                                    setSpotOnClick(theLayout);
-                                    ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                    image.setImageResource(R.drawable.chess_gotospot);
-                                } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                    theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                    text.setText("SPOT " + text.getText());
-                                    setSpotOnClick(theLayout);
-                                    break;
-                                } else {
-                                    break;
+                                //direction bishop can move {-1,-1} {+1,+1} {-1,+1} {+1,-1}
+                            } else {
+                                if (inCheck) {
+                                    runRookCutOff(gridXPosition, gridYPosition, "QUEEN");
+                                    for (int[] position : checkedSpots) {
+                                        if (canQueenMoveToSpot(position[0], position[1], "FRIENDLY")) {
+                                            stoppingSpotXUpLeft = position[0];
+                                            stoppingSpotYUpLeft = position[1];
+                                            stoppingSpotXUpRight = position[0];
+                                            stoppingSpotYUpRight = position[1];
+                                            stoppingSpotXDownLeft = position[0];
+                                            stoppingSpotYDownLeft = position[1];
+                                            stoppingSpotXDownRight = position[0];
+                                            stoppingSpotYDownRight = position[1];
+                                        }
+                                    }
                                 }
-                            }
-                            //System.out.println("Up and right");
-                            for (int k = gridYPosition - 1, j = gridXPosition + 1; (k >= stoppingSpotYDownLeft && j <= stoppingSpotXDownLeft); k--, j++) {
-                                RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                TextView text = (TextView) theLayout.getChildAt(2);
-                                if (text.getText().equals("")) {
-                                    text.setText("SPOT");
-                                    setSpotOnClick(theLayout);
-                                    ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                    image.setImageResource(R.drawable.chess_gotospot);
-                                } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                    theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                    text.setText("SPOT " + text.getText());
-                                    setSpotOnClick(theLayout);
-                                    break;
-                                } else {
-                                    break;
+                                for (int k = gridYPosition - 1, j = gridXPosition - 1; (k >= stoppingSpotYUpLeft && j >= stoppingSpotXUpLeft); k--, j--) { //up and left
+                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                    TextView text = (TextView) theLayout.getChildAt(2);
+                                    if (text.getText().equals("")) {
+                                        text.setText("SPOT");
+                                        setSpotOnClick(theLayout);
+                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                        image.setImageResource(R.drawable.chess_gotospot);
+                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                        text.setText("SPOT " + text.getText());
+                                        setSpotOnClick(theLayout);
+                                        break;
+                                    } else {
+                                        break;
+                                    }
                                 }
-                            }
+                                //System.out.println("Up and right");
+                                for (int k = gridYPosition - 1, j = gridXPosition + 1; (k >= stoppingSpotYDownLeft && j <= stoppingSpotXDownLeft); k--, j++) {
+                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                    TextView text = (TextView) theLayout.getChildAt(2);
+                                    if (text.getText().equals("")) {
+                                        text.setText("SPOT");
+                                        setSpotOnClick(theLayout);
+                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                        image.setImageResource(R.drawable.chess_gotospot);
+                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                        text.setText("SPOT " + text.getText());
+                                        setSpotOnClick(theLayout);
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                }
 //                        //System.out.println("down and right");
-                            for (int k = gridYPosition + 1, j = gridXPosition + 1; (k <= stoppingSpotYDownRight && j <= stoppingSpotXDownRight); k++, j++) {
-                                RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                TextView text = (TextView) theLayout.getChildAt(2);
-                                if (text.getText().equals("")) {
-                                    text.setText("SPOT");
-                                    setSpotOnClick(theLayout);
-                                    ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                    image.setImageResource(R.drawable.chess_gotospot);
-                                } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                    theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                    text.setText("SPOT " + text.getText());
-                                    setSpotOnClick(theLayout);
-                                    break;
-                                } else {
-                                    break;
+                                for (int k = gridYPosition + 1, j = gridXPosition + 1; (k <= stoppingSpotYDownRight && j <= stoppingSpotXDownRight); k++, j++) {
+                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                    TextView text = (TextView) theLayout.getChildAt(2);
+                                    if (text.getText().equals("")) {
+                                        text.setText("SPOT");
+                                        setSpotOnClick(theLayout);
+                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                        image.setImageResource(R.drawable.chess_gotospot);
+                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                        text.setText("SPOT " + text.getText());
+                                        setSpotOnClick(theLayout);
+                                        break;
+                                    } else {
+                                        break;
+                                    }
                                 }
-                            }
 //                        //System.out.println("down and left");
-                            for (int k = gridYPosition + 1, j = gridXPosition - 1; (k <= stoppingSpotYUpRight && j >= stoppingSpotXUpRight); k++, j--) {
-                                RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                TextView text = (TextView) theLayout.getChildAt(2);
-                                if (text.getText().equals("")) {
-                                    text.setText("SPOT");
-                                    setSpotOnClick(theLayout);
-                                    ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                    image.setImageResource(R.drawable.chess_gotospot);
-                                } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                    theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                    text.setText("SPOT " + text.getText());
-                                    setSpotOnClick(theLayout);
-                                    break;
-                                } else {
-                                    break;
+                                for (int k = gridYPosition + 1, j = gridXPosition - 1; (k <= stoppingSpotYUpRight && j >= stoppingSpotXUpRight); k++, j--) {
+                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                    TextView text = (TextView) theLayout.getChildAt(2);
+                                    if (text.getText().equals("")) {
+                                        text.setText("SPOT");
+                                        setSpotOnClick(theLayout);
+                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                        image.setImageResource(R.drawable.chess_gotospot);
+                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                        text.setText("SPOT " + text.getText());
+                                        setSpotOnClick(theLayout);
+                                        break;
+                                    } else {
+                                        break;
+                                    }
                                 }
-                            }
 
-                            if(!inCheck){
-                                if (gridYPosition - 1 >= 0) {
-                                    for (int j = gridConverter.get(gridXPosition).indexOf(finalPosition - 1); j >= 0; j--) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                            //set spots onclick
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                if (!inCheck) {
+                                    if (gridYPosition - 1 >= 0) {
+                                        for (int j = gridConverter.get(gridXPosition).indexOf(finalPosition - 1); j >= 0; j--) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                                //set spots onclick
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                if (gridYPosition + 1 <= 7) {
-                                    //loop right
-                                    for (int j = gridConverter.get(gridXPosition).indexOf(finalPosition + 1); j <= 7; j++) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                    if (gridYPosition + 1 <= 7) {
+                                        //loop right
+                                        for (int j = gridConverter.get(gridXPosition).indexOf(finalPosition + 1); j <= 7; j++) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
-                                }
 //                        //loop up
-                                if (gridXPosition - 1 >= 0) {
-                                    int gridIndex = gridConverter.get(gridXPosition).indexOf(finalPosition);
-                                    for (int j = gridXPosition - 1; j >= 0; j--) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                    if (gridXPosition - 1 >= 0) {
+                                        int gridIndex = gridConverter.get(gridXPosition).indexOf(finalPosition);
+                                        for (int j = gridXPosition - 1; j >= 0; j--) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                                if (gridXPosition + 1 <= 7) {
-                                    int gridIndex = gridConverter.get(gridXPosition).indexOf(finalPosition);
-                                    for (int j = gridXPosition + 1; j <= 7; j++) {
-                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex));
-                                        TextView text = (TextView) theLayout.getChildAt(2);
-                                        if (text.getText().equals("")) {
-                                            text.setText("SPOT");
-                                            setSpotOnClick(theLayout);
-                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex))).getChildAt(0);
-                                            image.setImageResource(R.drawable.chess_gotospot);
-                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                            text.setText("SPOT " + text.getText());
-                                            setSpotOnClick(theLayout);
-                                            break;
-                                        } else {
-                                            break;
+                                    if (gridXPosition + 1 <= 7) {
+                                        int gridIndex = gridConverter.get(gridXPosition).indexOf(finalPosition);
+                                        for (int j = gridXPosition + 1; j <= 7; j++) {
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(gridIndex))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                                break;
+                                            } else {
+                                                break;
+                                            }
                                         }
                                     }
                                 }
@@ -1367,86 +1462,96 @@ public class Game extends AppCompatActivity {
             foundPositions = findPositionOfItemFriendlyItems(type);
         }
         for(Integer inte: foundPositions){
-            for (int i = 0; i < gridConverter.size(); i++) {
-                if (gridConverter.get(i).contains(inte)) {
-                    int gridXPosition = i;
-                    int gridYPosition = gridConverter.get(i).indexOf(inte);
-                    for(int k=gridXPosition+1; k<=x; k++) { //moving down
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(k).get(gridYPosition));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == k && y == gridYPosition && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == k && y == gridYPosition) {
-                            if(playerType.equals("FRIENDLY")){
-                                friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                            }
-                            return true;
-                        }
+            boolean myBool = canThisRookMoveToSpot(x,y,playerType,inte);
+            if(!myBool){
+                continue;
+            }else{
+                return myBool;
+            }
+        }
+        return false;
+    }
 
-                    }
-                    for(int k=gridXPosition-1; k>=x; k--) { //moving up
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(k).get(gridYPosition));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == k && y == gridYPosition && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == k && y == gridYPosition) {
+    public boolean canThisRookMoveToSpot(int x, int y, String playerType, int gridItem){
+        for (int i = 0; i < gridConverter.size(); i++) {
+            if (gridConverter.get(i).contains(gridItem)) {
+                int gridXPosition = i;
+                int gridYPosition = gridConverter.get(i).indexOf(gridItem);
+                for(int k=gridXPosition+1; k<=x; k++) { //moving down
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(k).get(gridYPosition));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == k && y == gridYPosition && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == k && y == gridYPosition) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
-                    for(int k=gridYPosition-1; k>=y; k--) { //moving left
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(k));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == gridXPosition && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == gridXPosition && y == k) {
+
+                }
+                for(int k=gridXPosition-1; k>=x; k--) { //moving up
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(k).get(gridYPosition));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == k && y == gridYPosition && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == k && y == gridYPosition) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
-                    for(int k=gridYPosition+1; k<=y; k++) { //moving down
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(k));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == gridXPosition && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == gridXPosition && y == k) {
+                }
+                for(int k=gridYPosition-1; k>=y; k--) { //moving left
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(k));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == gridXPosition && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == gridXPosition && y == k) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
+                    }
+                }
+                for(int k=gridYPosition+1; k<=y; k++) { //moving down
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(k));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == gridXPosition && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
+                            if(playerType.equals("FRIENDLY")){
+                                friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                            }
+                            return true;
+                        }else{
+                            break;
+                        }
+                    }else if (x == gridXPosition && y == k) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
                 }
             }
@@ -1461,23 +1566,33 @@ public class Game extends AppCompatActivity {
         }else{
             foundPositions = findPositionOfItemFriendlyItems("KNIGHT");
         }
-        int[][] potentialPositions = {{2,1},{1,2},{-2,1},{-1,2},{-2,-1},{-1,-2},{2,-1},{1,-2}};
         for(Integer inte: foundPositions) {
-            for (int i = 0; i < gridConverter.size(); i++) {
-                if (gridConverter.get(i).contains(inte)) {
-                    int gridXPosition = i;
-                    int gridYPosition = gridConverter.get(i).indexOf(inte);
-                    for (int[] possibleMove : potentialPositions) {
-                        if ((gridXPosition + possibleMove[0] >= 0 && gridXPosition + possibleMove[0] <= 7) && (gridYPosition + possibleMove[1] >= 0 && gridYPosition + possibleMove[1] <= 7)) {
-                            int j = gridXPosition + possibleMove[0];
-                            int k = gridYPosition + possibleMove[1];
-                            if (x == j && y == k) {
-                                System.out.println(inte+"KNIGHT MOVING TO SPOT + " + x +" " + y);
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
+            boolean myBool = canThisKnightMoveToSpot(x,y,playerType,inte);
+            if(!myBool){
+                continue;
+            }else{
+                return myBool;
+            }
+        }
+        return false;
+    }
+
+    public boolean canThisKnightMoveToSpot(int x, int y, String playerType, int gridItem){
+        for (int i = 0; i < gridConverter.size(); i++) {
+            if (gridConverter.get(i).contains(gridItem)) {
+                int gridXPosition = i;
+                int gridYPosition = gridConverter.get(i).indexOf(gridItem);
+                int[][] potentialPositions = {{2,1},{1,2},{-2,1},{-1,2},{-2,-1},{-1,-2},{2,-1},{1,-2}};
+                for (int[] possibleMove : potentialPositions) {
+                    if ((gridXPosition + possibleMove[0] >= 0 && gridXPosition + possibleMove[0] <= 7) && (gridYPosition + possibleMove[1] >= 0 && gridYPosition + possibleMove[1] <= 7)) {
+                        int j = gridXPosition + possibleMove[0];
+                        int k = gridYPosition + possibleMove[1];
+                        if (x == j && y == k) {
+                            System.out.println(gridItem+"KNIGHT MOVING TO SPOT + " + x +" " + y);
+                            if(playerType.equals("FRIENDLY")){
+                                friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
+                            return true;
                         }
                     }
                 }
@@ -1492,95 +1607,102 @@ public class Game extends AppCompatActivity {
             foundPositions = findPositionOfItemEnemyItems(type);
         }else{
             foundPositions = findPositionOfItemFriendlyItems(type);
-//            for(Integer myInt: foundPositions){
-//                System.out.println(myInt);
-//            }
         }
         for(Integer inte: foundPositions){
-            for (int i = 0; i < gridConverter.size(); i++) {
-                if (gridConverter.get(i).contains(inte)) {
-                    int gridXPosition = i;
-                    int gridYPosition = gridConverter.get(i).indexOf(inte);
-                    //System.out.println(inte+"Up and left");
-                    for(int j=gridXPosition-1, k=gridYPosition-1;  (k>=0 && j>=0); j--,k--) {
-                        //System.out.println("J: " + j  + " K:"+k);
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == j && y == k) {
+            boolean myBool = canThisBishopMoveToSpot(x,y,playerType,inte);
+            if(!myBool){
+                continue;
+            }else{
+                return myBool;
+            }
+        }
+        return false;
+    }
+
+    public boolean canThisBishopMoveToSpot(int x, int y, String playerType, int gridItem){
+        for (int i = 0; i < gridConverter.size(); i++) {
+            if (gridConverter.get(i).contains(gridItem)) {
+                int gridXPosition = i;
+                int gridYPosition = gridConverter.get(i).indexOf(gridItem);
+                //System.out.println(inte+"Up and left");
+                for(int j=gridXPosition-1, k=gridYPosition-1;  (k>=0 && j>=0); j--,k--) {
+                    //System.out.println("J: " + j  + " K:"+k);
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == j && y == k) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
-                    //System.out.println("down and left");
-                    for(int k=gridYPosition-1, j=gridXPosition+1; (k>=0 && j<=7); k--, j++) {
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == j && y == k) {
+                }
+                //System.out.println("down and left");
+                for(int k=gridYPosition-1, j=gridXPosition+1; (k>=0 && j<=7); k--, j++) {
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == j && y == k) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
-                    //System.out.println("down and right");
-                    for(int k=gridYPosition+1, j=gridXPosition+1; (k<=7 && j<=7); k++, j++) {
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == j && y == k) {
+                }
+                //System.out.println("down and right");
+                for(int k=gridYPosition+1, j=gridXPosition+1; (k<=7 && j<=7); k++, j++) {
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == j && y == k) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
-                    //System.out.println("up and right");
-                    for(int k=gridYPosition+1, j=gridXPosition-1; (k<=7 && j>=0); k++, j--) {
-                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                        TextView text = (TextView)theLayout.getChildAt(2);
-                        if(!text.getText().equals("")){
-                            if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
-                                if(playerType.equals("FRIENDLY")){
-                                    friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
-                                }
-                                return true;
-                            }else{
-                                break;
-                            }
-                        }else if (x == j && y == k) {
+                }
+                //System.out.println("up and right");
+                for(int k=gridYPosition+1, j=gridXPosition-1; (k<=7 && j>=0); k++, j--) {
+                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                    TextView text = (TextView)theLayout.getChildAt(2);
+                    if(!text.getText().equals("")){
+                        if(x == j && y == k && color.charAt(0)!=text.getText().toString().charAt(0)){
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
                             return true;
+                        }else{
+                            break;
                         }
+                    }else if (x == j && y == k) {
+                        if(playerType.equals("FRIENDLY")){
+                            friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                        }
+                        return true;
                     }
                 }
             }
@@ -1593,6 +1715,14 @@ public class Game extends AppCompatActivity {
         boolean bishopMovement = canBishopMoveToSpot(x,y,"QUEEN", playerType);
         return rookMovement||bishopMovement;
     }
+
+    public boolean canThisQueenMoveToSpot(int x, int y, String playerType, int gridItem){
+        boolean rookMovement = canThisRookMoveToSpot(x,y, playerType,gridItem);
+        boolean bishopMovement = canThisBishopMoveToSpot(x,y, playerType, gridItem);
+        return rookMovement||bishopMovement;
+    }
+
+
 
     public boolean canPawnMoveToSpot(int x, int y, String playerType){
         //pawns are only a threat if can move diagonally to spot
@@ -1631,10 +1761,26 @@ public class Game extends AppCompatActivity {
                                     if(gridXPosition+array[0]==x && gridYPosition+array[1]==y){
                                         RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition+array[0]).get(gridYPosition+array[1]));
                                         TextView textOfPiece = (TextView)layout.getChildAt(2);
-                                        if(array[0]==-1&&array[1]==-1&&textOfPiece.getText().equals("")){
+                                        if(array[0]==-1 && array[1]==-1){
+                                            if(!textOfPiece.getText().equals("")){
+                                                if(textOfPiece.getText().toString().charAt(0) != color.charAt(0)){
+                                                    if(playerType.equals("FRIENDLY")){
+                                                        friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                                                    }
+                                                    return true;
+                                                }
+                                            }
+
                                             //break;
-                                        }else if(array[0]==-1&&array[1]==+1&&textOfPiece.getText().equals("")){
-                                           // break;
+                                        }else if(array[0]==-1&&array[1]==+1){
+                                            if(!textOfPiece.getText().equals("")){
+                                                if(textOfPiece.getText().toString().charAt(0) != color.charAt(0)){
+                                                    if(playerType.equals("FRIENDLY")){
+                                                        friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                                                    }
+                                                    return true;
+                                                }
+                                            }
                                         }else{
                                             if(playerType.equals("FRIENDLY")){
                                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
@@ -1651,11 +1797,30 @@ public class Game extends AppCompatActivity {
                                     if(gridXPosition+array[0]==x && gridYPosition+array[1]==y){
                                         RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition+array[0]).get(gridYPosition+array[1]));
                                         TextView textOfPiece = (TextView)layout.getChildAt(2);
-                                        if(array[0]==-1&&array[1]==-1&&textOfPiece.getText().equals("")){
+                                        if(array[0]==-1&&array[1]==-1){
+                                            if(!textOfPiece.getText().equals("")){
+                                                if(textOfPiece.getText().toString().charAt(0) != color.charAt(0)){
+                                                    if(playerType.equals("FRIENDLY")){
+                                                        friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                                                    }
+                                                    return true;
+                                                }
+                                            }
                                             //break;
-                                        }else if(array[0]==-1&&array[1]==+1&&textOfPiece.getText().equals("")){
+                                        }else if(array[0]==-1&&array[1]==+1){
+                                            if(!textOfPiece.getText().equals("")){
+                                                if(textOfPiece.getText().toString().charAt(0) != color.charAt(0)){
+                                                    if(playerType.equals("FRIENDLY")){
+                                                        friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                                                    }
+                                                    return true;
+                                                }
+                                            }
                                             // break;
                                         }else{
+                                            if(playerType.equals("FRIENDLY")){
+                                                friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
+                                            }
                                             return true;
                                         }
                                     }
@@ -1666,9 +1831,7 @@ public class Game extends AppCompatActivity {
                 }
             }
         }
-        //}
-
-        return success;
+        return false;
 
     }
 
@@ -2158,6 +2321,7 @@ public class Game extends AppCompatActivity {
             }else if(messageArray[0].equals("CHECK")){
                 if(messageArray[1].equals(color)){
                     checkedSpots = findCheckingPiece();
+                    friendlyPiecesThatCanMoveInCheck = new ArrayList<>();
                     inCheck = true;
                     for(int[] position: checkedSpots){
                         anyPieceCanMoveToThisPiece(position[0], position[1], "FRIENDLY");
@@ -2166,7 +2330,9 @@ public class Game extends AppCompatActivity {
                         RelativeLayout imageView = (RelativeLayout)gridLayout.getChildAt(i);
                         imageView.setOnClickListener(null);
                     }
+
                     for(Integer position: friendlyPiecesThatCanMoveInCheck){
+                        System.out.println(position);
                         RelativeLayout layoutOfMoveableItem = (RelativeLayout)gridLayout.getChildAt(position);
                         TextView text = (TextView)layoutOfMoveableItem.getChildAt(2);
                         switch (text.getText().toString().substring(1)) {
@@ -2224,7 +2390,4 @@ public class Game extends AppCompatActivity {
         super.onDestroy();
         //Inform of destruction
     }
-//
-//    //When closing this acitivity
-//    //Inform the game server that the thread must be closed.
 }
