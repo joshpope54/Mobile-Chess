@@ -14,6 +14,7 @@ public class GameClientHandler extends Thread{
     String string;
     public GameServer server;
     private volatile boolean exit = false;
+    public String playerColor;
 
     public GameClientHandler(Socket clientSocket, String type){
         client = clientSocket;
@@ -28,7 +29,6 @@ public class GameClientHandler extends Thread{
 
     @Override
     public void run() {
-        super.run();
         String recieved = dataInputStream.nextLine();
         if (recieved.equalsIgnoreCase("exit")) {
             System.out.println(string + " Client " + this.client + " sends exit...");

@@ -11,22 +11,18 @@ public class Pawn extends ChessPiece implements Serializable {
     }
 
     @Override
-    public Reason move(Chess chess, int finishRow, int finishCol) {
+    public Reason move(Chess chess, int finishRow, int finishCol, int type) {
         //get chess board instance
         //System.out.println(chess.chessPieces[this.getX()][this.getY()]);
-
-
         //check if piece is able to be moved to position
         //pawn
         //1 forward
         //2 forward if in first position
         //diagonal if can take piece
-
         //Question ->
         //How to check diagonal?
         //perhaps valid moves array?
         //First check if in default position to allow movement of 2 forward
-
         //check if moving backwards
         //cant allow that
 
@@ -34,7 +30,7 @@ public class Pawn extends ChessPiece implements Serializable {
             if(getX()-finishRow==-1){
                 return new Reason(false, "FAILURE");
             }else{
-                Boolean x = getaBoolean(chess, finishRow, finishCol);
+                Boolean x = getaBoolean(chess, finishRow, finishCol, type);
                 return new Reason(x, "SUCCESS");
 
             }
@@ -42,21 +38,21 @@ public class Pawn extends ChessPiece implements Serializable {
             if(finishRow-getX()==-1){
                 return new Reason(false, "FAILURE");
             }else{
-                Boolean x = getaBoolean(chess, finishRow, finishCol);
+                Boolean x = getaBoolean(chess, finishRow, finishCol, type);
                 return new Reason(x, "SUCCESS");
             }
         }
     }
 
-    private Boolean getaBoolean(Chess chess, int finishRow, int finishCol) {
+    private Boolean getaBoolean(Chess chess, int finishRow, int finishCol, int type) {
         if(getX()+1==finishRow && getY()+1==finishCol){ //x+1 y+1, Black down and right  //need to add left down for black
-            return completeMove(chess, finishRow, finishCol);
+            return completeMove(chess, finishRow, finishCol, type);
         }else if(getX()-1==finishRow && getY()-1==finishCol) { //x+1 y+1, Black down and right  //need to add left down for black
-            return completeMove(chess, finishRow, finishCol);
+            return completeMove(chess, finishRow, finishCol, type);
         }else if(getX()+1==finishRow && getY()-1==finishCol) { //x+1 y+1, Black down and right  //need to add left down for black
-            return completeMove(chess, finishRow, finishCol);
+            return completeMove(chess, finishRow, finishCol, type);
         }else if(getX()-1==finishRow && getY()+1==finishCol) { //x+1 y+1, Black down and right  //need to add left down for black
-            return completeMove(chess, finishRow, finishCol);
+            return completeMove(chess, finishRow, finishCol, type);
         }else{
             if(finishCol!=getY()){
                 return false;
@@ -65,7 +61,9 @@ public class Pawn extends ChessPiece implements Serializable {
                     if(getPieceColor().equals(PieceColor.WHITE)) {
                         if (getX() - finishRow == 2 || getX() - finishRow == 1) { //WHITE GOING FOWARD
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 return true;
                             } else {
                                 return false;
@@ -74,7 +72,9 @@ public class Pawn extends ChessPiece implements Serializable {
                     }else{
                         if (finishRow - getX() == 2 || finishRow - getX() == 1) {  //BLACK GOING FORWARD
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 return true;
                             } else {
                                 return false;
@@ -85,7 +85,9 @@ public class Pawn extends ChessPiece implements Serializable {
                     if(getPieceColor().equals(PieceColor.WHITE)) {
                         if (getX() - finishRow == 1) {
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 return true;
                             } else {
                                 return false;
@@ -94,7 +96,9 @@ public class Pawn extends ChessPiece implements Serializable {
                     }else{
                         if (finishRow - getX() == 1) {
                             if (chess.chessPieces[finishRow][finishCol] == null) {
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 return true;
                             } else {
                                 return false;
@@ -107,10 +111,12 @@ public class Pawn extends ChessPiece implements Serializable {
         return false;
     }
 
-    private Boolean completeMove(Chess chess, int finishRow, int finishCol) {
+    private Boolean completeMove(Chess chess, int finishRow, int finishCol, int type) {
         if (chess.chessPieces[finishRow][finishCol] != null) {
             if (!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())) {
-                movePieceInArray(chess, finishRow, finishCol);
+                if(type==0){
+                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                }
                 return true;
             } else {
                 return false;

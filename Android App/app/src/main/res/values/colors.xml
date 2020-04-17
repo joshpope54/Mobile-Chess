@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="green">@android:color/holo_green_dark</color>
+    <color name="grey">@android:color/darker_gray</color>
+    <color name="red">@android:color/holo_red_light</color>
+    <color name="darkBoard">@android:color/holo_orange_dark</color>
+    <color name="lightBoard">@android:color/holo_orange_light</color>
+
+    <array name="colors">
+        <item>@color/green</item>
+        <item>@color/grey</item>
+        <item>@color/red</item>
+    </array>
 </resources>

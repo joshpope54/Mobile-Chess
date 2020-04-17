@@ -16,1045 +16,2458 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/enemyMove"
+        app:layout_constraintTop_toBottomOf="@+id/include"
+        android:background="@android:color/darker_gray"
+        >
+        <TextView
+            android:id="@+id/enemyMoveText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="Enemy"
+            android:gravity="center"
+            android:textColor="#000000"
+            />
+    </RelativeLayout>
+
+
+
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:rowCount="8"
+        app:columnCount="9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include">
+        app:layout_constraintTop_toBottomOf="@+id/enemyMove">
 
 
-        <ImageView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_rdt60"
-            app:layout_column="0"
-            app:layout_row="0"
-            grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            android:background="@android:color/holo_orange_dark"/>
-
-        <ImageView
-            android:id="@+id/textView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_ndt60"
+        <RelativeLayout
             app:layout_column="1"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_bdt60"
+            >
+            <ImageView
+                android:id="@+id/oneZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneZero"
+                android:layout_alignTop="@+id/oneZero"
+                android:layout_alignEnd="@+id/oneZero"
+                android:layout_alignBottom="@+id/oneZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="2"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            android:background="@android:color/holo_orange_dark" />
-        <ImageView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_qdt60"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/twoZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoZero"
+                android:layout_alignTop="@+id/twoZero"
+                android:layout_alignEnd="@+id/twoZero"
+                android:layout_alignBottom="@+id/twoZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="3"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_kdt60"
+            >
+            <ImageView
+                android:id="@+id/threeZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeZero"
+                android:layout_alignTop="@+id/threeZero"
+                android:layout_alignEnd="@+id/threeZero"
+                android:layout_alignBottom="@+id/threeZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="4"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_bdt60"
+            >
+            <ImageView
+                android:id="@+id/fourZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourZero"
+                android:layout_alignTop="@+id/fourZero"
+                android:layout_alignEnd="@+id/fourZero"
+                android:layout_alignBottom="@+id/fourZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="5"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_ndt60"
+            >
+            <ImageView
+                android:id="@+id/fiveZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveZero"
+                android:layout_alignTop="@+id/fiveZero"
+                android:layout_alignEnd="@+id/fiveZero"
+                android:layout_alignBottom="@+id/fiveZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="6"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            android:background="@android:color/holo_orange_dark"            />
-        <ImageView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_rdt60"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/sixZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixZero"
+                android:layout_alignTop="@+id/sixZero"
+                android:layout_alignEnd="@+id/sixZero"
+                android:layout_alignBottom="@+id/sixZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="7"
             app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-
-        <ImageView
-            android:id="@+id/textView11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
-            app:layout_column="0"
-            app:layout_row="1"
+            >
+            <ImageView
+                android:id="@+id/sevenZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenZero"
+                android:layout_alignTop="@+id/sevenZero"
+                android:layout_alignEnd="@+id/sevenZero"
+                android:layout_alignBottom="@+id/sevenZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="0"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            android:background="@android:color/holo_orange_light"
-            />
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/eightZero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightZeroText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightZero"
+                android:layout_alignTop="@+id/eightZero"
+                android:layout_alignEnd="@+id/eightZero"
+                android:layout_alignBottom="@+id/eightZero"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+        <RelativeLayout
             app:layout_column="1"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+            >
+            <ImageView
+                android:id="@+id/oneOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneOne"
+                android:layout_alignTop="@+id/oneOne"
+                android:layout_alignEnd="@+id/oneOne"
+                android:layout_alignBottom="@+id/oneOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="2"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+            >
+            <ImageView
+                android:id="@+id/twoOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoOne"
+                android:layout_alignTop="@+id/twoOne"
+                android:layout_alignEnd="@+id/twoOne"
+                android:layout_alignBottom="@+id/twoOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="3"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+            >
+            <ImageView
+                android:id="@+id/threeOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeOne"
+                android:layout_alignTop="@+id/threeOne"
+                android:layout_alignEnd="@+id/threeOne"
+                android:layout_alignBottom="@+id/threeOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="4"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView16"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+            >
+            <ImageView
+                android:id="@+id/fourOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourOne"
+                android:layout_alignTop="@+id/fourOne"
+                android:layout_alignEnd="@+id/fourOne"
+                android:layout_alignBottom="@+id/fourOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="5"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView17"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+            >
+            <ImageView
+                android:id="@+id/fiveOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveOne"
+                android:layout_alignTop="@+id/fiveOne"
+                android:layout_alignEnd="@+id/fiveOne"
+                android:layout_alignBottom="@+id/fiveOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="6"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView18"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_pdt60"
+            >
+            <ImageView
+                android:id="@+id/sixOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixOne"
+                android:layout_alignTop="@+id/sixOne"
+                android:layout_alignEnd="@+id/sixOne"
+                android:layout_alignBottom="@+id/sixOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="7"
             app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-
-        <ImageView
-            android:id="@+id/textView19"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            app:layout_column="0"
-            app:layout_row="2"
+            >
+            <ImageView
+                android:id="@+id/sevenOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenOne"
+                android:layout_alignTop="@+id/sevenOne"
+                android:layout_alignEnd="@+id/sevenOne"
+                android:layout_alignBottom="@+id/sevenOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="1"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView20"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/eightOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightOneText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightOne"
+                android:layout_alignTop="@+id/eightOne"
+                android:layout_alignEnd="@+id/eightOne"
+                android:layout_alignBottom="@+id/eightOne"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
             app:layout_column="1"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView21"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            >
+            <ImageView
+                android:id="@+id/oneTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneTwo"
+                android:layout_alignTop="@+id/oneTwo"
+                android:layout_alignEnd="@+id/oneTwo"
+                android:layout_alignBottom="@+id/oneTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="2"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            >
+            <ImageView
+                android:id="@+id/twoTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoTwo"
+                android:layout_alignTop="@+id/twoTwo"
+                android:layout_alignEnd="@+id/twoTwo"
+                android:layout_alignBottom="@+id/twoTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier17"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="3"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView23"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            >
+            <ImageView
+                android:id="@+id/threeTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeTwo"
+                android:layout_alignTop="@+id/threeTwo"
+                android:layout_alignEnd="@+id/threeTwo"
+                android:layout_alignBottom="@+id/threeTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="4"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            >
+            <ImageView
+                android:id="@+id/fourTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourTwo"
+                android:layout_alignTop="@+id/fourTwo"
+                android:layout_alignEnd="@+id/fourTwo"
+                android:layout_alignBottom="@+id/fourTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier19"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="5"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-        <ImageView
-            android:id="@+id/textView25"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            >
+            <ImageView
+                android:id="@+id/fiveTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveTwo"
+                android:layout_alignTop="@+id/fiveTwo"
+                android:layout_alignEnd="@+id/fiveTwo"
+                android:layout_alignBottom="@+id/fiveTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="6"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            />
-        <ImageView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
+            >
+            <ImageView
+                android:id="@+id/sixTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixTwo"
+                android:layout_alignTop="@+id/sixTwo"
+                android:layout_alignEnd="@+id/sixTwo"
+                android:layout_alignBottom="@+id/sixTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier21"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="7"
             app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            />
-
-
-        <ImageView
-            android:id="@+id/textView27"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
-            app:layout_column="0"
-            app:layout_row="3"
+            >
+            <ImageView
+                android:id="@+id/sevenTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenTwo"
+                android:layout_alignTop="@+id/sevenTwo"
+                android:layout_alignEnd="@+id/sevenTwo"
+                android:layout_alignBottom="@+id/sevenTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier22"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="2"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView28"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/eightTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightTwoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightTwo"
+                android:layout_alignTop="@+id/eightTwo"
+                android:layout_alignEnd="@+id/eightTwo"
+                android:layout_alignBottom="@+id/eightTwo"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier23"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
             app:layout_column="1"
             app:layout_row="3"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView29"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/oneThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneThree"
+                android:layout_alignTop="@+id/oneThree"
+                android:layout_alignEnd="@+id/oneThree"
+                android:layout_alignBottom="@+id/oneThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="2"
             app:layout_row="3"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView30"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/twoThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoThree"
+                android:layout_alignTop="@+id/twoThree"
+                android:layout_alignEnd="@+id/twoThree"
+                android:layout_alignBottom="@+id/twoThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier25"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="3"
             app:layout_row="3"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView31"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/threeThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeThree"
+                android:layout_alignTop="@+id/threeThree"
+                android:layout_alignEnd="@+id/threeThree"
+                android:layout_alignBottom="@+id/threeThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier26"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="4"
             app:layout_row="3"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView32"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/fourThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourThree"
+                android:layout_alignTop="@+id/fourThree"
+                android:layout_alignEnd="@+id/fourThree"
+                android:layout_alignBottom="@+id/fourThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier27"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="5"
             app:layout_row="3"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView33"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/fiveThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveThree"
+                android:layout_alignTop="@+id/fiveThree"
+                android:layout_alignEnd="@+id/fiveThree"
+                android:layout_alignBottom="@+id/fiveThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="6"
             app:layout_row="3"
             grid:layout_columnWeight="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_gravity="fill_horizontal" />
-
-        <ImageView
-            android:id="@+id/textView34"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/sixThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixThree"
+                android:layout_alignTop="@+id/sixThree"
+                android:layout_alignEnd="@+id/sixThree"
+                android:layout_alignBottom="@+id/sixThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier29"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
             app:layout_column="7"
             app:layout_row="3"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-             />
-
-        <ImageView
-            android:id="@+id/textView35"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/sevenThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenThree"
+                android:layout_alignTop="@+id/sevenThree"
+                android:layout_alignEnd="@+id/sevenThree"
+                android:layout_alignBottom="@+id/sevenThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="3"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="0"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView36"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/eightThree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightThreeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightThree"
+                android:layout_alignTop="@+id/eightThree"
+                android:layout_alignEnd="@+id/eightThree"
+                android:layout_alignBottom="@+id/eightThree"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier31"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            app:layout_column="1"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="1"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView37"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/oneFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneFour"
+                android:layout_alignTop="@+id/oneFour"
+                android:layout_alignEnd="@+id/oneFour"
+                android:layout_alignBottom="@+id/oneFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier32"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="2"
+            app:layout_row="4"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/twoFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoFour"
+                android:layout_alignTop="@+id/twoFour"
+                android:layout_alignEnd="@+id/twoFour"
+                android:layout_alignBottom="@+id/twoFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="3"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="2"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView38"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/threeFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeFour"
+                android:layout_alignTop="@+id/threeFour"
+                android:layout_alignEnd="@+id/threeFour"
+                android:layout_alignBottom="@+id/threeFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier34"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="4"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="3"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView39"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/fourFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourFour"
+                android:layout_alignTop="@+id/fourFour"
+                android:layout_alignEnd="@+id/fourFour"
+                android:layout_alignBottom="@+id/fourFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier35"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="5"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="4"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/fiveFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveFour"
+                android:layout_alignTop="@+id/fiveFour"
+                android:layout_alignEnd="@+id/fiveFour"
+                android:layout_alignBottom="@+id/fiveFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="6"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="5"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true"/>
-
-        <ImageView
-            android:id="@+id/textView41"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/sixFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixFour"
+                android:layout_alignTop="@+id/sixFour"
+                android:layout_alignEnd="@+id/sixFour"
+                android:layout_alignBottom="@+id/sixFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="7"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="6"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView42"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/sevenFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenFour"
+                android:layout_alignTop="@+id/sevenFour"
+                android:layout_alignEnd="@+id/sevenFour"
+                android:layout_alignBottom="@+id/sevenFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier38"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="4"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="7"
-            grid:layout_row="4"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView43"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="0"
-            grid:layout_row="5"
             android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView45"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/eightFour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightFourText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightFour"
+                android:layout_alignTop="@+id/eightFour"
+                android:layout_alignEnd="@+id/eightFour"
+                android:layout_alignBottom="@+id/eightFour"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier39"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            app:layout_column="1"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="1"
-            grid:layout_row="5"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView46"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="2"
-            grid:layout_row="5"
             android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView47"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/oneFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneFive"
+                android:layout_alignTop="@+id/oneFive"
+                android:layout_alignEnd="@+id/oneFive"
+                android:layout_alignBottom="@+id/oneFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier40"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="2"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="3"
-            grid:layout_row="5"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView48"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/twoFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoFive"
+                android:layout_alignTop="@+id/twoFive"
+                android:layout_alignEnd="@+id/twoFive"
+                android:layout_alignBottom="@+id/twoFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier41"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="3"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="4"
-            grid:layout_row="5"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView49"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/threeFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeFive"
+                android:layout_alignTop="@+id/threeFive"
+                android:layout_alignEnd="@+id/threeFive"
+                android:layout_alignBottom="@+id/threeFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier42"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="4"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="5"
-            grid:layout_row="5"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView50"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/fourFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourFive"
+                android:layout_alignTop="@+id/fourFive"
+                android:layout_alignEnd="@+id/fourFive"
+                android:layout_alignBottom="@+id/fourFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier43"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="5"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="6"
-            grid:layout_row="5"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView51"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            grid:srcCompat="@drawable/chess_trans60"
-            android:gravity="center"
-
-            android:background="@android:color/holo_orange_dark"
-            android:textSize="36sp"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="7"
-            grid:layout_row="5"
             android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true" />
-
-        <ImageView
-            android:id="@+id/textView52"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
-            android:background="@android:color/holo_orange_dark"
-            grid:layout_column="0"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_row="6" />
-
-        <ImageView
-            android:id="@+id/textView53"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/fiveFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveFive"
+                android:layout_alignTop="@+id/fiveFive"
+                android:layout_alignEnd="@+id/fiveFive"
+                android:layout_alignBottom="@+id/fiveFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier44"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="6"
+            app:layout_row="5"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/sixFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixFive"
+                android:layout_alignTop="@+id/sixFive"
+                android:layout_alignEnd="@+id/sixFive"
+                android:layout_alignBottom="@+id/sixFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier45"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="7"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="1"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_row="6" />
-
-        <ImageView
-            android:id="@+id/textView54"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/sevenFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenFive"
+                android:layout_alignTop="@+id/sevenFive"
+                android:layout_alignEnd="@+id/sevenFive"
+                android:layout_alignBottom="@+id/sevenFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier46"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="5"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="2"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_row="6" />
-
-        <ImageView
-            android:id="@+id/textView55"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_light"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            grid:layout_column="3"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            grid:layout_row="6" />
+            >
+            <ImageView
+                android:id="@+id/eightFive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightFiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightFive"
+                android:layout_alignTop="@+id/eightFive"
+                android:layout_alignEnd="@+id/eightFive"
+                android:layout_alignBottom="@+id/eightFive"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier47"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/textView56"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
+        <RelativeLayout
+            app:layout_column="1"
+            app:layout_row="6"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/oneSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneSix"
+                android:layout_alignTop="@+id/oneSix"
+                android:layout_alignEnd="@+id/oneSix"
+                android:layout_alignBottom="@+id/oneSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier48"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="2"
+            app:layout_row="6"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_dark"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            grid:layout_column="4"
-            grid:layout_row="6" />
+            >
+            <ImageView
+                android:id="@+id/twoSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoSix"
+                android:layout_alignTop="@+id/twoSix"
+                android:layout_alignEnd="@+id/twoSix"
+                android:layout_alignBottom="@+id/twoSix"
+                android:gravity="right"
+                android:textColor="#000000" />
 
-        <ImageView
-            android:id="@+id/textView57"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
+            <TextView
+                android:id="@+id/pieceIdentifier49"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="3"
+            app:layout_row="6"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
-            android:textSize="36sp"
+            >
+            <ImageView
+                android:id="@+id/threeSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeSix"
+                android:layout_alignTop="@+id/threeSix"
+                android:layout_alignEnd="@+id/threeSix"
+                android:layout_alignBottom="@+id/threeSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier50"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="4"
+            app:layout_row="6"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="5"
-            grid:layout_row="6" />
-
-        <ImageView
-            android:id="@+id/textView58"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/fourSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourSix"
+                android:layout_alignTop="@+id/fourSix"
+                android:layout_alignEnd="@+id/fourSix"
+                android:layout_alignBottom="@+id/fourSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="5"
+            app:layout_row="6"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="6"
-            grid:layout_row="6" />
-
-        <ImageView
-            android:id="@+id/textView59"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_plt60"
             android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/fiveSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveSix"
+                android:layout_alignTop="@+id/fiveSix"
+                android:layout_alignEnd="@+id/fiveSix"
+                android:layout_alignBottom="@+id/fiveSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="6"
+            app:layout_row="6"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            grid:layout_column="7"
-            grid:layout_row="6" />
-
-        <ImageView
-            android:id="@+id/textView60"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_rlt60"
-            android:background="@android:color/holo_orange_light"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
             android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="0"
-            grid:layout_row="7" />
-
-        <ImageView
-            android:id="@+id/textView61"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_nlt60"
             android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/sixSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixSix"
+                android:layout_alignTop="@+id/sixSix"
+                android:layout_alignEnd="@+id/sixSix"
+                android:layout_alignBottom="@+id/sixSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier53"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="7"
+            app:layout_row="6"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="1"
-            grid:layout_row="7" />
-
-        <ImageView
-            android:id="@+id/textView62"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_blt60"
             android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/sevenSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenSix"
+                android:layout_alignTop="@+id/sevenSix"
+                android:layout_alignEnd="@+id/sevenSix"
+                android:layout_alignBottom="@+id/sevenSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier54"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="6"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="2"
-            grid:layout_row="7" />
-
-        <ImageView
-            android:id="@+id/textView63"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_qlt60"
             android:background="@android:color/holo_orange_dark"
-            grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
-            android:scaleType="fitCenter"
-            android:adjustViewBounds="true"
-            grid:layout_column="3"
-            grid:layout_row="7" />
+            >
+            <ImageView
+                android:id="@+id/eightSix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightSixText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightSix"
+                android:layout_alignTop="@+id/eightSix"
+                android:layout_alignEnd="@+id/eightSix"
+                android:layout_alignBottom="@+id/eightSix"
+                android:gravity="right"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier55"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/textView64"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_klt60"
+
+        <RelativeLayout
+            app:layout_column="1"
+            app:layout_row="7"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/oneSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/oneSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/oneSeven"
+                android:layout_alignTop="@+id/oneSeven"
+                android:layout_alignEnd="@+id/oneSeven"
+                android:layout_alignBottom="@+id/oneSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier56"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="2"
+            app:layout_row="7"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
             android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/twoSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/twoSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/twoSeven"
+                android:layout_alignTop="@+id/twoSeven"
+                android:layout_alignEnd="@+id/twoSeven"
+                android:layout_alignBottom="@+id/twoSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier57"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="3"
+            app:layout_row="7"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="4"
-            grid:layout_row="7" />
-
-        <ImageView
-            android:id="@+id/textView65"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_blt60"
             android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/threeSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/threeSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/threeSeven"
+                android:layout_alignTop="@+id/threeSeven"
+                android:layout_alignEnd="@+id/threeSeven"
+                android:layout_alignBottom="@+id/threeSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier58"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="4"
+            app:layout_row="7"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="5"
-            grid:layout_row="7" />
-
-        <ImageView
-            android:id="@+id/textView66"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_nlt60"
             android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/fourSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fourSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fourSeven"
+                android:layout_alignTop="@+id/fourSeven"
+                android:layout_alignEnd="@+id/fourSeven"
+                android:layout_alignBottom="@+id/fourSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier59"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="5"
+            app:layout_row="7"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="6"
-            grid:layout_row="7" />
-
-        <ImageView
-            android:id="@+id/textView68"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            grid:srcCompat="@drawable/chess_rlt60"
             android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/fiveSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/fiveSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/fiveSeven"
+                android:layout_alignTop="@+id/fiveSeven"
+                android:layout_alignEnd="@+id/fiveSeven"
+                android:layout_alignBottom="@+id/fiveSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="6"
+            app:layout_row="7"
             grid:layout_columnWeight="1"
-            grid:layout_gravity="fill_horizontal"
-            android:maxWidth="45dp"
-            android:maxHeight="45dp"
+            app:layout_rowWeight="1"
             android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
             android:adjustViewBounds="true"
-            grid:layout_column="7"
-            grid:layout_row="7" />
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/sixSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sixSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sixSeven"
+                android:layout_alignTop="@+id/sixSeven"
+                android:layout_alignEnd="@+id/sixSeven"
+                android:layout_alignBottom="@+id/sixSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier61"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="7"
+            app:layout_row="7"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_dark"
+            >
+            <ImageView
+                android:id="@+id/sevenSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/sevenSevenText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/sevenSeven"
+                android:layout_alignTop="@+id/sevenSeven"
+                android:layout_alignEnd="@+id/sevenSeven"
+                android:layout_alignBottom="@+id/sevenSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier62"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            app:layout_column="8"
+            app:layout_row="7"
+            grid:layout_columnWeight="1"
+            app:layout_rowWeight="1"
+            android:scaleType="fitCenter"
+            android:maxWidth="45dp"
+            android:maxHeight="50dp"
+            android:layout_width="45dp"
+            android:layout_height="50dp"
+            android:adjustViewBounds="true"
+            android:background="@android:color/holo_orange_light"
+            >
+            <ImageView
+                android:id="@+id/eightSeven"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                grid:srcCompat="@drawable/chess_trans60"
+                />
+            <TextView
+                android:id="@+id/eightSevenTextOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightSeven"
+                android:layout_alignTop="@+id/eightSeven"
+                android:layout_alignEnd="@+id/eightSeven"
+                android:layout_alignBottom="@+id/eightSeven"
+                android:gravity="bottom"
+                android:textColor="#000000" />
+            <TextView
+                android:id="@+id/pieceIdentifier63"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:visibility="visible"
+                />
+            <TextView
+                android:id="@+id/eightSevenTextTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/eightSeven"
+                android:layout_alignTop="@+id/eightSeven"
+                android:layout_alignEnd="@+id/eightSeven"
+                android:layout_alignBottom="@+id/eightSeven"
+                android:gravity="right"
+                android:textColor="#000000" />
+
+        </RelativeLayout>
 
     </androidx.gridlayout.widget.GridLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/myMove"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toBottomOf="@+id/gridlayout"
+
+        >
+
+        <TextView
+            android:id="@+id/myMoveText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="You"
+            android:textColor="#000000"
+            android:gravity="center" />
+    </RelativeLayout>
+
+
 
     <TextView
         android:id="@+id/textView"
@@ -1064,17 +2477,19 @@
         android:layout_marginTop="28dp"
         android:text="Last Move"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridlayout" />
+        app:layout_constraintTop_toBottomOf="@+id/myMove" />
 
     <TextView
         android:id="@+id/textView67"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
-        android:text="A4"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.702"
         app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/gridlayout" />
+        app:layout_constraintTop_toBottomOf="@+id/myMove" />
 
     <TextView
         android:id="@+id/textView69"
@@ -1093,47 +2508,6 @@
         android:layout_marginStart="24dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/textView69"
         app:layout_constraintStart_toEndOf="@+id/textView69" />
-
-    <TextView
-        android:id="@+id/textView72"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:text="Dead White Pieces"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView75" />
-
-    <TextView
-        android:id="@+id/textView74"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
-        android:text="Dead Black Pieces"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView72" />
-
-    <TextView
-        android:id="@+id/textView75"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:text="Whos Currently moving"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView69" />
-
-    <TextView
-        android:id="@+id/textView76"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toEndOf="@+id/textView75"
-        app:layout_constraintTop_toBottomOf="@+id/textView70" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

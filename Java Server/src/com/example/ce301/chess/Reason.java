@@ -16,4 +16,12 @@ public class Reason {
     public String getReason() {
         return reason;
     }
+
+    @Override
+    public String toString() {
+        return "Reason{" +
+                "success=" + success +
+                ", reason='" + reason + '\'' +
+                '}';
+    }
 }

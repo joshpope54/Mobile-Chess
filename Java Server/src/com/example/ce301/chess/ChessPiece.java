@@ -86,27 +86,26 @@ public abstract class ChessPiece implements Serializable {
     //EG player requests piece move A4 to A6;
     //Parse this so that a array is able to distinguish what piece was moved. <This shouldnt matter,
     //If we make the display only client side
+    //{Fixed} - > use/th.abs to flip board -7
+    //Create representations of boards client side
 
-    public abstract Reason move(Chess chessboard, int row, int col);
+    public abstract Reason move(Chess chessboard, int row, int col, int type);
 
-    void movePieceInArray(Chess chess, int finishRow, int finishCol){
-        if(chess.chessPieces[finishRow][finishCol]!=null){
-            if(chess.chessPieces[finishRow][finishCol].pieceColor.equals(PieceColor.WHITE)){
-                chess.chessPieces[finishRow][finishCol].pieceState=PieceState.DEAD;
-                chess.deadWhitePieces.add(chess.chessPieces[finishRow][finishCol]);
-            }else{
-                chess.chessPieces[finishRow][finishCol].pieceState=PieceState.DEAD;
-                chess.deadBlackPieces.add(chess.chessPieces[finishRow][finishCol]);
-            }
-        }
-        chess.chessPieces[finishRow][finishCol] = this;
-        chess.chessPieces[getX()][getY()] = null;
-        this.setPosition(finishRow, finishCol);
+    public void undoMove(){
+
+    }
+
+    public void unCapturePiece(){
+
+    }
+
+    public void capturePiece(){
+
     }
 
     @Override
     public String toString() {
         //return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";
-        return ""+getPieceType()+"";
+        return "Type: "+getPieceType()+" Color: "+getPieceColor() +" X:"+this.getX()+" Y:"+this.getY();
     }
 }

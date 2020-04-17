@@ -43,7 +43,7 @@ public class GameReadingThread extends Thread {
     @Override
     public void run() {
         super.run();
-        String ip = "joshpope.dev";
+        String ip = "94.14.210.205";
         InetAddress ipactua = null;
         try {
             ipactua = InetAddress.getByName(ip);
@@ -67,6 +67,7 @@ public class GameReadingThread extends Thread {
                 this.serviceHandler.sendMessage(message);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             Log.e("Server:", "DISCONNECTED");
         }finally {
             try {

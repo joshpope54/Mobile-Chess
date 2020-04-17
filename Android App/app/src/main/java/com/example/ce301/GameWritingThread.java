@@ -30,7 +30,16 @@ public class GameWritingThread extends Thread {
         while (running){
             if(externalMessage != null){
                 if(externalMessage.points!=null){
-                    printWriter.println(externalMessage.message+" "+externalMessage.points[0][0]+","+externalMessage.points[0][1]+" "+externalMessage.points[1][0]+","+externalMessage.points[1][1]);
+                    if(externalMessage.message.equals("BLACK")){
+                        int gridPositionStart0 = Math.abs(externalMessage.points[0][0] - 7);
+                        int gridPositionStart1 = Math.abs(7 - externalMessage.points[0][1]);
+                        int gridPositionFinish0 = Math.abs(externalMessage.points[1][0] - 7);
+                        int gridPositionFinish1 = Math.abs(7 - externalMessage.points[1][1]);
+                        printWriter.println(externalMessage.message+" "+gridPositionStart0+","+gridPositionStart1+" "+gridPositionFinish0+","+gridPositionFinish1);
+
+                    }else{
+                        printWriter.println(externalMessage.message+" "+externalMessage.points[0][0]+","+externalMessage.points[0][1]+" "+externalMessage.points[1][0]+","+externalMessage.points[1][1]);
+                    }
                 }else{
                     if(externalMessage.message.equals("exit")){
                         running=false;

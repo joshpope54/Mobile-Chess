@@ -1,7 +1,9 @@
 package com.example.ce301.chess;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Chess implements Serializable{
 
@@ -9,10 +11,11 @@ public class Chess implements Serializable{
     //Who is White?
     //Display of grid is client side, Your colour should be closest to you
     //Server holds grid in one state, White at the bottom black at the top
-    //So on one client black will be at the bottom, need a way of flipping the moves recieved from the player.
+    //So on one client black will be at the bottom, need a way of flipping the moves received from the player.
     //EG player moves piece [7][6] to [5][5] as a black player it should be converted to [0][1] to [2][2]
 
-
+    //todo: //fix players being able to fill queue with multiple moves - > allow for one additional
+    //todo: //finalise chess game, -> finish and close when won/lost -> after 30s?
 
 
     /*
@@ -33,26 +36,131 @@ public class Chess implements Serializable{
     [7][7] bottom right
 
      */
+    public static class Move{
+        private int startRow;
+        private int startCol;
+        private int finishRow;
+        private int finishCol;
+        private ChessPiece capturedPiece;
+        public Move(int startRow, int startCol, int finishRow, int finishCol, ChessPiece capturedPiece) {
+            this.startRow = startRow;
+            this.startCol = startCol;
+            this.finishRow = finishRow;
+            this.finishCol = finishCol;
+            this.capturedPiece = capturedPiece; // null if no piece captured
+        }
+        public int getStartRow() {
+            return startRow;
+        }
+
+        public int getStartCol() {
+            return startCol;
+        }
+
+        public int getFinishRow() {
+            return finishRow;
+        }
+
+        public int getFinishCol() {
+            return finishCol;
+        }
+
+        public ChessPiece getCapturedPiece() {
+            return capturedPiece;
+        }
+
+        @Override
+        public String toString() {
+            return "Move{" +
+                    "startRow=" + startRow +
+                    ", startCol=" + startCol +
+                    ", finishRow=" + finishRow +
+                    ", finishCol=" + finishCol +
+                    ", capturedPiece=" + capturedPiece +
+                    '}';
+        }
+    }
 
     public ChessPiece[][] chessPieces;
     public ArrayList<ChessPiece> deadWhitePieces;
     public ArrayList<ChessPiece> deadBlackPieces;
 
+    public ArrayList<ChessPiece> aliveWhitePieces;
+    public ArrayList<ChessPiece> aliveBlackPieces;
+
+    public ArrayList<Move> moves;
+
     public King blackKing;
     public King whiteKing;
     public boolean gameInProgress;
 
-    public boolean whosMoving;  //true = white
-                                // false = black
-
-
-
     public Chess() {
+        this.aliveWhitePieces = new ArrayList<>();
+        this.aliveBlackPieces = new ArrayList<>();
         this.chessPieces = generateInitalBoard();
         this.deadWhitePieces = new ArrayList<>();
         this.deadBlackPieces = new ArrayList<>();
+        this.moves = new ArrayList<>();
         gameInProgress = true;
     }
+
+
+    public boolean movePiece(int startRow, int startCol, int finishRow, int finishCol){
+        //
+        if(chessPieces[finishRow][finishCol]!=null){
+            //capturing piece
+            if(!chessPieces[startRow][startCol].getPieceColor().equals(chessPieces[finishRow][finishCol].getPieceColor())){//checks that they aren't equal
+                //ending piece is white
+                Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[finishRow][finishCol]);
+                moves.add(move);
+                chessPieces[finishRow][finishCol].setPieceState(ChessPiece.PieceState.DEAD);
+                if(chessPieces[finishRow][finishCol].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                    deadWhitePieces.add(chessPieces[finishRow][finishCol]);
+                    aliveWhitePieces.remove(chessPieces[finishRow][finishCol]);
+                    chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
+                    chessPieces[startRow][startCol] = null;
+                    chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                    return true;
+                }else{//ending piece is black
+                    deadBlackPieces.add(chessPieces[finishRow][finishCol]);
+                    aliveBlackPieces.remove(chessPieces[finishRow][finishCol]);
+                    chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
+                    chessPieces[startRow][startCol] = null;
+                    chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                    return true;
+                }
+            }
+        }else{
+            Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[finishRow][finishCol]);
+            moves.add(move);
+            chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
+            chessPieces[startRow][startCol] = null;
+            chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+            return true;
+        }
+        return false;
+    }
+
+    public void undoMove(){
+        int lastMoveIndex = moves.size()-1;
+        Move lastMove = moves.get(lastMoveIndex);
+        System.out.println(lastMove);
+        this.movePiece(lastMove.getFinishRow(),lastMove.getFinishCol(),lastMove.getStartRow(),lastMove.getStartCol());  //returns piece to spot
+        if(lastMove.getCapturedPiece()!=null) {
+            if (lastMove.capturedPiece.getPieceColor().equals(ChessPiece.PieceColor.WHITE)) {//white piece
+                deadWhitePieces.remove(lastMove.getCapturedPiece());
+                aliveWhitePieces.add(lastMove.getCapturedPiece());
+                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()] = lastMove.getCapturedPiece();
+                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()].setPieceState(ChessPiece.PieceState.ALIVE);
+            } else {//black piece
+                deadBlackPieces.remove(lastMove.getCapturedPiece());
+                aliveBlackPieces.add(lastMove.getCapturedPiece());
+                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()] = lastMove.getCapturedPiece();
+                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()].setPieceState(ChessPiece.PieceState.ALIVE);
+            }
+        }
+    }
+
 
     public ChessPiece[][] generateInitalBoard(){
         ChessPiece[][] pieces = new ChessPiece[8][8];
@@ -65,10 +173,13 @@ public class Chess implements Serializable{
                             Rook rook = new Rook();
                             if(i==0){
                                 rook.setPieceColor(ChessPiece.PieceColor.BLACK);
+                                rook.setPosition(i,j);
+                                aliveBlackPieces.add(rook);
                             }else {
                                 rook.setPieceColor(ChessPiece.PieceColor.WHITE);
+                                rook.setPosition(i,j);
+                                aliveWhitePieces.add(rook);
                             }
-                            rook.setPosition(i,j);
                             pieces[i][j] = rook;
                             break;
                         case 1:
@@ -76,10 +187,14 @@ public class Chess implements Serializable{
                             Knight knight = new Knight();
                             if(i==0){
                                 knight.setPieceColor(ChessPiece.PieceColor.BLACK);
+                                knight.setPosition(i,j);
+                                aliveBlackPieces.add(knight);
                             }else {
                                 knight.setPieceColor(ChessPiece.PieceColor.WHITE);
+                                knight.setPosition(i,j);
+                                aliveWhitePieces.add(knight);
                             }
-                            knight.setPosition(i,j);
+
                             pieces[i][j] = knight;
 
                             break;
@@ -88,33 +203,45 @@ public class Chess implements Serializable{
                             Bishop bishop = new Bishop();
                             if(i==0){
                                 bishop.setPieceColor(ChessPiece.PieceColor.BLACK);
+                                bishop.setPosition(i,j);
+                                aliveBlackPieces.add(bishop);
                             }else {
                                 bishop.setPieceColor(ChessPiece.PieceColor.WHITE);
+                                bishop.setPosition(i,j);
+                                aliveWhitePieces.add(bishop);
                             }
-                            bishop.setPosition(i,j);
                             pieces[i][j] = bishop;
                             break;
                         case 3:
                             Queen queen = new Queen();
                             if(i==0){
                                 queen.setPieceColor(ChessPiece.PieceColor.BLACK);
+                                queen.setPosition(i,j);
+                                aliveBlackPieces.add(queen);
                             }else {
                                 queen.setPieceColor(ChessPiece.PieceColor.WHITE);
+                                queen.setPosition(i,j);
+                                aliveWhitePieces.add(queen);
                             }
-                            queen.setPosition(i,j);
                             pieces[i][j] = queen;
                             break;
                         case 4:
-                            King king = new King();
                             if(i==0){
+                                King king = new King();
                                 king.setPieceColor(ChessPiece.PieceColor.BLACK);
+                                king.setPosition(i,j);
+                                pieces[i][j] = king;
                                 blackKing = king;
+                                aliveBlackPieces.add(king);
                             }else {
+                                King king = new King();
                                 king.setPieceColor(ChessPiece.PieceColor.WHITE);
+                                king.setPosition(i,j);
+                                pieces[i][j] = king;
                                 whiteKing = king;
+                                aliveWhitePieces.add(king);
                             }
-                            king.setPosition(i,j);
-                            pieces[i][j] = king;
+
                             break;
                     }
 
@@ -122,11 +249,15 @@ public class Chess implements Serializable{
                     Pawn pawn = new Pawn();
                     if(i==1){
                         pawn.setPieceColor(ChessPiece.PieceColor.BLACK);
+                        pawn.setPieceState(ChessPiece.PieceState.ALIVE);
+                        pawn.setPosition(i,j);
+                        aliveBlackPieces.add(pawn);
                     }else {
                         pawn.setPieceColor(ChessPiece.PieceColor.WHITE);
+                        pawn.setPieceState(ChessPiece.PieceState.ALIVE);
+                        pawn.setPosition(i,j);
+                        aliveWhitePieces.add(pawn);
                     }
-                    pawn.setPieceState(ChessPiece.PieceState.ALIVE);
-                    pawn.setPosition(i,j);
                     pieces[i][j] = pawn;
                 }
             }

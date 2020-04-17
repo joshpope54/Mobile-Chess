@@ -9,7 +9,7 @@ public class Bishop extends ChessPiece implements Serializable {
 
     @SuppressWarnings("Duplicates")
     @Override
-    public Reason move(Chess chess, int finishRow, int finishCol) {
+    public Reason move(Chess chess, int finishRow, int finishCol, int type) {
         boolean success = false;
         // want to move diagonal
         if(getX()==finishRow || getY()==finishCol){
@@ -17,16 +17,20 @@ public class Bishop extends ChessPiece implements Serializable {
         }else{
             //Only works for down and right
             if(finishRow-getX()>0 && finishCol-getY()>0){
-                for(int i=getX()+1, j=getY()+1; i<=finishRow; i++, j++){
+                for(int i=getX()+1, j=getY()+1; i<=finishRow && j <=finishCol; i++, j++){
                     if(chess.chessPieces[i][j] == null){
                         if(i==finishRow && j==finishCol){
-                            movePieceInArray(chess, finishRow, finishCol);
+                            if(type==0){
+                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                            }
                             success= true;
                         }
                     }else{
                         if(i==finishRow && j==finishCol){
                             if(!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())){
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 success= true;
                             }
                         }else{
@@ -35,16 +39,20 @@ public class Bishop extends ChessPiece implements Serializable {
                     }
                 }
             }else if (finishRow-getX()<0 && finishCol-getY()<0){
-                for(int i=getX()-1, j=getY()-1; i>=finishRow; i--, j--){
+                for(int i=getX()-1, j=getY()-1; i>=finishRow && j>=finishCol; i--, j--){
                     if(chess.chessPieces[i][j] == null){
                         if(i==finishRow && j==finishCol){
-                            movePieceInArray(chess, finishRow, finishCol);
+                            if(type==0){
+                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                            }
                             success= true;
                         }
                     }else{
                         if(i==finishRow && j==finishCol){
                             if(!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())){
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 success= true;
                             }
                         }else{
@@ -53,16 +61,20 @@ public class Bishop extends ChessPiece implements Serializable {
                     }
                 }
             }else if (finishRow-getX()<0 && finishCol-getY()>0){
-                for(int i=getX()-1, j=getY()+1; i>=finishRow; i--, j++){
+                for(int i=getX()-1, j=getY()+1; i>=finishRow && j<=finishCol; i--, j++){
                     if(chess.chessPieces[i][j] == null){
                         if(i==finishRow && j==finishCol){
-                            movePieceInArray(chess, finishRow, finishCol);
+                            if(type==0){
+                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                            }
                             success= true;
                         }
                     }else{
                         if(i==finishRow && j==finishCol){
                             if(!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())){
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 success= true;
                             }
                         }else{
@@ -71,16 +83,20 @@ public class Bishop extends ChessPiece implements Serializable {
                     }
                 }
             }else if (finishRow-getX()>0 && finishCol-getY()<0){
-                for(int i=getX()+1, j=getY()-1; i<=finishRow; i++, j--){
+                for(int i=getX()+1, j=getY()-1; i<=finishRow && j>=finishCol; i++, j--){
                     if(chess.chessPieces[i][j] == null){
                         if(i==finishRow && j==finishCol){
-                            movePieceInArray(chess, finishRow, finishCol);
+                            if(type==0){
+                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                            }
                             success= true;
                         }
                     }else{
                         if(i==finishRow && j==finishCol){
                             if(!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())){
-                                movePieceInArray(chess, finishRow, finishCol);
+                                if(type==0){
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                }
                                 success= true;
                             }
                         }else{
