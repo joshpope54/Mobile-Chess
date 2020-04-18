@@ -77,6 +77,7 @@ public class Game extends AppCompatActivity {
         public void onServiceConnected(ComponentName className, IBinder service) {
             ServiceClass.LocalBinder binder = (ServiceClass.LocalBinder) service;
             mService = binder.getService();
+            EventBus.getDefault().register(Game.this);
             mBound = true;
             Toast.makeText(Game.this, "CONNECTED",Toast.LENGTH_LONG).show();
         }
@@ -1926,9 +1927,9 @@ public class Game extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
         Intent intent = new Intent(this, ServiceClass.class);
         bindService(intent, connection, Context.BIND_AUTO_CREATE);
-        setContentView(R.layout.activity_game);
         androidx.appcompat.widget.Toolbar myToolbar = findViewById(R.id.toolbar1);
         setSupportActionBar(myToolbar);
         myToolbar.setTitle("Chess");
@@ -1936,7 +1937,6 @@ public class Game extends AppCompatActivity {
         color = fromintent.getStringExtra("COLOR");
         TextView textView = findViewById(R.id.textView70);
         textView.setText(color);
-        EventBus.getDefault().register(this);
         topLayout = (RelativeLayout)findViewById(R.id.enemyMove);
         bottomLayout = (RelativeLayout)findViewById(R.id.myMove);
         gridLayout = findViewById(R.id.gridlayout);
@@ -2057,12 +2057,20 @@ public class Game extends AppCompatActivity {
         return array;
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
-        unbindService(connection);
-        mBound = false;
+//        EventBus.getDefault().unregister(this);
+//        unbindService(connection);
+//        mBound = false;
     }
 
     public void changeColor(){
@@ -2245,7 +2253,7 @@ public class Game extends AppCompatActivity {
                 String[] contents = convertToChessCoordinates(kingStart[0],kingStart[1],kingEnd[0],kingEnd[1]);
                 String[] contents2 = convertToChessCoordinates(rookStart[0],rookStart[1],rookEnd[0],rookEnd[1]);
 
-                lastMove.setText(contents[0] + "-" + contents[1] + " CASTLING " + contents2[0] + "-" + contents2[1]);
+                lastMove.setText(contents2[0] + "-" + contents2[1] + "   "+ contents[0] + "-" + contents[1] + "   " +lastMove.getText() );
 
                 RelativeLayout viewKingLayout = (RelativeLayout) gridLayout.getChildAt(kingGridLayoutStart);
                 RelativeLayout viewKing2Layout = (RelativeLayout) gridLayout.getChildAt(kingGridLayoutEnd);
@@ -2320,6 +2328,7 @@ public class Game extends AppCompatActivity {
                 //DIALOG CLOSE
             }else if(messageArray[0].equals("CHECK")){
                 if(messageArray[1].equals(color)){
+                    checkedSpots = new ArrayList<>();
                     checkedSpots = findCheckingPiece();
                     friendlyPiecesThatCanMoveInCheck = new ArrayList<>();
                     inCheck = true;
@@ -2385,9 +2394,15 @@ public class Game extends AppCompatActivity {
         }
     }
 
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //Inform of destruction
+        Intent myService = new Intent(Game.this, ServiceClass.class);
+        stopService(myService);
+        EventBus.getDefault().unregister(this);
+        unbindService(connection);
+        mBound = false;
     }
 }
