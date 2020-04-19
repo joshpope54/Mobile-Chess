@@ -72,8 +72,10 @@ public class King extends ChessPiece implements Serializable{
                         if (this.checkIfInCheck(chess, true)) {
                             //replace with undo Move
                             //movePieceInArray(chess, startX, startY);
-                            System.out.println("calling undo move from king move when position trying to move to is null");
-                            chess.undoMove();
+//                            chess.outputBoard();
+//                            System.out.println("calling undo move from king move when position trying to move to is null");
+//                            chess.undoMove();
+//                            chess.outputBoard();
                             return new Reason(false, "CREATES_CHECK");
                         } else {
                             return new Reason(true, "SUCCESS");
@@ -85,8 +87,8 @@ public class King extends ChessPiece implements Serializable{
                             if (this.checkIfInCheck(chess, true)) {
                                 //replace with undo Move
                                 //movePieceInArray(chess, startX, startY);
-                                System.out.println("calling undo move from king move when position trying to move to is not null and pieces not equal color");
-                                chess.undoMove();
+//                                System.out.println("calling undo move from king move when position trying to move to is not null and pieces not equal color");
+//                                chess.undoMove();
                                 return new Reason(false, "CREATES_CHECK");
                             } else {
                                 return new Reason(true, "SUCCESS");
@@ -150,15 +152,15 @@ public class King extends ChessPiece implements Serializable{
             if(finishRow>7 ||finishRow<0 ||  finishCol>7 || finishCol<0 ) {
                 noValidMovesChecker.add(true);
             }else{
-                System.out.println(startX + "   " + startY + "   " + finishRow + "   " + finishCol);
+                //System.out.println(startX + "   " + startY + "   " + finishRow + "   " + finishCol);
                 boolean success = chess.movePiece(startX, startY, finishRow, finishCol);
                 if(this.checkIfInCheck(chess, false) && success){
-                    System.out.println("Calling undo move from check if king can move in check when move places king in check" + this.getPieceColor());
+                    //System.out.println("Calling undo move from check if king can move in check when move places king in check" + this.getPieceColor());
                     chess.undoMove();
                     noValidMovesChecker.add(true);
                 }else if(!this.checkIfInCheck(chess, false) && success){
                     //replace with undoMove
-                    System.out.println("Calling undo move from check if king can move in check when move doesnt place king in check" + this.getPieceColor());
+                    //System.out.println("Calling undo move from check if king can move in check when move doesnt place king in check" + this.getPieceColor());
                     chess.undoMove();
                     noValidMovesChecker.add(false);
                 }
@@ -170,29 +172,35 @@ public class King extends ChessPiece implements Serializable{
     public boolean checkIfCheckingPieceCanBeBlockedOrTaken(Chess chess){
         HashMap<int[], Boolean> availableMovementSpots = new HashMap<>();
         for(ChessPiece piece: threateningPiece){
-            System.out.println(piece);
-            if(piece.getY()== this.getY()){            //Piece on Vertical
-                if(piece.getX()>this.getX()){
-                    for(int i=getX()+1; i<=piece.getX();i++) {
-                        availableMovementSpots.put(new int[]{i, getY()}, false); //False if no piece can move to this spot //True if move can be made
-                    }
-                }else{
-                    for(int i=getX()-1; i>=piece.getX();i--) {
-                        availableMovementSpots.put(new int[]{i, getY()}, false);
+            if(piece.getPieceType().equals(PieceType.KNIGHT)){
+                int[][] potentialPositions = {{2,1},{1,2},{-2,1},{-1,2},{-2,-1},{-1,-2},{2,-1},{1,-2}};
+                for(int[] positionOfRook: potentialPositions){
+                    if(piece.getX() == this.getX()+positionOfRook[0] && this.getY()+positionOfRook[1]==piece.getY()){
+                        availableMovementSpots.put(new int[]{piece.getX(), piece.getY()}, false);
                     }
                 }
-            }else if (piece.getX() == this.getX()){                //Piece on Horizontal
-                if(piece.getY()>this.getY()){
-                    for(int j=getY()+1; j<=piece.getY();j++) {
-                        availableMovementSpots.put(new int[]{getX(), j}, false);
+            }else{
+                if(piece.getY()== this.getY()){            //Piece on Vertical
+                    if(piece.getX()>this.getX()){
+                        for(int i=getX()+1; i<=piece.getX();i++) {
+                            availableMovementSpots.put(new int[]{i, getY()}, false); //False if no piece can move to this spot //True if move can be made
+                        }
+                    }else{
+                        for(int i=getX()-1; i>=piece.getX();i--) {
+                            availableMovementSpots.put(new int[]{i, getY()}, false);
+                        }
                     }
-                }else{
-                    for(int j=getY()-1; j>=piece.getY();j--) {
-                        availableMovementSpots.put(new int[]{getX(), j}, false);
+                }else if (piece.getX() == this.getX()){                //Piece on Horizontal
+                    if(piece.getY()>this.getY()){
+                        for(int j=getY()+1; j<=piece.getY();j++) {
+                            availableMovementSpots.put(new int[]{getX(), j}, false);
+                        }
+                    }else{
+                        for(int j=getY()-1; j>=piece.getY();j--) {
+                            availableMovementSpots.put(new int[]{getX(), j}, false);
+                        }
                     }
-                }
-            }else{ //diagonal or not
-                if(piece.getX() < this.getX() && piece.getY()< this.getY()){
+                }else if(piece.getX() < this.getX() && piece.getY()< this.getY()){
                     //System.out.println("Up and left");
                     for(int i=getX()-1, j=getY()-1; (i>=piece.getX() && j>=piece.getY()); i--, j--) {
                         availableMovementSpots.put(new int[]{i, j}, false);
@@ -207,9 +215,9 @@ public class King extends ChessPiece implements Serializable{
                     for(int i=getX()+1, j=getY()+1; (i<=piece.getX() && j<=piece.getY()); i++, j++) {
                         availableMovementSpots.put(new int[]{i, j}, false);
                     }
-                }else if (piece.getX() > this.getX() && piece.getY() < this.getY()){
+                }else if (piece.getX() > this.getX() && piece.getY() < this.getY()) {
                     //System.out.println("down and left");
-                    for(int i=getX()+1, j=getY()-1; (i<=piece.getX() && j>=piece.getY()); i++, j--) {
+                    for (int i = getX() + 1, j = getY() - 1; (i <= piece.getX() && j >= piece.getY()); i++, j--) {
                         availableMovementSpots.put(new int[]{i, j}, false);
                     }
                 }
@@ -222,7 +230,7 @@ public class King extends ChessPiece implements Serializable{
                 for(ChessPiece piece : chess.aliveWhitePieces){
                     if(!(piece instanceof King)){
                         if(piece.move(chess, piecePos[0],piecePos[1], 1).isSuccess()){
-                            System.out.println("PROBLEM AREA: " + piecePos[0] +"  " + piecePos[1] + piece);
+                            //System.out.println("PROBLEM AREA: " + piecePos[0] +"  " + piecePos[1] + piece);
                             availableMovementSpots.replace(piecePos,true);
                         }
                     }
@@ -270,13 +278,13 @@ public class King extends ChessPiece implements Serializable{
 
     private boolean ifTraceOnKnights(Chess chess, Boolean record){
         int[][] potentialMoves = {{2,1},{1,2},{-2,1},{-1,2},{-2,-1},{-1,-2},{2,-1},{1,-2}};
-
         for (int[] move : potentialMoves){
             try {
                 if(chess.chessPieces[getX()+move[0]][getY()+move[1]]!=null){
                     if(!chess.chessPieces[getX()+move[0]][getY()+move[1]].getPieceColor().equals(this.getPieceColor())){
                         if(chess.chessPieces[getX()+move[0]][getY()+move[1]] instanceof Knight){
                             if(!threateningPiece.contains(chess.chessPieces[getX()+move[0]][getY()+move[1]]) && record){
+                                //System.out.println("FOUND THREATENING KNIGHT " + chess.chessPieces[getX()+move[0]][getY()+move[1]]);
                                 threateningPiece.add(chess.chessPieces[getX()+move[0]][getY()+move[1]]);
                             }
                             return true;

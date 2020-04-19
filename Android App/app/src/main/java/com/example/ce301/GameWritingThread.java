@@ -17,7 +17,7 @@ public class GameWritingThread extends Thread {
     public PrintWriter printWriter;
     private Handler serviceHandler;
     public static EventClass externalMessage = null;
-    private boolean running = true;
+    public static boolean running = true;
 
     public GameWritingThread(Handler handler, PrintWriter writer) {
         this.serviceHandler = handler;
@@ -27,6 +27,8 @@ public class GameWritingThread extends Thread {
     @Override
     public void run() {
         super.run();
+        Log.e("WRITING", "STARTED");
+        running = true;
         while (running){
             if(externalMessage != null){
                 if(externalMessage.points!=null){
@@ -49,5 +51,6 @@ public class GameWritingThread extends Thread {
                 externalMessage = null;
             }
         }
+        //printWriter.println("SENDEXIT");
     }
 }

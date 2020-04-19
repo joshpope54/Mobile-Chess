@@ -15,6 +15,8 @@ public class GameClientHandler extends Thread{
     public GameServer server;
     private volatile boolean exit = false;
     public String playerColor;
+    public String userName;
+    private boolean running = true;
 
     public GameClientHandler(Socket clientSocket, String type){
         client = clientSocket;
@@ -29,8 +31,8 @@ public class GameClientHandler extends Thread{
 
     @Override
     public void run() {
-        String recieved = dataInputStream.nextLine();
-        if (recieved.equalsIgnoreCase("exit")) {
+        String recieved2 = dataInputStream.nextLine();
+        if (recieved2.equalsIgnoreCase("exit")) {
             System.out.println(string + " Client " + this.client + " sends exit...");
             System.out.println(string + " Closing this connection.");
             MatchMaker.waitingForPlayers.remove(this);
@@ -41,13 +43,9 @@ public class GameClientHandler extends Thread{
                 e.printStackTrace();
             }
             System.out.println(string + " Connection closed");
-        }else{
-            server.createPosition(recieved, this);
+        }else if (recieved2.contains("USERNAME")){
+            userName = recieved2.split(" ")[1];
         }
-    }
-
-    public void stopper(){
-        exit = true;
     }
 
     //    public void run() {

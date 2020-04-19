@@ -18,28 +18,18 @@ import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class GameReadingThread extends Thread {
-    private Socket socket;
+    public Socket socket;
     public PrintWriter printWriter;
     public Scanner scanner;
     private Handler serviceHandler;
     //public LocalHandler gameHandler;
     public String externalMessage = "";
     public GameWritingThread writingThread;
+    public static boolean running = true;
 
     public GameReadingThread(Handler handler) {
         this.serviceHandler = handler;
     }
-//    static class LocalHandler extends Handler {
-//        GameWritingThread thread;
-//        public LocalHandler(GameWritingThread thread){
-//            this.thread = thread;
-//        }
-//
-//        @Override
-//        public void handleMessage(Message msg) {
-//            thread.externalMessage = msg.obj.toString();
-//        }
-//    }
     @Override
     public void run() {
         super.run();
@@ -59,7 +49,6 @@ public class GameReadingThread extends Thread {
             scanner = new Scanner(socket.getInputStream());
             writingThread = new GameWritingThread(serviceHandler, printWriter);
             writingThread.start();
-
             while (true){
                 String input = scanner.nextLine();
                 Message message = serviceHandler.obtainMessage();
@@ -68,7 +57,9 @@ public class GameReadingThread extends Thread {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Server:", "DISCONNECTED");
+            Message message = serviceHandler.obtainMessage();
+            message.obj = "DISCONNECTFROMSERVER";
+            this.serviceHandler.sendMessage(message);
         }finally {
             try {
                 scanner.close();

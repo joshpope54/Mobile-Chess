@@ -22,6 +22,7 @@ import com.example.ce301.R;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -54,8 +55,15 @@ public class ServiceClass extends Service {
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
+        try {
+            GameWritingThread.running = false;
+            thread.socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
+
 
     @Subscribe
     public void onEvent(EventClass eventClass){

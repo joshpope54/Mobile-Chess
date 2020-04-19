@@ -132,7 +132,6 @@ class MatchMaker extends Thread {
                         //create a game server with two random players
                         GameClientHandler player1 = waitingForPlayers.get(random1);
                         GameClientHandler player2 = waitingForPlayers.get(random2);
-
                         GameServer game = new GameServer(player1, player2);
                         game.start();
                         waitingForPlayers.remove(player1);

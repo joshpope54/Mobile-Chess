@@ -1,8 +1,10 @@
 package com.example.ce301;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.ColorDrawable;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ import androidx.core.content.res.TypedArrayUtils;
 import androidx.gridlayout.widget.GridLayout;
 
 import com.example.ce301.R;
+import com.google.android.flexbox.FlexboxLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -69,6 +73,7 @@ public class Game extends AppCompatActivity {
     private String firstClick;
     private String secondClick;
     private ArrayList<int[]> directionsCanMoveWhilstBlockingCheck = new ArrayList<>();
+    private FlexboxLayout deadPiecesLayout;
     private boolean hasKingMoved = false;
     private boolean inCheck;
     private ArrayList<Integer> friendlyPiecesThatCanMoveInCheck;
@@ -420,46 +425,7 @@ public class Game extends AppCompatActivity {
         return false;
     }
 
-    public boolean canThisPawnMove(int x, int y, int gridX, int gridY){
-        int gridXPosition = gridX;
-        int gridYPosition = gridY;
-        if (gridXPosition == 6) {//6 so check if can move 2 forward to block point
-            int[][] asArray = {{-1, 0}, {-1, -1}, {-1,+1}, {-2, 0}};
-            for(int[] array: asArray) {
-                if(gridXPosition+array[0]>=0 && gridXPosition+array[0]<=7 && gridYPosition+array[1]>=0 && gridYPosition+array[1]<=7) {
-                    if(gridXPosition+array[0]==x && gridYPosition+array[1]==y){
-                        RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition+array[0]).get(gridYPosition+array[1]));
-                        TextView textOfPiece = (TextView)layout.getChildAt(2);
-                        if(array[0]==-1&&array[1]==-1&&textOfPiece.getText().equals("")){
-                            //break;
-                        }else if(array[0]==-1&&array[1]==+1&&textOfPiece.getText().equals("")){
-                            // break;
-                        }else{
-                            return true;
-                        }
-                    }
-                }
-            }
-        }else {
-            int[][] asArray = {{-1, 0}, {-1, -1}, {-1,+1}};
-            for(int[] array: asArray) {
-                if(gridXPosition+array[0]>=0 && gridXPosition+array[0]<=7 && gridYPosition+array[1]>=0 && gridYPosition+array[1]<=7) {
-                    if(gridXPosition+array[0]==x && gridYPosition+array[1]==y){
-                        RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition+array[0]).get(gridYPosition+array[1]));
-                        TextView textOfPiece = (TextView)layout.getChildAt(2);
-                        if(array[0]==-1&&array[1]==-1&&textOfPiece.getText().equals("")){
-                            //break;
-                        }else if(array[0]==-1&&array[1]==+1&&textOfPiece.getText().equals("")){
-                            // break;
-                        }else{
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
+
 
     public void setPawnOnClick(RelativeLayout layout){
         final int finalPosition = findPosition(layout);
@@ -491,7 +457,6 @@ public class Game extends AppCompatActivity {
                                     System.out.println(Arrays.toString(position));
 
                                     if(canThisPawnMove(position[0], position[1], gridXPosition, gridYPosition)){
-                                        System.out.println("Could move to ^");
                                         RelativeLayout theLayoutOneForward = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]));
                                         TextView textOneForward = (TextView) theLayoutOneForward.getChildAt(2);
                                         if (textOneForward.getText().equals("")) {
@@ -500,11 +465,14 @@ public class Game extends AppCompatActivity {
                                             ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]))).getChildAt(0);
                                             image.setImageResource(R.drawable.chess_gotospot);
                                         }else{
-                                            if (textOneForward.getText().length() != 0) {
-                                                if (textOneForward.getText().charAt(0) != color.charAt(0)) {
-                                                    theLayoutOneForward.setBackgroundColor(getResources().getColor(R.color.green));
-                                                    textOneForward.setText("SPOT " + textOneForward.getText().toString());
-                                                    setSpotOnClick(theLayoutOneForward);
+                                            //only perform if its diagonal
+                                            if(position[0]-gridXPosition == -1 && (position[1]-gridYPosition==+1 || position[1]-gridYPosition==-1)){
+                                                if (textOneForward.getText().length() != 0) {
+                                                    if (textOneForward.getText().charAt(0) != color.charAt(0)) {
+                                                        theLayoutOneForward.setBackgroundColor(getResources().getColor(R.color.green));
+                                                        textOneForward.setText("SPOT " + textOneForward.getText().toString());
+                                                        setSpotOnClick(theLayoutOneForward);
+                                                    }
                                                 }
                                             }
                                         }
@@ -517,7 +485,6 @@ public class Game extends AppCompatActivity {
                                     TextView textOneForward = (TextView) theLayoutOneForward.getChildAt(2);
                                     RelativeLayout theLayoutTwoForward = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition-2).get(gridYPosition));
                                     TextView textTwoForward = (TextView) theLayoutTwoForward.getChildAt(2);
-
                                     if (textOneForward.getText().equals("")) {
                                         textOneForward.setText("SPOT");
                                         setSpotOnClick(theLayoutOneForward);
@@ -1723,7 +1690,46 @@ public class Game extends AppCompatActivity {
         return rookMovement||bishopMovement;
     }
 
-
+    public boolean canThisPawnMove(int x, int y, int gridX, int gridY){//x , y finishing spots, gridx, gridy Starting spots
+        int gridXPosition = gridX;
+        int gridYPosition = gridY;
+        if (gridXPosition == 6) {//6 so check if can move 2 forward to block point
+            int[][] asArray = {{-1, 0}, {-1, -1}, {-1,+1}, {-2, 0}};
+            for(int[] array: asArray) {
+                if(gridXPosition+array[0]>=0 && gridXPosition+array[0]<=7 && gridYPosition+array[1]>=0 && gridYPosition+array[1]<=7) {
+                    if(gridXPosition+array[0]==x && gridYPosition+array[1]==y){
+                        RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition+array[0]).get(gridYPosition+array[1]));
+                        TextView textOfPiece = (TextView)layout.getChildAt(2);
+                        if(array[0]==-1&&array[1]==-1&&textOfPiece.getText().equals("")){
+                            //break;
+                        }else if(array[0]==-1&&array[1]==+1&&textOfPiece.getText().equals("")){
+                            // break;
+                        }else{
+                            return true;
+                        }
+                    }
+                }
+            }
+        }else {
+            int[][] asArray = {{-1, 0}, {-1, -1}, {-1,+1}};
+            for(int[] array: asArray) {
+                if(gridXPosition+array[0]>=0 && gridXPosition+array[0]<=7 && gridYPosition+array[1]>=0 && gridYPosition+array[1]<=7) {
+                    if(gridXPosition+array[0]==x && gridYPosition+array[1]==y){
+                        RelativeLayout layout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition+array[0]).get(gridYPosition+array[1]));
+                        TextView textOfPiece = (TextView)layout.getChildAt(2);
+                        if(array[0]==-1&&array[1]==-1&&textOfPiece.getText().equals("")){
+                            //break;
+                        }else if(array[0]==-1&&array[1]==+1&&textOfPiece.getText().equals("")){
+                            // break;
+                        }else{
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     public boolean canPawnMoveToSpot(int x, int y, String playerType){
         //pawns are only a threat if can move diagonally to spot
@@ -1768,7 +1774,7 @@ public class Game extends AppCompatActivity {
                                                     if(playerType.equals("FRIENDLY")){
                                                         friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                                                     }
-                                                    return true;
+                                                    success = true;
                                                 }
                                             }
 
@@ -1779,14 +1785,14 @@ public class Game extends AppCompatActivity {
                                                     if(playerType.equals("FRIENDLY")){
                                                         friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                                                     }
-                                                    return true;
+                                                    success=true;
                                                 }
                                             }
                                         }else{
                                             if(playerType.equals("FRIENDLY")){
                                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                                             }
-                                            return true;
+                                            success = true;
                                         }
                                     }
                                 }
@@ -1804,7 +1810,7 @@ public class Game extends AppCompatActivity {
                                                     if(playerType.equals("FRIENDLY")){
                                                         friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                                                     }
-                                                    return true;
+                                                    success = true;
                                                 }
                                             }
                                             //break;
@@ -1814,7 +1820,7 @@ public class Game extends AppCompatActivity {
                                                     if(playerType.equals("FRIENDLY")){
                                                         friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                                                     }
-                                                    return true;
+                                                    success = true;
                                                 }
                                             }
                                             // break;
@@ -1822,7 +1828,7 @@ public class Game extends AppCompatActivity {
                                             if(playerType.equals("FRIENDLY")){
                                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                                             }
-                                            return true;
+                                            success = true;
                                         }
                                     }
                                 }
@@ -1832,7 +1838,7 @@ public class Game extends AppCompatActivity {
                 }
             }
         }
-        return false;
+        return success;
 
     }
 
@@ -1893,8 +1899,24 @@ public class Game extends AppCompatActivity {
                 }
                 count++;
             }
-            //PERHAPSH PROBLEM WITH PAWN? YES PROBLEM WITH PAWN
-            //DETECTING EVEN IF NOT DIAGONAL
+            //ArrayList<int[]> directionKnightWasFound = new ArrayList<>();
+            int[][] knightPositions = {{2,1},{1,2},{-2,1},{-1,2},{-2,-1},{-1,-2},{2,-1},{1,-2}};
+            for(int[] knightPosition: knightPositions){
+                if(kingX+knightPosition[0]<=7 && kingX+knightPosition[0]>=0 && kingY+knightPosition[1]<=7 && kingY+knightPosition[1]>=0){
+                    int gridLayoutPosition = gridConverter.get(kingX+knightPosition[0]).get(kingY+knightPosition[1]);
+                    RelativeLayout layout = (RelativeLayout)gridLayout.getChildAt(gridLayoutPosition);
+                    TextView text = (TextView)layout.getChildAt(2);
+                    if(!text.getText().toString().equals("")) {
+                        if (text.getText().toString().charAt(0) != color.charAt(0)) {
+                            int [] array = new int[2];
+                            array[0] = kingX+knightPosition[0];
+                            array[1] = kingY+knightPosition[1];
+                            points.add(array);
+                        }
+                    }
+                }
+            }
+
             for(Integer inte: directionPieceWasFound){
                 for(int j = kingX+potentialPositions[inte][0], k = kingY+potentialPositions[inte][1]; ((k >= 0 && k<=7) && (j >= 0 && j<=7)); j+=potentialPositions[inte][0], k+=potentialPositions[inte][1]){
                     int gridLayoutPosition = gridConverter.get(j).get(k);
@@ -1935,10 +1957,37 @@ public class Game extends AppCompatActivity {
         myToolbar.setTitle("Chess");
         Intent fromintent = getIntent();
         color = fromintent.getStringExtra("COLOR");
-        TextView textView = findViewById(R.id.textView70);
-        textView.setText(color);
+        String yourName = fromintent.getStringExtra("YOURNAME");
+        String enemyUserName = fromintent.getStringExtra("ENEMYNAME");
         topLayout = (RelativeLayout)findViewById(R.id.enemyMove);
+        TextView enemyName = (TextView)topLayout.getChildAt(0);
+        enemyName.setText(enemyUserName);
         bottomLayout = (RelativeLayout)findViewById(R.id.myMove);
+        TextView myName = (TextView)bottomLayout.getChildAt(0);
+        myName.setText(myName.getText() + "  ("+yourName+")");
+        deadPiecesLayout = findViewById(R.id.deadPiecesLayout);
+        RelativeLayout forfeit = findViewById(R.id.forfeitLayout);
+        forfeit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AlertDialog.Builder(Game.this)
+                        .setTitle("Alert")
+                        .setMessage("Are you sure you want to forfeit")
+                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Game.super.onBackPressed();
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int i) {
+                        dialog.dismiss();
+                    }
+                })
+                        .create().show();
+            }
+        });
         gridLayout = findViewById(R.id.gridlayout);
         firstClick = "";
         secondClick = "";
@@ -2183,38 +2232,47 @@ public class Game extends AppCompatActivity {
                 final String receivedPieceColor = messageArray[2];
                 RelativeLayout viewLayout = (RelativeLayout) gridLayout.getChildAt(piecePositionInGrid);
                 ImageView view2 = (ImageView) viewLayout.getChildAt(0);
+                TextView informationText = (TextView) viewLayout.getChildAt(2);
                 switch (messageArray[3]){
                     case "QUEEN":
                         if(receivedPieceColor.equals("WHITE")){
                             view2.setImageResource(R.drawable.chess_qlt60);
+                            informationText.setText("WQUEEN");
                         }else if(receivedPieceColor.equals("BLACK")){
                             view2.setImageResource(R.drawable.chess_qdt60);
+                            informationText.setText("BQUEEN");
                         }
                         break;
                     case "KNIGHT":
                         if(receivedPieceColor.equals("WHITE")){
                             view2.setImageResource(R.drawable.chess_nlt60);
+                            informationText.setText("WKNIGHT");
                         }else if(receivedPieceColor.equals("BLACK")){
                             view2.setImageResource(R.drawable.chess_ndt60);
+                            informationText.setText("BKNIGHT");
                         }
                         break;
 
                     case "ROOK":
                         if(receivedPieceColor.equals("WHITE")){
                             view2.setImageResource(R.drawable.chess_rlt60);
+                            informationText.setText("WROOK");
                         }else if(receivedPieceColor.equals("BLACK")) {
                             view2.setImageResource(R.drawable.chess_rdt60);
+                            informationText.setText("BROOK");
                         }
                         break;
                     case "BISHOP":
                         if(receivedPieceColor.equals("WHITE")){
                             view2.setImageResource(R.drawable.chess_blt60);
+                            informationText.setText("WBISHOP");
                         }else if(receivedPieceColor.equals("BLACK")){
                             view2.setImageResource(R.drawable.chess_bdt60);
+                            informationText.setText("BBISHOP");
                         }
                         break;
                 }
-                changeColor();
+
             }else if(messageArray[0].equals("CASTLING")){
                 String[] kingStart = messageArray[1].split(",");
                 String[] kingEnd = messageArray[2].split(",");
@@ -2309,11 +2367,19 @@ public class Game extends AppCompatActivity {
                 RelativeLayout initialPositionLayout = (RelativeLayout) gridLayout.getChildAt(start);
                 RelativeLayout finalLayoutPosition = (RelativeLayout) gridLayout.getChildAt(finish);
 
-
                 ImageView initialImage = (ImageView)initialPositionLayout.getChildAt(0);
                 ImageView finalImage = (ImageView)finalLayoutPosition.getChildAt(0);
                 TextView initialPieceText = (TextView)initialPositionLayout.getChildAt(2);
                 TextView finalPieceText = (TextView)finalLayoutPosition.getChildAt(2);
+
+                if(!finalPieceText.getText().toString().equals("")){
+                    ImageView deadPiece = new ImageView(getApplicationContext());
+                    deadPiece.setImageDrawable(finalImage.getDrawable());
+                    FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(100,100);
+                    deadPiece.setLayoutParams(lp);
+                    deadPiecesLayout.addView(deadPiece, 0);
+                }
+
 
                 finalImage.setImageDrawable(initialImage.getDrawable());
                 initialImage.setImageResource(android.R.color.transparent);
@@ -2380,9 +2446,22 @@ public class Game extends AppCompatActivity {
 
                 Toast.makeText(this, "CHECKMATE!", Toast.LENGTH_LONG).show();
             } else if(messageArray[0].equals("FAILURE")){
-                Toast.makeText(this, "MOVE FAILURE" + messageArray[1], Toast.LENGTH_LONG).show();
-            }
+                Toast.makeText(this, "MOVE FAILURE", Toast.LENGTH_LONG).show();
+            } else if(messageArray[0].equals("DISCONNECTFROMSERVER")){
+                new AlertDialog.Builder(this)
+                        .setTitle("Alert")
+                        .setMessage("You have been disconnected from the server, You may have lost internet connection or the enemy player disconnected.")
+                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Game.super.onBackPressed();
+                            }
+                        })
+                        .create().show();
 
+
+            }
                 Log.e("Message", eventClass.message + " " +eventClass.fromClass);
         }
 
@@ -2394,15 +2473,33 @@ public class Game extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(Game.this)
+                .setTitle("Alert")
+                .setMessage("Are you sure you want to forfeit")
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Game.super.onBackPressed();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int i) {
+                dialog.dismiss();
+            }
+        })
+                .create().show();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Intent myService = new Intent(Game.this, ServiceClass.class);
-        stopService(myService);
         EventBus.getDefault().unregister(this);
         unbindService(connection);
+        Intent intent = new Intent(this, ServiceClass.class);
+        stopService(intent);
         mBound = false;
     }
 }

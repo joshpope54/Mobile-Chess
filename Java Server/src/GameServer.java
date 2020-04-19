@@ -3,17 +3,20 @@ import com.example.ce301.chess.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class GameServer extends Thread{
     public GameClientHandler player1;
     public GameClientHandler player2;
-    private Chess chess;
+    public Chess chess;
     PrintWriter playerOneOutput;
     PrintWriter playerTwoOutput;
-    private boolean currentMovingPlayer; //true for white //false for black
+    public boolean currentMovingPlayer; //true for white //false for black
     public String playerOneInput;
     public String playerTwoInput;
+    public String player1UserName;
+    public String player2UserName;
 
     public GameServer(GameClientHandler player1, GameClientHandler player2){
         this.player1 = player1;
@@ -25,11 +28,7 @@ public class GameServer extends Thread{
     }
 
     public void run() {
-        System.out.println("outputing from gameserver - p1:" + player1.client  + "\np2:"+player2.client);
-        System.out.println("Thread running with two socket connections");
-        //Connection Made,
-        //Inform Both Sockets
-
+        System.out.println("Game Server Started");
 
         chess = new Chess();
         currentMovingPlayer = true;
@@ -49,27 +48,36 @@ public class GameServer extends Thread{
         //REQUIRED TO PREVENT RACE CONDITION
         while(player1.isAlive() || player2.isAlive()){
         }
+        playerOneOutput.println("ENEMY_NAME "+player2.userName);
+        playerTwoOutput.println("ENEMY_NAME "+player1.userName);
         while(chess.gameInProgress){
-            if(whiteOrBlack ==1){
-                if(currentMovingPlayer){
-                    String moves = player1.dataInputStream.nextLine();
-                    createPosition(moves, player1);
-                }else {
-                    String moves2 = player2.dataInputStream.nextLine();
-                    createPosition(moves2, player2);
+            try {
+                if (whiteOrBlack == 1) {
+                    if (currentMovingPlayer) {
+                        String moves = player1.dataInputStream.nextLine();
+                        createPosition(moves, player1);
+                    } else {
+                        String moves2 = player2.dataInputStream.nextLine();
+                        createPosition(moves2, player2);
+                    }
+                } else {
+                    if (currentMovingPlayer) {
+                        String moves = player2.dataInputStream.nextLine();
+                        createPosition(moves, player2);
+                    } else {
+                        String moves2 = player1.dataInputStream.nextLine();
+                        createPosition(moves2, player1);
+                    }
                 }
-            }else{
-                if(currentMovingPlayer){
-                    String moves = player2.dataInputStream.nextLine();
-                    createPosition(moves, player2);
-                }else {
-                    String moves2 = player1.dataInputStream.nextLine();
-                    createPosition(moves2, player1);
+            }catch(NoSuchElementException noLine){
+                System.out.println("Some client has disconnected");
+                try {
+                    player1.client.close();
+                    player2.client.close();
+                } catch (IOException e) {
                 }
+                chess.gameInProgress = false;
             }
-
-
-
         }
     }
 
@@ -87,12 +95,9 @@ public class GameServer extends Thread{
 //        System.out.println("Current moving player //white-true black-false" + currentMovingPlayer);
 //        System.out.println("Initial Piece" +chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])]);
 //        System.out.println("Resultant Piece" +chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])]);
-//
 //        System.out.println("Initial Piece color" +chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor());
 //        System.out.println("Player who sent the request" + readyStatus);
 //        System.out.println("Do these equal?" +chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor().equals(readyStatus));
-//
-//
 //        System.out.println("DEBUG ENDS\n\n");
         if(chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])]!=null && chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor().equals(readyStatus)){
             if(currentMovingPlayer){//true if white //false if black
@@ -106,7 +111,7 @@ public class GameServer extends Thread{
                         //System.out.println("WHITE King was in check and still is");
                         Reason failureReason = new Reason(false, "CREATES_CHECK");
                         //chess.outputBoard();
-                        System.out.println("Calling UNDO MOVE - from white in check and still is");
+                        //System.out.println("Calling UNDO MOVE - from white in check and still is");
                         chess.undoMove();
 
                         //chess.undoMove(Integer.parseInt(secondPosition[0]),Integer.parseInt(secondPosition[1]),Integer.parseInt(firstPostion[0]),Integer.parseInt(firstPostion[1]));
@@ -135,7 +140,7 @@ public class GameServer extends Thread{
                         //System.out.println("WHITE King was not in check and now is");
                         //undo the move?
                         //chess.outputBoard();
-                        System.out.println("Calling UNDO MOVE - from white not check and now is");
+                        //System.out.println("Calling UNDO MOVE - from white not check and now is");
                         chess.undoMove();
 
                         //chess.undoMove(Integer.parseInt(secondPosition[0]),Integer.parseInt(secondPosition[1]),Integer.parseInt(firstPostion[0]),Integer.parseInt(firstPostion[1]));
@@ -157,7 +162,7 @@ public class GameServer extends Thread{
                         //System.out.println("BLACK King was in check and still is");
                         Reason failureReason = new Reason(false, "CREATES_CHECK");
                         //chess.outputBoard();
-                        System.out.println("Calling UNDO MOVE - from black in check and still is");
+                        //System.out.println("Calling UNDO MOVE - from black in check and still is");
                         chess.undoMove();
 
                         //chess.undoMove(Integer.parseInt(secondPosition[0]),Integer.parseInt(secondPosition[1]),Integer.parseInt(firstPostion[0]),Integer.parseInt(firstPostion[1]));
@@ -185,7 +190,7 @@ public class GameServer extends Thread{
                         //System.out.println("BLACK King was not in check and now is");
                         Reason failureReason = new Reason(false, "CREATES_CHECK");
                         //chess.outputBoard();
-                        System.out.println("Calling UNDO MOVE - from black not in check and now is");
+                        //System.out.println("Calling UNDO MOVE - from black not in check and now is");
                         chess.undoMove();
                         //chess.undoMove(Integer.parseInt(secondPosition[0]),Integer.parseInt(secondPosition[1]),Integer.parseInt(firstPostion[0]),Integer.parseInt(firstPostion[1]));
                         //chess.outputBoard();
@@ -196,14 +201,15 @@ public class GameServer extends Thread{
             }
 
         }else{
+            chess.outputBoard();
             playerOneOutput.println("FAILURE ");
             playerTwoOutput.println("FAILURE ");
         }
-        for(Chess.Move move: chess.moves){
-            System.out.println(move);
-        }
-        chess.outputBoard();
-        System.out.println("DEBUG ENDS\n\n");
+        //for(Chess.Move move: chess.moves){
+        //    System.out.println(move);
+        //}
+        //chess.outputBoard();
+       // System.out.println("DEBUG ENDS\n\n");
 
     }
 
@@ -276,8 +282,8 @@ public class GameServer extends Thread{
 //        System.out.println(chess.blackKing.getX() +""+ chess.blackKing.getY());
 //        System.out.println("White");
 //        System.out.println(chess.whiteKing.getX() +""+ chess.whiteKing.getY());
-        System.out.println(chess.blackKing);
-        System.out.println(chess.whiteKing);
+        //System.out.println(chess.blackKing);
+        //System.out.println(chess.whiteKing);
         Reason blackKingResponse = chess.blackKing.checkIfInCheckMate(chess);
         Reason whiteKingResponse = chess.whiteKing.checkIfInCheckMate(chess);
 
@@ -306,7 +312,7 @@ public class GameServer extends Thread{
             }
             String pieces = player.dataInputStream.nextLine();
             String[] items = pieces.split(" ");
-            System.out.println(Arrays.toString(items));
+            //System.out.println(Arrays.toString(items));
             String newPieceType = items[1];
             ChessPiece.PieceColor currentColor = chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])].getPieceColor();
             Pawn pawn = (Pawn) chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])];

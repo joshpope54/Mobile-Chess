@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -160,7 +160,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -197,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -234,7 +234,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -271,7 +271,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -308,7 +308,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -345,7 +345,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -383,7 +383,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -420,7 +420,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -457,7 +457,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -494,7 +494,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -531,7 +531,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -568,7 +568,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -605,7 +605,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -642,7 +642,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -680,7 +680,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -717,7 +717,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -754,7 +754,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -791,7 +791,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -828,7 +828,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -865,7 +865,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -902,7 +902,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -939,7 +939,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -978,7 +978,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1015,7 +1015,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1052,7 +1052,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1089,7 +1089,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1126,7 +1126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1163,7 +1163,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1200,7 +1200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1237,7 +1237,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -1276,7 +1276,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1313,7 +1313,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1350,7 +1350,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1387,7 +1387,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1424,7 +1424,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1461,7 +1461,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1498,7 +1498,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1535,7 +1535,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -1573,7 +1573,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1610,7 +1610,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1647,7 +1647,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1684,7 +1684,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1721,7 +1721,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1758,7 +1758,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1795,7 +1795,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1832,7 +1832,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -1870,7 +1870,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1908,7 +1908,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1945,7 +1945,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -1982,7 +1982,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2019,7 +2019,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2056,7 +2056,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2093,7 +2093,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2130,7 +2130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
 
@@ -2169,7 +2169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2206,7 +2206,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2243,7 +2243,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2280,7 +2280,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2317,7 +2317,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2354,7 +2354,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2391,7 +2391,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
         </RelativeLayout>
         <RelativeLayout
@@ -2428,7 +2428,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text=""
-                android:visibility="visible"
+                android:visibility="gone"
                 />
             <TextView
                 android:id="@+id/eightSevenTextTwo"
@@ -2468,12 +2468,11 @@
     </RelativeLayout>
 
 
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="28dp"
         android:text="Last Move"
         app:layout_constraintStart_toStartOf="parent"
@@ -2483,6 +2482,7 @@
         android:id="@+id/textView67"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:maxLines="3"
         android:layout_marginTop="28dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -2491,23 +2491,53 @@
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/myMove" />
 
-    <TextView
-        android:id="@+id/textView69"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:text="Your Colour"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
-        android:id="@+id/textView70"
+        android:id="@+id/deadPiecesText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView69"
-        app:layout_constraintStart_toEndOf="@+id/textView69" />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        android:text="Dead Pieces"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView67" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/deadPiecesLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:flexWrap="wrap"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/forfeitLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/deadPiecesText"
+        app:layout_constraintTop_toBottomOf="@+id/textView67"
+        app:layout_constraintVertical_bias="0.0"
+        android:orientation="horizontal">
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+    <RelativeLayout
+        android:id="@+id/forfeitLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/holo_red_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="28dp">
+        <TextView
+            android:id="@+id/forfeit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:text="FORFEIT"
+            android:gravity="center"
+            android:textColor="#000000" />
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
