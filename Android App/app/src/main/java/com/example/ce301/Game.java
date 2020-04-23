@@ -76,7 +76,7 @@ public class Game extends AppCompatActivity {
     private FlexboxLayout deadPiecesLayout;
     private boolean hasKingMoved = false;
     private boolean inCheck;
-    private String lastMove;
+    private String lastMoveMadeByPlayer;
     private ArrayList<Integer> friendlyPiecesThatCanMoveInCheck;
     private ServiceConnection connection = new ServiceConnection() {
         @Override
@@ -522,6 +522,7 @@ public class Game extends AppCompatActivity {
 
 
                                 } else {
+
                                     RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition - 1).get(gridYPosition));
                                     TextView text = (TextView) theLayout.getChildAt(2);
 
@@ -554,6 +555,51 @@ public class Game extends AppCompatActivity {
                                                 setSpotOnClick(upAndLeftLayout);
                                             }
                                         }
+                                    }
+
+                                    if(gridXPosition==3){ // on correct row
+                                        //check that the last move is a pawn etc etc blah blah blah
+                                        String[] moves = lastMoveMadeByPlayer.split(" ");
+                                        System.out.println(Arrays.toString(moves));
+                                        int finishXPosition = 0;
+                                        int finishYPosition = 0;
+                                        //X Y of end position
+                                        for (int x = 0; x < gridConverter.size(); x++) {
+                                            if (gridConverter.get(x).contains(Integer.parseInt(moves[1]))) {
+                                                finishXPosition = x;
+                                                finishYPosition = gridConverter.get(x).indexOf(Integer.parseInt(moves[1]));
+                                            }
+                                        }
+                                        RelativeLayout lastMoveLayoutItem = (RelativeLayout) gridLayout.getChildAt(Integer.parseInt(moves[1]));
+                                        TextView lastMoveLayoutText = (TextView) lastMoveLayoutItem.getChildAt(2);
+                                        if(lastMoveLayoutText.getText().toString().contains("PAWN")){
+                                            if(finishXPosition==3){
+                                                if(finishYPosition == gridYPosition + 1){
+                                                    //create spot
+                                                    RelativeLayout enpassantSpot = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(finishXPosition - 1).get(finishYPosition));
+                                                    TextView enpassantSpotText = (TextView) enpassantSpot.getChildAt(2);
+                                                    if (enpassantSpotText.getText().equals("")) {
+                                                        enpassantSpotText.setText("SPOT");
+                                                        setSpotOnClick(enpassantSpot);
+                                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(finishXPosition - 1).get(finishYPosition))).getChildAt(0);
+                                                        image.setImageResource(R.drawable.chess_gotospot);
+                                                    }
+                                                }else if (finishYPosition == gridYPosition - 1){
+                                                    //create spot
+                                                    RelativeLayout enpassantSpot = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(finishXPosition - 1).get(finishYPosition));
+                                                    TextView enpassantSpotText = (TextView) enpassantSpot.getChildAt(2);
+                                                    if (enpassantSpotText.getText().equals("")) {
+                                                        enpassantSpotText.setText("SPOT");
+                                                        setSpotOnClick(enpassantSpot);
+                                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(finishXPosition - 1).get(finishYPosition))).getChildAt(0);
+                                                        image.setImageResource(R.drawable.chess_gotospot);
+                                                    }
+                                                }
+                                            }
+                                        }
+
+
+
                                     }
 
                                 }
@@ -2367,6 +2413,9 @@ public class Game extends AppCompatActivity {
                 ImageView initialImage = (ImageView)initialPositionLayout.getChildAt(0);
                 ImageView finalImage = (ImageView)finalLayoutPosition.getChildAt(0);
 
+                System.out.println("INITIAL PIECE TEXT = " + initialPieceText.getText().toString());
+                System.out.println("FINALY PIECE TEXT = " + finalPieceText.getText().toString());
+
                 if(initialPieceText.getText().toString().contains("PAWN")){
                     //intiial piece is a pawn
                     //check that its doing en passant
@@ -2393,22 +2442,59 @@ public class Game extends AppCompatActivity {
                                 startYPosition = gridConverter.get(i).indexOf(start);
                             }
                         }
+
+
+//                        if(startYPosition + 1 == finishYPosition || startYPosition - 1 == finishYPosition){ //going diagonal
+//                            int pieceXToTake = ((startXPosition+1 == finishXPosition) ? startXPosition+1 : startXPosition-1);
+//                            int pieceYToTake = finishYPosition;
+//
+//                            RelativeLayout pawnToTake = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(pieceXToTake).get(pieceYToTake));
+//                            TextView pawnToTakeText = (TextView)pawnToTake.getChildAt(2);
+//                            ImageView pawnImage = (ImageView)pawnToTake.getChildAt(0);
+//                            if(pawnToTakeText.getText().toString().contains("PAWN")){
+//                                ImageView deadPiece = new ImageView(getApplicationContext());
+//                                deadPiece.setImageDrawable(pawnImage.getDrawable());
+//                                FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(100,100);
+//                                deadPiece.setLayoutParams(lp);
+//                                deadPiecesLayout.addView(deadPiece, 0);
+//                                pawnToTakeText.setText("");
+//                                pawnImage.setImageResource(android.R.color.transparent);
+////                            }
+////                        }
+
                         //moving diagonal
-                        if(startXPosition + 1 == finishXPosition || startXPosition - 1 == finishXPosition){//going forward
-                            if(startYPosition + 1 == finishYPosition || startYPosition - 1 == finishYPosition){ //going diagonal
-                                int pieceXToTake = finishXPosition-1;
+                        if(startXPosition + 1 == finishXPosition){//going forward
+                            if(startYPosition + 1 == finishYPosition || startYPosition - 1 == finishYPosition) {
+                                int pieceXToTake = startXPosition;
                                 int pieceYToTake = finishYPosition;
                                 RelativeLayout pawnToTake = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(pieceXToTake).get(pieceYToTake));
                                 TextView pawnToTakeText = (TextView)pawnToTake.getChildAt(2);
                                 ImageView pawnImage = (ImageView)pawnToTake.getChildAt(0);
                                 if(pawnToTakeText.getText().toString().contains("PAWN")){
-                                    pawnToTakeText.setText("");
-                                    pawnImage.setImageResource(android.R.color.transparent);
                                     ImageView deadPiece = new ImageView(getApplicationContext());
                                     deadPiece.setImageDrawable(pawnImage.getDrawable());
                                     FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(100,100);
                                     deadPiece.setLayoutParams(lp);
                                     deadPiecesLayout.addView(deadPiece, 0);
+                                    pawnToTakeText.setText("");
+                                    pawnImage.setImageResource(android.R.color.transparent);
+                                }
+                            }
+                        }else if (startXPosition - 1 == finishXPosition){
+                            if(startYPosition + 1 == finishYPosition || startYPosition - 1 == finishYPosition) {
+                                int pieceXToTake = startXPosition;
+                                int pieceYToTake = finishYPosition;
+                                RelativeLayout pawnToTake = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(pieceXToTake).get(pieceYToTake));
+                                TextView pawnToTakeText = (TextView)pawnToTake.getChildAt(2);
+                                ImageView pawnImage = (ImageView)pawnToTake.getChildAt(0);
+                                if(pawnToTakeText.getText().toString().contains("PAWN")){
+                                    ImageView deadPiece = new ImageView(getApplicationContext());
+                                    deadPiece.setImageDrawable(pawnImage.getDrawable());
+                                    FlexboxLayout.LayoutParams lp = new FlexboxLayout.LayoutParams(100,100);
+                                    deadPiece.setLayoutParams(lp);
+                                    deadPiecesLayout.addView(deadPiece, 0);
+                                    pawnToTakeText.setText("");
+                                    pawnImage.setImageResource(android.R.color.transparent);
                                 }
                             }
                         }
@@ -2427,6 +2513,8 @@ public class Game extends AppCompatActivity {
                 finalPieceText.setText(initialPieceText.getText());
                 initialPieceText.setText("");
                 initialPositionLayout.setOnClickListener(null);
+                lastMoveMadeByPlayer = start + " " + finish;
+                //Log.e("LAST MOVE LAYOUT FORM", ""+ lastMoveMadeByPlayer);
                 changeColor();
 
 
