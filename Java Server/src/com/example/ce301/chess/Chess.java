@@ -105,38 +105,79 @@ public class Chess implements Serializable{
     }
 
 
-    public boolean movePiece(int startRow, int startCol, int finishRow, int finishCol){
-        //
-        if(chessPieces[finishRow][finishCol]!=null){
-            //capturing piece
-            if(!chessPieces[startRow][startCol].getPieceColor().equals(chessPieces[finishRow][finishCol].getPieceColor())){//checks that they aren't equal
-                //ending piece is white
-                Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[finishRow][finishCol]);
-                moves.add(move);
-                chessPieces[finishRow][finishCol].setPieceState(ChessPiece.PieceState.DEAD);
-                if(chessPieces[finishRow][finishCol].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
-                    deadWhitePieces.add(chessPieces[finishRow][finishCol]);
-                    aliveWhitePieces.remove(chessPieces[finishRow][finishCol]);
+    public boolean movePiece(int startRow, int startCol, int finishRow, int finishCol, boolean isEnPassant){
+
+        //check if we are enpassant
+        if(isEnPassant){
+            //yes so we gotta take pawn indirectly
+            if(chessPieces[finishRow][finishCol]==null) {
+                //enpassnt positions
+                if(chessPieces[startRow][startCol].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                    //white piece so we gotta check behind us using -
+                    int enpassantX = finishRow+1;
+                    int enpassantY = finishCol;
+                    Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[enpassantX][enpassantY]);
+                    moves.add(move);
+                    chessPieces[enpassantX][enpassantY].setPieceState(ChessPiece.PieceState.DEAD);
+                    deadWhitePieces.add(chessPieces[enpassantX][enpassantY]);
+                    aliveWhitePieces.remove(chessPieces[enpassantX][enpassantY]);
+                    chessPieces[enpassantX][enpassantY] = null;
                     chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
                     chessPieces[startRow][startCol] = null;
                     chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                    outputBoard();
+                    System.out.println(moves.get(moves.size()-1));
                     return true;
-                }else{//ending piece is black
-                    deadBlackPieces.add(chessPieces[finishRow][finishCol]);
-                    aliveBlackPieces.remove(chessPieces[finishRow][finishCol]);
+                }else{
+                    int enpassantX = finishRow-1;
+                    int enpassantY = finishCol;
+                    Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[enpassantX][enpassantY]);
+                    moves.add(move);
+                    chessPieces[enpassantX][enpassantY].setPieceState(ChessPiece.PieceState.DEAD);
+                    deadBlackPieces.add(chessPieces[enpassantX][enpassantY]);
+                    aliveBlackPieces.remove(chessPieces[enpassantX][enpassantY]);
+                    chessPieces[enpassantX][enpassantY] = null;
                     chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
                     chessPieces[startRow][startCol] = null;
                     chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                    outputBoard();
+                    System.out.println(moves.get(moves.size()-1));
                     return true;
                 }
+
             }
         }else{
-            Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[finishRow][finishCol]);
-            moves.add(move);
-            chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
-            chessPieces[startRow][startCol] = null;
-            chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
-            return true;
+            if(chessPieces[finishRow][finishCol]!=null){
+                //capturing piece
+                if(!chessPieces[startRow][startCol].getPieceColor().equals(chessPieces[finishRow][finishCol].getPieceColor())){//checks that they aren't equal
+                    //ending piece is white
+                    Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[finishRow][finishCol]);
+                    moves.add(move);
+                    chessPieces[finishRow][finishCol].setPieceState(ChessPiece.PieceState.DEAD);
+                    if(chessPieces[finishRow][finishCol].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                        deadWhitePieces.add(chessPieces[finishRow][finishCol]);
+                        aliveWhitePieces.remove(chessPieces[finishRow][finishCol]);
+                        chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
+                        chessPieces[startRow][startCol] = null;
+                        chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                        return true;
+                    }else{//ending piece is black
+                        deadBlackPieces.add(chessPieces[finishRow][finishCol]);
+                        aliveBlackPieces.remove(chessPieces[finishRow][finishCol]);
+                        chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
+                        chessPieces[startRow][startCol] = null;
+                        chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                        return true;
+                    }
+                }
+            }else{
+                Move move = new Move(startRow, startCol, finishRow, finishCol, chessPieces[finishRow][finishCol]);
+                moves.add(move);
+                chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
+                chessPieces[startRow][startCol] = null;
+                chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
+                return true;
+            }
         }
         return false;
     }
@@ -145,18 +186,18 @@ public class Chess implements Serializable{
         int lastMoveIndex = moves.size()-1;
         Move lastMove = moves.get(lastMoveIndex);
         System.out.println(lastMove);
-        this.movePiece(lastMove.getFinishRow(),lastMove.getFinishCol(),lastMove.getStartRow(),lastMove.getStartCol());  //returns piece to spot
+        this.movePiece(lastMove.getFinishRow(),lastMove.getFinishCol(),lastMove.getStartRow(),lastMove.getStartCol(),false);  //returns piece to spot
         if(lastMove.getCapturedPiece()!=null) {
             if (lastMove.capturedPiece.getPieceColor().equals(ChessPiece.PieceColor.WHITE)) {//white piece
                 deadWhitePieces.remove(lastMove.getCapturedPiece());
                 aliveWhitePieces.add(lastMove.getCapturedPiece());
-                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()] = lastMove.getCapturedPiece();
-                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()].setPieceState(ChessPiece.PieceState.ALIVE);
+                chessPieces[lastMove.getCapturedPiece().getX()][lastMove.getCapturedPiece().getY()] = lastMove.getCapturedPiece();
+                chessPieces[lastMove.getCapturedPiece().getX()][lastMove.getCapturedPiece().getY()].setPieceState(ChessPiece.PieceState.ALIVE);
             } else {//black piece
                 deadBlackPieces.remove(lastMove.getCapturedPiece());
                 aliveBlackPieces.add(lastMove.getCapturedPiece());
-                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()] = lastMove.getCapturedPiece();
-                chessPieces[lastMove.getFinishRow()][lastMove.getFinishCol()].setPieceState(ChessPiece.PieceState.ALIVE);
+                chessPieces[lastMove.getCapturedPiece().getX()][lastMove.getCapturedPiece().getY()] = lastMove.getCapturedPiece();
+                chessPieces[lastMove.getCapturedPiece().getX()][lastMove.getCapturedPiece().getY()].setPieceState(ChessPiece.PieceState.ALIVE);
             }
         }
     }

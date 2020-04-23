@@ -23,7 +23,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 continue;
                             } else {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -35,7 +35,7 @@ public class Queen extends ChessPiece implements Serializable {
                                     success = false;
                                 } else {
                                     if(type==0){
-                                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                     }
                                     success = true;
                                 }
@@ -50,7 +50,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 continue;
                             } else {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -62,7 +62,7 @@ public class Queen extends ChessPiece implements Serializable {
                                     success = false;
                                 } else {
                                     if(type==0){
-                                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                     }
                                     success = true;
                                 }
@@ -80,7 +80,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 continue;
                             } else {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -92,7 +92,7 @@ public class Queen extends ChessPiece implements Serializable {
                                     success = false;
                                 } else {
                                     if(type==0){
-                                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                     }
                                     success = true;
                                 }
@@ -107,7 +107,7 @@ public class Queen extends ChessPiece implements Serializable {
                                 continue;
                             } else {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -119,7 +119,7 @@ public class Queen extends ChessPiece implements Serializable {
                                     success = false;
                                 } else {
                                     if(type==0){
-                                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                     }
                                     success = true;
                                 }
@@ -135,7 +135,7 @@ public class Queen extends ChessPiece implements Serializable {
                     if (chess.chessPieces[i][j] == null) {
                         if (i == finishRow && j == finishCol) {
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success = true;
                         }
@@ -143,7 +143,7 @@ public class Queen extends ChessPiece implements Serializable {
                         if (i == finishRow && j == finishCol) {
                             if (!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())) {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -157,7 +157,7 @@ public class Queen extends ChessPiece implements Serializable {
                     if (chess.chessPieces[i][j] == null) {
                         if (i == finishRow && j == finishCol) {
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success = true;
                         }
@@ -165,7 +165,7 @@ public class Queen extends ChessPiece implements Serializable {
                         if (i == finishRow && j == finishCol) {
                             if (!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())) {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -180,7 +180,7 @@ public class Queen extends ChessPiece implements Serializable {
                         if (chess.chessPieces[i][j] == null) {
                             if (i == finishRow && j == finishCol) {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -188,7 +188,7 @@ public class Queen extends ChessPiece implements Serializable {
                             if (i == finishRow && j == finishCol) {
                                 if (!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())) {
                                     if(type==0){
-                                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                     }
                                     success = true;
                                 }
@@ -203,7 +203,7 @@ public class Queen extends ChessPiece implements Serializable {
                     if (chess.chessPieces[i][j] == null) {
                         if (i == finishRow && j == finishCol) {
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success = true;
                         }
@@ -211,7 +211,7 @@ public class Queen extends ChessPiece implements Serializable {
                         if (i == finishRow && j == finishCol) {
                             if (!this.getPieceColor().equals(chess.chessPieces[finishRow][finishCol].getPieceColor())) {
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }

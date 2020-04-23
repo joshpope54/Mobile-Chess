@@ -32,8 +32,8 @@ public class King extends ChessPiece implements Serializable{
                         continue;
                     }else if(chess.chessPieces[getX()][i].getPieceType() == PieceType.ROOK && i == 7){
                         hasBeenCastled = true;
-                        chess.movePiece(getX(), getY(), finishRow, finishCol);
-                        chess.movePiece(getX(), i, finishRow, finishCol-1);
+                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
+                        chess.movePiece(getX(), i, finishRow, finishCol-1,false);
                         //((Rook)chess.chessPieces[][i]).movePieceInArray(chess, finishRow, finishCol-1);
                         return new Reason(true, "KING_SIDE_CASTLING");
                     }else{
@@ -47,8 +47,8 @@ public class King extends ChessPiece implements Serializable{
                         continue;
                     }else if(chess.chessPieces[getX()][i].getPieceType() == PieceType.ROOK && i == 0){
                         hasBeenCastled = true;
-                        chess.movePiece(getX(), getY(), finishRow, finishCol);
-                        chess.movePiece(getX(), i, finishRow, finishCol+1);
+                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
+                        chess.movePiece(getX(), i, finishRow, finishCol+1,false);
                         //((Rook)chess.chessPieces[getX()][i]).movePieceInArray(chess, finishRow, finishCol+1);
                         return new Reason(true, "QUEEN_SIDE_CASTLING");
                     }else{
@@ -68,7 +68,7 @@ public class King extends ChessPiece implements Serializable{
                         //move must then remove king from check
                         int startX = getX();
                         int startY = getY();
-                        chess.movePiece(startX, startY, finishRow, finishCol);
+                        chess.movePiece(startX, startY, finishRow, finishCol,false);
                         if (this.checkIfInCheck(chess, true)) {
                             //replace with undo Move
                             //movePieceInArray(chess, startX, startY);
@@ -83,7 +83,7 @@ public class King extends ChessPiece implements Serializable{
                     } else {
                         //check if king is in check
                         if (!chess.chessPieces[finishRow][finishCol].getPieceColor().equals(this.getPieceColor())) {
-                            chess.movePiece(getX(), getY(), finishRow, finishCol);
+                            chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             if (this.checkIfInCheck(chess, true)) {
                                 //replace with undo Move
                                 //movePieceInArray(chess, startX, startY);
@@ -153,7 +153,7 @@ public class King extends ChessPiece implements Serializable{
                 noValidMovesChecker.add(true);
             }else{
                 //System.out.println(startX + "   " + startY + "   " + finishRow + "   " + finishCol);
-                boolean success = chess.movePiece(startX, startY, finishRow, finishCol);
+                boolean success = chess.movePiece(startX, startY, finishRow, finishCol,false);
                 if(this.checkIfInCheck(chess, false) && success){
                     //System.out.println("Calling undo move from check if king can move in check when move places king in check" + this.getPieceColor());
                     chess.undoMove();

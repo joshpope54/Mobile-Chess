@@ -91,18 +91,6 @@ public abstract class ChessPiece implements Serializable {
 
     public abstract Reason move(Chess chessboard, int row, int col, int type);
 
-    public void undoMove(){
-
-    }
-
-    public void unCapturePiece(){
-
-    }
-
-    public void capturePiece(){
-
-    }
-
     @Override
     public String toString() {
         //return "{Type: "+getPieceType()+" Color:"+getPieceColor()+" State: "+getPieceState()+"}";

@@ -83,22 +83,10 @@ public class GameServer extends Thread{
 
     public void createPosition(String pieces, GameClientHandler player){
         String[] items = pieces.split(" ");
-
         System.out.println(Arrays.toString(items));
-
         String[] firstPostion = items[1].split(",");
         String[] secondPosition = items[2].split(",");
-
         ChessPiece.PieceColor readyStatus = ChessPiece.PieceColor.valueOf(items[0]);
-
-//        System.out.println("\n\nDEBUG STARTS");
-//        System.out.println("Current moving player //white-true black-false" + currentMovingPlayer);
-//        System.out.println("Initial Piece" +chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])]);
-//        System.out.println("Resultant Piece" +chess.chessPieces[Integer.parseInt(secondPosition[0])][Integer.parseInt(secondPosition[1])]);
-//        System.out.println("Initial Piece color" +chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor());
-//        System.out.println("Player who sent the request" + readyStatus);
-//        System.out.println("Do these equal?" +chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor().equals(readyStatus));
-//        System.out.println("DEBUG ENDS\n\n");
         if(chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])]!=null && chess.chessPieces[Integer.parseInt(firstPostion[0])][Integer.parseInt(firstPostion[1])].getPieceColor().equals(readyStatus)){
             if(currentMovingPlayer){//true if white //false if black
                 boolean initialKingState = chess.whiteKing.checkIfInCheck(chess, false);
@@ -205,11 +193,12 @@ public class GameServer extends Thread{
             playerOneOutput.println("FAILURE ");
             playerTwoOutput.println("FAILURE ");
         }
-        //for(Chess.Move move: chess.moves){
-        //    System.out.println(move);
-        //}
-        //chess.outputBoard();
-       // System.out.println("DEBUG ENDS\n\n");
+        System.out.println("DEBUG STARTS\n");
+        for(Chess.Move move: chess.moves){
+            System.out.println(move);
+        }
+        chess.outputBoard();
+        System.out.println("DEBUG ENDS\n\n");
 
     }
 
@@ -269,10 +258,6 @@ public class GameServer extends Thread{
     private void createCastlingOutput(String[] firstPostion, String[] secondPosition, int[][] rookPieces, GameClientHandler player) {
         playerOneOutput.println("CASTLING "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]+ " "+rookPieces[0][0]+","+rookPieces[0][1]+" "+rookPieces[1][0]+","+rookPieces[1][1]);
         playerTwoOutput.println("CASTLING "+firstPostion[0]+","+firstPostion[1]+" "+secondPosition[0]+","+secondPosition[1]+ " "+rookPieces[0][0]+","+rookPieces[0][1]+" "+rookPieces[1][0]+","+rookPieces[1][1]);
-    }
-
-    private boolean checkIfCreatesCheck(){
-        return false;
     }
 
     private void createOutput(String[] firstPostion, String[] secondPosition, GameClientHandler player) {

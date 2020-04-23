@@ -29,7 +29,7 @@ public class Rook extends ChessPiece implements Serializable {
                             continue;
                         }else{
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success=true;
                         }
@@ -41,7 +41,7 @@ public class Rook extends ChessPiece implements Serializable {
                                 success=false;
                             }else{
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -56,7 +56,7 @@ public class Rook extends ChessPiece implements Serializable {
                             continue;
                         }else{
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success=true;
                         }
@@ -68,7 +68,7 @@ public class Rook extends ChessPiece implements Serializable {
                                 success=false;
                             }else{
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -86,7 +86,7 @@ public class Rook extends ChessPiece implements Serializable {
                             continue;
                         }else{
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success=true;
                         }
@@ -98,7 +98,7 @@ public class Rook extends ChessPiece implements Serializable {
                                 success=false;
                             }else{
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }
@@ -113,7 +113,7 @@ public class Rook extends ChessPiece implements Serializable {
                             continue;
                         }else{
                             if(type==0){
-                                chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                             }
                             success=true;
                         }
@@ -125,7 +125,7 @@ public class Rook extends ChessPiece implements Serializable {
                                 success=false;
                             }else{
                                 if(type==0){
-                                    chess.movePiece(getX(), getY(), finishRow, finishCol);
+                                    chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                                 }
                                 success = true;
                             }

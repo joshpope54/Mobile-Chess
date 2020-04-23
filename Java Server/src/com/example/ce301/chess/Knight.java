@@ -17,12 +17,12 @@ public class Knight extends ChessPiece implements Serializable {
             if(finishRow-getX()==possibleMove[0] && finishCol-getY()==possibleMove[1]){
                 if(chess.chessPieces[finishRow][finishCol]==null){
                     if(type==0){
-                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                     }
                     success = true;
                 }else if (chess.chessPieces[finishRow][finishCol].getPieceColor() != this.getPieceColor()) {
                     if(type==0){
-                        chess.movePiece(getX(), getY(), finishRow, finishCol);
+                        chess.movePiece(getX(), getY(), finishRow, finishCol,false);
                     }
                     success = true;
                 }else{

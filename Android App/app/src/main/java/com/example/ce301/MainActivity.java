@@ -78,9 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         //StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build(); //remove and replace with proper thread handling
         //StrictMode.setThreadPolicy(policy);
-        ipaddress = "joshpope.dev";//"joshpope.dev";
-        server = getString(R.string.server_port);
-        matchmaker = getString(R.string.matchmaker_port);
         dialog = new Dialog(this);
         view1 = getLayoutInflater().inflate(R.layout.activity_main, null);
         view2 = getLayoutInflater().inflate(R.layout.not_connected, null);
@@ -107,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void afterTextChanged(Editable editable) {
                 if (editable.length() > 0) {
                     last_text_edit = System.currentTimeMillis();
-                    handler.postDelayed(input_finish_checker, delay);
+                    editTextHandler.postDelayed(input_finish_checker, delay);
                 } else {
 
                 }
