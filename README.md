@@ -20,5 +20,6 @@ Upon opening the android application you can type a username that will be displa
 
 *  The Java server validates each individual move is correct
 *  Android clients only show valid moves to the client.
-*  Chechmate and checks are able to be correctly achieved by either player.
+*  Checkmate and checks are able to be correctly achieved by either player.
+*  All methods written to determine check/checkmate are execulsively designed by myself
 *  All chess rules implemented including the special rules, En Passant, Castling and Pawn Promotion
