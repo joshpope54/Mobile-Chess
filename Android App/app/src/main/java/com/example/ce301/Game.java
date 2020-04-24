@@ -2576,6 +2576,10 @@ public class Game extends AppCompatActivity {
             } else if(messageArray[0].equals("FAILURE")){
                 Toast.makeText(this, "MOVE FAILURE", Toast.LENGTH_LONG).show();
             } else if(messageArray[0].equals("DISCONNECTFROMSERVER")){
+//                AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+//                AlertDialog dialog = builder.create();
+//                dialog.dismiss();
+
                 new AlertDialog.Builder(this)
                         .setTitle("Alert")
                         .setMessage("You have been disconnected from the server, You may have lost internet connection or the enemy player disconnected.")
@@ -2603,6 +2607,7 @@ public class Game extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
         new AlertDialog.Builder(Game.this)
                 .setTitle("Alert")
                 .setMessage("Are you sure you want to forfeit")

@@ -97,7 +97,7 @@ public class Chess implements Serializable{
     public Chess() {
         this.aliveWhitePieces = new ArrayList<>();
         this.aliveBlackPieces = new ArrayList<>();
-        this.chessPieces = generateInitalBoard();
+        this.chessPieces = generateInitialBoard();
         this.deadWhitePieces = new ArrayList<>();
         this.deadBlackPieces = new ArrayList<>();
         this.moves = new ArrayList<>();
@@ -125,8 +125,6 @@ public class Chess implements Serializable{
                     chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
                     chessPieces[startRow][startCol] = null;
                     chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
-                    outputBoard();
-                    System.out.println(moves.get(moves.size()-1));
                     return true;
                 }else{
                     int enpassantX = finishRow-1;
@@ -140,8 +138,6 @@ public class Chess implements Serializable{
                     chessPieces[finishRow][finishCol] = chessPieces[startRow][startCol];
                     chessPieces[startRow][startCol] = null;
                     chessPieces[finishRow][finishCol].setPosition(finishRow, finishCol);
-                    outputBoard();
-                    System.out.println(moves.get(moves.size()-1));
                     return true;
                 }
 
@@ -203,7 +199,7 @@ public class Chess implements Serializable{
     }
 
 
-    public ChessPiece[][] generateInitalBoard(){
+    public ChessPiece[][] generateInitialBoard(){
         ChessPiece[][] pieces = new ChessPiece[8][8];
         for (int i=0; i<pieces.length; i++) {//rows
             for (int j=0; j<pieces[i].length; j++) {//columns
