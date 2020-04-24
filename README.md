@@ -1,16 +1,24 @@
 # Two-Player Board Game for Mobile Phones
-A multiplayer board game that uses two android clients and one java server to communicate.
+A multiplayer board game that uses two android clients and one java server to communicate. Currently android clients are able to connect and play chess against
+one another when they connect to the server.
 
 ## Getting Started (Software Based)
-The Java server is run on a remote computer so no need to setup anything involving that. For setting up the android app refer below
+The Java Server Should be run remotely.
+Android devices simply require the app to be opened and the play button pressed for the game to start working.
 
 ### Prerequisites
 * Android Phone or Emulator
 
 ### Installing
-Run the app from android studio with a phone or emulator connected
-This will install the app onto the device
-App will automatically connect to the server once opened
+In order to install the android application you can
+*  Run the code from Android Studio and install it on a phone or emulator
+*  Install the provided APK on your phone.  
 
---Could provide APKS at certain iteration points
+Upon opening the android application you can type a username that will be displayed to the other player and press play!
 
+### Technical Achievements
+
+*  The Java server validates each individual move is correct
+*  Android clients only show valid moves to the client.
+*  Chechmate and checks are able to be correctly achieved by either player.
+*  All chess rules implemented including the special rules, En Passant, Castling and Pawn Promotion
