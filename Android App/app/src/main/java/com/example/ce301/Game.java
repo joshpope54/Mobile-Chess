@@ -1500,6 +1500,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == k && y == gridYPosition) {
@@ -1520,6 +1523,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == k && y == gridYPosition) {
@@ -1539,6 +1545,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == gridXPosition && y == k) {
@@ -1558,6 +1567,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == gridXPosition && y == k) {
@@ -1649,6 +1661,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == j && y == k) {
@@ -1669,6 +1684,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == j && y == k) {
@@ -1689,6 +1707,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == j && y == k) {
@@ -1709,6 +1730,9 @@ public class Game extends AppCompatActivity {
                             }
                             return true;
                         }else{
+                            if(text.getText().toString().contains("KING") && color.charAt(0)==this.color.charAt(0) && playerType.equals("ENEMY")){
+                                continue;
+                            }
                             break;
                         }
                     }else if (x == j && y == k) {
