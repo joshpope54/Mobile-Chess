@@ -84,10 +84,8 @@ public class Chess implements Serializable{
     public ChessPiece[][] chessPieces;
     public ArrayList<ChessPiece> deadWhitePieces;
     public ArrayList<ChessPiece> deadBlackPieces;
-
     public ArrayList<ChessPiece> aliveWhitePieces;
     public ArrayList<ChessPiece> aliveBlackPieces;
-
     public ArrayList<Move> moves;
 
     public King blackKing;
@@ -306,26 +304,50 @@ public class Chess implements Serializable{
         for (int i=0; i<chessPieces.length; i++) {//rows
             for (int j=0; j<chessPieces[i].length; j++) {//columns
                 if(chessPieces[i][j]==null){
-                    System.out.print(" - ");
+                    System.out.print(" -- ");
                 }else{
                     switch(chessPieces[i][j].getPieceType()){
                         case KING:
-                            System.out.print(" K ");
+                            if (chessPieces[i][j].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                                System.out.print(" wK ");
+                            }else{
+                                System.out.print(" bK ");
+                            }
                             break;
                         case PAWN:
-                            System.out.print(" P ");
+                            if (chessPieces[i][j].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                                System.out.print(" wP ");
+                            }else{
+                                System.out.print(" bP ");
+                            }
                             break;
                         case ROOK:
-                            System.out.print(" R ");
+                            if (chessPieces[i][j].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                                System.out.print(" wR ");
+                            }else{
+                                System.out.print(" bR ");
+                            }
                             break;
                         case QUEEN:
-                            System.out.print(" Q ");
+                            if (chessPieces[i][j].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                                System.out.print(" wQ ");
+                            }else{
+                                System.out.print(" bQ ");
+                            }
                             break;
                         case BISHOP:
-                            System.out.print(" B ");
+                            if (chessPieces[i][j].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                                System.out.print(" wB ");
+                            }else{
+                                System.out.print(" bB ");
+                            }
                             break;
                         case KNIGHT:
-                            System.out.print(" k ");
+                            if (chessPieces[i][j].getPieceColor().equals(ChessPiece.PieceColor.WHITE)){
+                                System.out.print(" wk ");
+                            }else{
+                                System.out.print(" bk ");
+                            }
                             break;
                     }
                 }

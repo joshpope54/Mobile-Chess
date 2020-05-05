@@ -453,7 +453,7 @@ public class Game extends AppCompatActivity {
                             }
                             if (inCheck) {
                                 for(int[] position: checkedSpots){
-                                    System.out.println(Arrays.toString(position));
+                                    //System.out.println(Arrays.toString(position));
 
                                     if(canThisPawnMove(position[0], position[1], gridXPosition, gridYPosition)){
                                         RelativeLayout theLayoutOneForward = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]));
@@ -560,7 +560,7 @@ public class Game extends AppCompatActivity {
                                     if(gridXPosition==3){ // on correct row
                                         //check that the last move is a pawn etc etc blah blah blah
                                         String[] moves = lastMoveMadeByPlayer.split(" ");
-                                        System.out.println(Arrays.toString(moves));
+                                        //System.out.println(Arrays.toString(moves));
                                         int finishXPosition = 0;
                                         int finishYPosition = 0;
                                         //X Y of end position
@@ -677,7 +677,7 @@ public class Game extends AppCompatActivity {
                                     if(canMove){
                                         RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
                                         TextView textView = (TextView) theLayout.getChildAt(2);
-                                        System.out.println(textView.getText());
+                                        //System.out.println(textView.getText());
                                         if (textView.getText().equals("")){
                                             textView.setText("SPOT");
                                             setSpotOnClick(theLayout);
@@ -695,86 +695,91 @@ public class Game extends AppCompatActivity {
                                 if (inCheck) {
                                     for (int[] position : checkedSpots) {
                                         if (canBishopMoveToSpot(position[0], position[1], "BISHOP", "FRIENDLY")) {
-                                            stoppingSpotXUpLeft = position[0];
-                                            stoppingSpotYUpLeft = position[1];
-                                            stoppingSpotXUpRight = position[0];
-                                            stoppingSpotYUpRight = position[1];
-                                            stoppingSpotXDownLeft = position[0];
-                                            stoppingSpotYDownLeft = position[1];
-                                            stoppingSpotXDownRight = position[0];
-                                            stoppingSpotYDownRight = position[1];
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                            }
                                         }
                                     }
-                                }
-                                for (int k = gridYPosition - 1, j = gridXPosition - 1; (k >= stoppingSpotYUpLeft && j >= stoppingSpotXUpLeft); k--, j--) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
+                                }else{
+                                    for (int k = gridYPosition - 1, j = gridXPosition - 1; (k >= stoppingSpotYUpLeft && j >= stoppingSpotXUpLeft); k--, j--) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
                                     }
-                                }
-                                //System.out.println("down and left");
-                                for (int k = gridYPosition - 1, j = gridXPosition + 1; (k >= stoppingSpotYDownLeft && j <= stoppingSpotXDownLeft); k--, j++) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
+                                    //System.out.println("down and left");
+                                    for (int k = gridYPosition - 1, j = gridXPosition + 1; (k >= stoppingSpotYDownLeft && j <= stoppingSpotXDownLeft); k--, j++) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
                                     }
-                                }
-                                //System.out.println("down and right");
-                                for (int k = gridYPosition + 1, j = gridXPosition + 1; (k <= stoppingSpotYDownRight && j <= stoppingSpotXDownRight); k++, j++) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
+                                    //System.out.println("down and right");
+                                    for (int k = gridYPosition + 1, j = gridXPosition + 1; (k <= stoppingSpotYDownRight && j <= stoppingSpotXDownRight); k++, j++) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
                                     }
-                                }
-                                //System.out.println("up and right");
-                                for (int k = gridYPosition + 1, j = gridXPosition - 1; (k <= stoppingSpotYUpRight && j >= stoppingSpotXUpRight); k++, j--) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
+                                    //System.out.println("up and right");
+                                    for (int k = gridYPosition + 1, j = gridXPosition - 1; (k <= stoppingSpotYUpRight && j >= stoppingSpotXUpRight); k++, j--) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -820,7 +825,7 @@ public class Game extends AppCompatActivity {
                                     if(canMove){
                                         RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
                                         TextView textView = (TextView) theLayout.getChildAt(2);
-                                        System.out.println(textView.getText());
+                                        //System.out.println(textView.getText());
                                         if (textView.getText().equals("")){
                                             textView.setText("SPOT");
                                             setSpotOnClick(theLayout);
@@ -924,7 +929,7 @@ public class Game extends AppCompatActivity {
                     }
                 }else if(position[0]==gridXPosition && position[1]>gridYPosition){//right
                     for (int j = gridYPosition+1; j <= position[1]; j++) {
-                        System.out.println(gridXPosition + " " + j);
+                        //System.out.println(gridXPosition + " " + j);
                         RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(gridXPosition).get(j));
                         TextView text = (TextView) theLayout.getChildAt(2);
                         if (text.getText().equals("")) {
@@ -1001,7 +1006,7 @@ public class Game extends AppCompatActivity {
                                     if(canMove){
                                         RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
                                         TextView textView = (TextView) theLayout.getChildAt(2);
-                                        System.out.println(textView.getText());
+                                        //System.out.println(textView.getText());
                                         if (textView.getText().equals("")){
                                             textView.setText("SPOT");
                                             setSpotOnClick(theLayout);
@@ -1150,7 +1155,7 @@ public class Game extends AppCompatActivity {
                                     if(canMove){
                                         RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(array[0]).get(array[1]));
                                         TextView textView = (TextView) theLayout.getChildAt(2);
-                                        System.out.println(textView.getText());
+                                        //System.out.println(textView.getText());
                                         if (textView.getText().equals("")){
                                             textView.setText("SPOT");
                                             setSpotOnClick(theLayout);
@@ -1169,88 +1174,94 @@ public class Game extends AppCompatActivity {
                                     runRookCutOff(gridXPosition, gridYPosition, "QUEEN");
                                     for (int[] position : checkedSpots) {
                                         if (canQueenMoveToSpot(position[0], position[1], "FRIENDLY")) {
-                                            stoppingSpotXUpLeft = position[0];
-                                            stoppingSpotYUpLeft = position[1];
-                                            stoppingSpotXUpRight = position[0];
-                                            stoppingSpotYUpRight = position[1];
-                                            stoppingSpotXDownLeft = position[0];
-                                            stoppingSpotYDownLeft = position[1];
-                                            stoppingSpotXDownRight = position[0];
-                                            stoppingSpotYDownRight = position[1];
+                                            RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]));
+                                            TextView text = (TextView) theLayout.getChildAt(2);
+                                            if (text.getText().equals("")) {
+                                                text.setText("SPOT");
+                                                setSpotOnClick(theLayout);
+                                                ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(position[0]).get(position[1]))).getChildAt(0);
+                                                image.setImageResource(R.drawable.chess_gotospot);
+                                            } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                                theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                                text.setText("SPOT " + text.getText());
+                                                setSpotOnClick(theLayout);
+                                            }
+                                        }
+                                    }
+                                }else{
+                                    for (int k = gridYPosition - 1, j = gridXPosition - 1; (k >= stoppingSpotYUpLeft && j >= stoppingSpotXUpLeft); k--, j--) { //up and left
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+                                    //System.out.println("Up and right");
+                                    for (int k = gridYPosition - 1, j = gridXPosition + 1; (k >= stoppingSpotYDownLeft && j <= stoppingSpotXDownLeft); k--, j++) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+//                        //System.out.println("down and right");
+                                    for (int k = gridYPosition + 1, j = gridXPosition + 1; (k <= stoppingSpotYDownRight && j <= stoppingSpotXDownRight); k++, j++) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
+                                        }
+                                    }
+//                        //System.out.println("down and left");
+                                    for (int k = gridYPosition + 1, j = gridXPosition - 1; (k <= stoppingSpotYUpRight && j >= stoppingSpotXUpRight); k++, j--) {
+                                        RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
+                                        TextView text = (TextView) theLayout.getChildAt(2);
+                                        if (text.getText().equals("")) {
+                                            text.setText("SPOT");
+                                            setSpotOnClick(theLayout);
+                                            ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
+                                            image.setImageResource(R.drawable.chess_gotospot);
+                                        } else if (text.getText().charAt(0) != color.charAt(0)) {
+                                            theLayout.setBackgroundColor(getResources().getColor(R.color.green));
+                                            text.setText("SPOT " + text.getText());
+                                            setSpotOnClick(theLayout);
+                                            break;
+                                        } else {
+                                            break;
                                         }
                                     }
                                 }
-                                for (int k = gridYPosition - 1, j = gridXPosition - 1; (k >= stoppingSpotYUpLeft && j >= stoppingSpotXUpLeft); k--, j--) { //up and left
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-                                //System.out.println("Up and right");
-                                for (int k = gridYPosition - 1, j = gridXPosition + 1; (k >= stoppingSpotYDownLeft && j <= stoppingSpotXDownLeft); k--, j++) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-//                        //System.out.println("down and right");
-                                for (int k = gridYPosition + 1, j = gridXPosition + 1; (k <= stoppingSpotYDownRight && j <= stoppingSpotXDownRight); k++, j++) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
-//                        //System.out.println("down and left");
-                                for (int k = gridYPosition + 1, j = gridXPosition - 1; (k <= stoppingSpotYUpRight && j >= stoppingSpotXUpRight); k++, j--) {
-                                    RelativeLayout theLayout = (RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k));
-                                    TextView text = (TextView) theLayout.getChildAt(2);
-                                    if (text.getText().equals("")) {
-                                        text.setText("SPOT");
-                                        setSpotOnClick(theLayout);
-                                        ImageView image = (ImageView) ((RelativeLayout) gridLayout.getChildAt(gridConverter.get(j).get(k))).getChildAt(0);
-                                        image.setImageResource(R.drawable.chess_gotospot);
-                                    } else if (text.getText().charAt(0) != color.charAt(0)) {
-                                        theLayout.setBackgroundColor(getResources().getColor(R.color.green));
-                                        text.setText("SPOT " + text.getText());
-                                        setSpotOnClick(theLayout);
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                }
+
 
                                 if (!inCheck) {
                                     if (gridYPosition - 1 >= 0) {
@@ -1613,7 +1624,7 @@ public class Game extends AppCompatActivity {
                         int j = gridXPosition + possibleMove[0];
                         int k = gridYPosition + possibleMove[1];
                         if (x == j && y == k) {
-                            System.out.println(gridItem+"KNIGHT MOVING TO SPOT + " + x +" " + y);
+                            //System.out.println(gridItem+"KNIGHT MOVING TO SPOT + " + x +" " + y);
                             if(playerType.equals("FRIENDLY")){
                                 friendlyPiecesThatCanMoveInCheck.add(gridConverter.get(gridXPosition).get(gridYPosition));
                             }
@@ -1813,10 +1824,10 @@ public class Game extends AppCompatActivity {
                         int gridXPosition = i;
                         int gridYPosition = gridConverter.get(i).indexOf(inte);
                         if (gridXPosition + 1 == x && gridYPosition - 1 == y) {
-                            System.out.println("PAWN MOVING DOWN AND LEFT");
+                            //System.out.println("PAWN MOVING DOWN AND LEFT");
                             return true;
                         } else if (gridXPosition + 1 == x && gridYPosition + 1 == y) {
-                            System.out.println("PAWN MOVING DOWN AND RIGHT");
+                            //System.out.println("PAWN MOVING DOWN AND RIGHT");
                             return true;
                         }
                     }
@@ -2437,8 +2448,8 @@ public class Game extends AppCompatActivity {
                 ImageView initialImage = (ImageView)initialPositionLayout.getChildAt(0);
                 ImageView finalImage = (ImageView)finalLayoutPosition.getChildAt(0);
 
-                System.out.println("INITIAL PIECE TEXT = " + initialPieceText.getText().toString());
-                System.out.println("FINALY PIECE TEXT = " + finalPieceText.getText().toString());
+                //System.out.println("INITIAL PIECE TEXT = " + initialPieceText.getText().toString());
+                //System.out.println("FINALY PIECE TEXT = " + finalPieceText.getText().toString());
 
                 if(initialPieceText.getText().toString().contains("PAWN")){
                     //intiial piece is a pawn
@@ -2559,7 +2570,7 @@ public class Game extends AppCompatActivity {
                     }
 
                     for(Integer position: friendlyPiecesThatCanMoveInCheck){
-                        System.out.println(position);
+                        //System.out.println(position);
                         RelativeLayout layoutOfMoveableItem = (RelativeLayout)gridLayout.getChildAt(position);
                         TextView text = (TextView)layoutOfMoveableItem.getChildAt(2);
                         switch (text.getText().toString().substring(1)) {

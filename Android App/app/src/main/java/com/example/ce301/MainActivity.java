@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         EventBus.getDefault().post(new EventClass("ACTIVITY", "exit"));
                         unbindService(connection);
                         stopService(intent);
+                        EventBus.getDefault().unregister(MainActivity.this);
                         dialog.dismiss();
                     }
                 });
